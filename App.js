@@ -3,6 +3,8 @@ import { SafeAreaView, Text, View } from 'react-native';
 
 import Heading from './components/header';
 import UpcomingCard from './components/upcomingCard';
+import OverviewCard from './components/overviewCard';
+
 import SectionHeading from './components/sectionHeading';
 import HR from './components/hr';
 
@@ -13,7 +15,8 @@ export default function App() {
     <SafeAreaView style={tailwind('flex')}>
       <Heading />
       <HR />
-      <SectionHeading headingText={"Today's Events"} />
+      <OverviewCard />
+      <UpcomingCard />
       <UpcomingCard />
     </SafeAreaView>
   );

@@ -8,6 +8,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.2.tar.gz",
     "react-native-androw": "0.0.34",
     "react-native-dynamic-vector-icons": "^1.1.4",
+    "react-native-progress-circle": "^2.1.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "0.13.13",
     "tailwind-rn": "^1.1.0",

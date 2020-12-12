@@ -6,17 +6,18 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const UpcomingCard = (props) => {
 
   return (
-    <View style={[tailwind('mx-1')]}>
-      <View style={[styles.cardContainer, tailwind('rounded py-1 my-2')]}>
+    <View style={[tailwind('mx-4')]}>
+      <View style={[styles.cardContainer, tailwind('rounded py-1 my-1')]}>
         <View style={[styles.cardContent, tailwind('flex flex-col')]}>
-          <Text style={tailwind('mx-5 text-gray-600 font-bold text-xl')}>
+          <Text style={tailwind('mx-3 text-gray-600 font-bold text-xl')}>
             {"Ben's Birthday"}
           </Text>
-          <Text style={tailwind('py-1 mx-5 text-gray-600 text-base')}>
+          <Text style={tailwind('py-1 mx-3 text-gray-600 text-base')}>
             {"Ben Becomes 26 Today!"}
           </Text>          
         </View>
-        <TodoItem textItem={"Purchased a gift for Ben"}/>
+        <TodoItem textItem={"Purchased a gift"}/>
+        <TodoItem textItem={"Sent a Happy Birthday message"}/>
       </View>
     </View>
   );
@@ -31,15 +32,15 @@ const TodoItem = (props) => {
   }
 
   return (
-    <View style={[tailwind('ml-5 mr-5 py-1 justify-between flex flex-row items-center')]}>
-      <Text style={[tailwind('text-base')]}>{props.textItem}</Text>
-      <TouchableOpacity onPress={handleCheck}> 
+    <TouchableOpacity onPress={handleCheck}> 
+      <View style={[tailwind('mx-3 justify-between flex flex-row items-center')]}>
+          <Text style={[tailwind('text-base')]}>{props.textItem}</Text>
+          <Icon name={isSelected ? "ios-checkmark-circle-outline" : "md-alert"}
+            size={25}
+            color={isSelected ? "#add771" : "#aca934"} />
+      </View>
+    </TouchableOpacity>
 
-        <Icon name={isSelected ? "ios-checkmark-circle-outline" : "md-alert"}
-          size={25}
-          color={isSelected ? "#add771" : "#aca934"} />
-      </TouchableOpacity>
-    </View>
   )
 }
 
