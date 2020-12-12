@@ -1,45 +1,46 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Switch, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import tailwind from 'tailwind-rn';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const UpcomingCard = (props) => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
-    <View style={[tailwind('mx-5')]}>
+    <View style={[tailwind('mx-1')]}>
       <View style={[styles.cardContainer, tailwind('rounded py-1 my-2')]}>
         <View style={[styles.cardContent, tailwind('flex flex-col')]}>
           <Text style={tailwind('mx-5 text-gray-600 font-bold text-xl')}>
-            {"Title"}
+            {"Ben's Birthday"}
           </Text>
-          <Text style={tailwind('mx-5 text-gray-600 text-base')}>
-            {"The Checklist For Ben's Birthday"}
+          <Text style={tailwind('py-1 mx-5 text-gray-600 text-base')}>
+            {"Ben Becomes 26 Today!"}
           </Text>          
-          <View style={[tailwind('ml-5 mr-5 justify-between flex flex-row items-center')]}>
-            <Text style={[tailwind('text-base')]}>{'Purchased a Gift'}</Text>
-            <Switch
-              trackColor={{ false: "#767577", true: "#81b0ff" }}
-              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-            />
-          </View>
         </View>
-        <View style={[tailwind('justify-between flex flex-row items-center')]}>
-          <Button
-            title="Left button"
-            onPress={() => Alert.alert('Left button pressed')}
-          />
-          <Button
-            title="Right button"
-            onPress={() => Alert.alert('Right button pressed')}
-          />
-        </View>
+        <TodoItem textItem={"Purchased a gift for Ben"}/>
       </View>
     </View>
   );
+}
+
+
+const TodoItem = (props) => {
+  const [isSelected, setSelection] = useState(false);
+
+  const handleCheck = () => {
+    setSelection(!isSelected);
+  }
+
+  return (
+    <View style={[tailwind('ml-5 mr-5 py-1 justify-between flex flex-row items-center')]}>
+      <Text style={[tailwind('text-base')]}>{props.textItem}</Text>
+      <TouchableOpacity onPress={handleCheck}> 
+
+        <Icon name={isSelected ? "ios-checkmark-circle-outline" : "md-alert"}
+          size={25}
+          color={isSelected ? "#add771" : "#aca934"} />
+      </TouchableOpacity>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
