@@ -41,7 +41,7 @@ const OverviewCard = (props) => {
         <HR fullLen={true}/>
         <View style={[styles.cardFooter, tailwind('flex flex-row')]}>
             <Text style={tailwind('pb-2 ml-3 text-gray-600 text-lg')}>
-                {"Ben's Birthday is coming up in 5 days!"}
+                {"Ben's 27th 🎂 is in 5 days!"}
             </Text>
             <Icon
                 style={tailwind('pb-2 mr-3')} 
