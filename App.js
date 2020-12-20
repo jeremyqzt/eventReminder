@@ -1,10 +1,11 @@
-import React from 'react';
+import React,  { useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
+import { FloatingAction } from "react-native-floating-action";
 
 import Heading from './components/header';
 import UpcomingCard from './components/upcomingCard';
 import OverviewCard from './components/overviewCard';
-import { FloatingAction } from "react-native-floating-action";
+import NewContactModal from './components/newContactModal';
 
 import SectionHeading from './components/sectionHeading';
 import HR from './components/hr';
@@ -44,6 +45,16 @@ export default function App() {
       position: 2
     },
   ];
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const addCallBack = (name) => {
+    switch (name) {
+      case "add_contact":
+        setModalVisible(!modalVisible)
+      default:
+        break
+    }
+  }
 
   return (
     <>
@@ -51,6 +62,10 @@ export default function App() {
         <Heading />
         <HR />
         <OverviewCard />
+        <NewContactModal 
+          visible={modalVisible}
+          addCallBack={addCallBack}
+        />
       </SafeAreaView>
       <FloatingAction
         showBackground={false}
@@ -59,6 +74,7 @@ export default function App() {
         color={"#176FA6"}
         onPressItem={name => {
           console.log(`selected button: ${name}`);
+          addCallBack(name);
         }}
       />
     </>
