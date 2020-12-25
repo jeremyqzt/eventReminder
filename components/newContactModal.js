@@ -35,6 +35,7 @@ const NewContactModal = (props) => {
 
 
             <View style={styles.formRow}>
+              <ImageAndPicker />
             </View>
 
             <View style={styles.formRow}>
