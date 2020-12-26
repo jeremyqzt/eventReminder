@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform } from 'react-native';
+import { TouchableHighlight, Image, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import Constants from 'expo-constants';
 
 export default ImageAndPicker = () => {
   const [image, setImage] = useState(null);
@@ -21,7 +20,7 @@ export default ImageAndPicker = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -32,8 +31,14 @@ export default ImageAndPicker = () => {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+      <TouchableHighlight
+        onPress={pickImage}
+      >       
+        {image ? 
+          <Image source={{ uri: image }} style={{ width: 50, height: 50 }} /> : 
+          <Image source={require('../assets/contacts.png')} style={{ width: 50, height: 50 }} />
+        }
+      </TouchableHighlight>
     </View>
   );
 }
