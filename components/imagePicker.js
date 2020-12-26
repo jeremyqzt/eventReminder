@@ -30,13 +30,13 @@ export default ImageAndPicker = () => {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'left', justifyContent: 'left' }}>
       <TouchableHighlight
         onPress={pickImage}
       >       
         {image ? 
-          <Image source={{ uri: image }} style={{ width: 50, height: 50 }} /> : 
-          <Image source={require('../assets/contacts.png')} style={{ width: 50, height: 50 }} />
+          <Image source={{ uri: image }} style={{ width: 40, height: 40 }} /> : 
+          <Image source={require('../assets/contacts.png')} style={{ width: 40, height: 40 }} />
         }
       </TouchableHighlight>
     </View>

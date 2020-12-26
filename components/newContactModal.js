@@ -33,12 +33,8 @@ const NewContactModal = (props) => {
               </TouchableHighlight>
             </View>
 
-
             <View style={styles.formRow}>
               <ImageAndPicker />
-            </View>
-
-            <View style={styles.formRow}>
               <TextInput
                 style={styles.formInput}
                 placeholder="First Name" />
@@ -96,7 +92,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   formInput: {
-    width: "45%",
+    width: "40%",
+    paddingLeft: "1%",
     borderBottomWidth : 0.5,
   },
   formRow: {
