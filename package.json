@@ -4,18 +4,19 @@
     "@paraboly/react-native-card": "^1.0.0",
     "@react-native-async-storage/async-storage": "^1.13.2",
     "expo": "~39.0.0",
+    "expo-image-picker": "~9.1.1",
     "react": "~16.13.0",
     "react-dom": "~16.13.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.2.tar.gz",
     "react-native-androw": "0.0.34",
+    "react-native-date-picker": "^3.2.5",
     "react-native-dynamic-vector-icons": "^1.1.4",
     "react-native-floating-action": "^1.21.0",
     "react-native-progress-circle": "^2.1.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "0.13.13",
     "tailwind-rn": "^1.1.0",
-    "tslib": "^2.0.3",
-    "expo-image-picker": "~9.1.1"
+    "tslib": "^2.0.3"
   },
   "devDependencies": {
     "@babel/core": "7.9.0"
