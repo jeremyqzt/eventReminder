@@ -1,15 +1,16 @@
 import React from "react";
 import { Text, ScrollView } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
 const ReminderList = (props) => {
   return (
     <ScrollView style={styles.scrollView}>
-      <ScrollItem />
+      <ReminderItem />
     </ScrollView>
   );
 };
 
-const ScrollItem = (props) => {
+const ReminderItem = (props) => {
   return <Text style={styles.text}>Testing</Text>;
 };
 
