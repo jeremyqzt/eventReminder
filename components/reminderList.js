@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Text, ScrollView, StyleSheet, View } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const ReminderList = (props) => {
   return (
@@ -12,58 +12,42 @@ const ReminderList = (props) => {
 };
 
 const ReminderItem = (props) => {
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
-    setDate(currentDate);
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
   };
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
   };
 
-  const showDatepicker = () => {
-    showMode("date");
+  const handleConfirm = (date) => {
+    console.warn("A date has been picked: ", date);
+    hideDatePicker();
   };
 
   return (
     <View style={styles.container}>
-      <RNPickerSelect
-        onValueChange={(value) => console.log(value)}
-        items={[
-          { label: "Football", value: "football" },
-          { label: "Baseball", value: "baseball" },
-          { label: "Hockey", value: "hockey" },
-        ]}
-      />
-      <View>
-        <View>
-          <Button onPress={showDatepicker} title="Show date picker!" />
-        </View>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={"date"}
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
-          />
-        )}
+      <View style={styles.selection}>
+        <RNPickerSelect
+          onValueChange={(value) => console.log(value)}
+          items={[
+            { label: "Football", value: "football" },
+            { label: "Baseball", value: "baseball" },
+            { label: "Hockey", value: "hockey" },
+          ]}
+        />
       </View>
-      <RNPickerSelect
-        onValueChange={(value) => console.log(value)}
-        items={[
-          { label: "Football", value: "football" },
-          { label: "Baseball", value: "baseball" },
-          { label: "Hockey", value: "hockey" },
-        ]}
-      />
+      <View>
+        <Button title="Show Date Picker" onPress={showDatePicker} />
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+        />
+      </View>
     </View>
   );
 };
@@ -72,8 +56,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+  },
+  selection: {
+    marginTop: "auto",
+  },
+  datePicker: {
+    width: 200,
   },
   textStyle: {
     margin: 24,
