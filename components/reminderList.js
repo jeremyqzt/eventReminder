@@ -1,6 +1,7 @@
-import React from "react";
-import { Text, ScrollView } from "react-native";
-import { Picker } from "@react-native-picker/picker";
+import React, { useState } from "react";
+import { Text, ScrollView, StyleSheet, View } from "react-native";
+import RNPickerSelect from "react-native-picker-select";
+import DatePicker from "react-native-date-picker";
 
 const ReminderList = (props) => {
   return (
@@ -11,20 +12,54 @@ const ReminderList = (props) => {
 };
 
 const ReminderItem = (props) => {
-  return <Text style={styles.text}>Testing</Text>;
+  const selectionInit = {
+    event: "None",
+  };
+  const [date, setDate] = useState(new Date());
+
+  const [selection, setSelection] = useState(selectionInit.event);
+
+  return (
+    <View style={styles.container}>
+      <RNPickerSelect
+        onValueChange={(value) => console.log(value)}
+        items={[
+          { label: "Football", value: "football" },
+          { label: "Baseball", value: "baseball" },
+          { label: "Hockey", value: "hockey" },
+        ]}
+      />
+      <DatePicker date={date} onDateChange={setDate} />
+      <RNPickerSelect
+        onValueChange={(value) => console.log(value)}
+        items={[
+          { label: "Football", value: "football" },
+          { label: "Baseball", value: "baseball" },
+          { label: "Hockey", value: "hockey" },
+        ]}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Constants.statusBarHeight,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  scrollView: {
-    backgroundColor: "pink",
-    marginHorizontal: 20,
+  textStyle: {
+    margin: 24,
+    fontSize: 25,
+    fontWeight: "bold",
+    textAlign: "center",
   },
-  text: {
-    fontSize: 42,
+  pickerStyle: {
+    height: 150,
+    width: "80%",
+    color: "#344953",
+    justifyContent: "center",
   },
 });
 

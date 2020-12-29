@@ -1,5 +1,6 @@
 import React from "react";
-import ImageAndPicker from './imagePicker';
+import ImageAndPicker from "./imagePicker";
+import ReminderList from "./reminderList";
 
 import {
   TextInput,
@@ -7,19 +8,15 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
-  View
+  View,
 } from "react-native";
 
 const NewContactModal = (props) => {
-  const name = 'add_contact';
+  const name = "add_contact";
 
   return (
     <View style={styles.centeredView}>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={props.visible}
-      >
+      <Modal animationType="fade" transparent={true} visible={props.visible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.headerRow}>
@@ -28,20 +25,19 @@ const NewContactModal = (props) => {
                 onPress={() => {
                   props.addCallBack(name);
                 }}
-              > 
+              >
                 <Text style={styles.textStyle}>✖️</Text>
               </TouchableHighlight>
             </View>
 
             <View style={styles.formRow}>
               <ImageAndPicker />
-              <TextInput
-                style={styles.formInput}
-                placeholder="First Name" />
-              <TextInput
-                style={styles.formInput}
-                placeholder="Last Name"
-              />
+              <TextInput style={styles.formInput} placeholder="First Name" />
+              <TextInput style={styles.formInput} placeholder="Last Name" />
+            </View>
+
+            <View style={styles.formRow}>
+              <ReminderList />
             </View>
 
             <View style={styles.btnRow}>
@@ -50,7 +46,7 @@ const NewContactModal = (props) => {
                 onPress={() => {
                   props.addCallBack(name);
                 }}
-              > 
+              >
                 <Text style={styles.textStyle}>Cancel</Text>
               </TouchableHighlight>
               <TouchableHighlight
@@ -58,8 +54,8 @@ const NewContactModal = (props) => {
                 onPress={() => {
                   props.addCallBack(name);
                 }}
-              > 
-              <Text style={styles.textStyle}>Save Contact</Text>
+              >
+                <Text style={styles.textStyle}>Save Contact</Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -74,7 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
   btnRow: {
     flexDirection: "row",
@@ -94,7 +90,7 @@ const styles = StyleSheet.create({
   formInput: {
     width: "40%",
     paddingLeft: "1%",
-    borderBottomWidth : 0.5,
+    borderBottomWidth: 0.5,
   },
   formRow: {
     width: "100%",
@@ -115,11 +111,11 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5
+    elevation: 5,
   },
   openButton: {
     borderRadius: 20,
@@ -131,16 +127,16 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
+    textAlign: "center",
   },
   modalHeader: {
     fontSize: 18,
     fontWeight: "bold",
-  }
+  },
 });
 
 export default NewContactModal;
