@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Text, ScrollView, StyleSheet, View } from "react-native";
+import { Button, Text, ScrollView, StyleSheet, View } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-import DatePicker from "react-native-date-picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const ReminderList = (props) => {
   return (
@@ -12,12 +12,24 @@ const ReminderList = (props) => {
 };
 
 const ReminderItem = (props) => {
-  const selectionInit = {
-    event: "None",
-  };
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
 
-  const [selection, setSelection] = useState(selectionInit.event);
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
 
   return (
     <View style={styles.container}>
@@ -29,7 +41,21 @@ const ReminderItem = (props) => {
           { label: "Hockey", value: "hockey" },
         ]}
       />
-      <DatePicker date={date} onDateChange={setDate} />
+      <View>
+        <View>
+          <Button onPress={showDatepicker} title="Show date picker!" />
+        </View>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={"date"}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+        )}
+      </View>
       <RNPickerSelect
         onValueChange={(value) => console.log(value)}
         items={[
