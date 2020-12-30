@@ -3,6 +3,8 @@ import { Button, Text, ScrollView, StyleSheet, View } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
+import { getEvents } from "../utils/utils.js";
+
 const ReminderList = (props) => {
   return (
     <ScrollView style={styles.scrollView}>
@@ -23,7 +25,7 @@ const ReminderItem = (props) => {
   };
 
   const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
+    console.log("A date has been picked: ", date);
     hideDatePicker();
   };
 
