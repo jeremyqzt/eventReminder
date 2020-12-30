@@ -39,7 +39,10 @@ export default ImageAndPicker = () => {
     <View style={{ flex: 1, alignItems: "left", justifyContent: "left" }}>
       <TouchableHighlight onPress={pickImage}>
         {image ? (
-          <Image source={{ uri: image }} style={{ width: 40, height: 40 }} />
+          <Image
+            source={{ uri: image }}
+            style={{ width: 40, height: 40, borderRadius: 40 / 2 }}
+          />
         ) : (
           <Image
             source={require("../assets/contacts.png")}
