@@ -77,6 +77,7 @@ const NewContactModal = (props) => {
                   ...styles.openButton,
                   backgroundColor: colors.primary,
                 }}
+                underlayColor={colors.secondary}
                 onPress={() => {
                   props.addCallBack(name);
                 }}

@@ -30,7 +30,7 @@ const AdditionButton = (props) => {
     <View style={styles.addBtnRow}>
       <TouchableHighlight
         style={styles.addBtn}
-        underlayColor={"#2196F3"}
+        underlayColor={colors.primary}
         onPress={() => {
           return;
         }}
