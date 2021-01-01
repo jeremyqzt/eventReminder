@@ -31,6 +31,12 @@ export const EventEnum = Object.freeze({
   },
 });
 
+export const DateTypes = Object.freeze({
+  none: 0,
+  lunar: 1,
+  solar: 2,
+});
+
 export const DateTypeEnum = Object.freeze({
   types: [
     {

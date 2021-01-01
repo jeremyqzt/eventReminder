@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ImageAndPicker from "./imagePicker";
 import ReminderList from "./reminderList";
 
@@ -10,12 +10,21 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import { getTheme } from "../utils/utils.js";
+import { getTheme, getDateTypes } from "../utils/utils.js";
+import { DateTypes } from "../utils/constants.js";
 
 const colors = getTheme();
 
 const NewContactModal = (props) => {
   const name = "add_contact";
+  const [events, setEvent] = useState([]);
+  const [contact, setContact] = useState({});
+
+  const setImage = (image) => {};
+
+  const addEvent = (event, type) => {};
+
+  const removeEvent = (idx, type) => {};
 
   return (
     <View style={styles.centeredView}>
@@ -37,23 +46,37 @@ const NewContactModal = (props) => {
               <Text style={styles.rowHeader}>📓Contact Information</Text>
             </View>
             <View style={styles.formRow}>
-              <ImageAndPicker />
-              <TextInput style={styles.formInput} placeholder="First Name" />
-              <TextInput style={styles.formInput} placeholder="Last Name" />
+              <ImageAndPicker setImage={setImage} />
+              <TextInput
+                style={styles.formInput}
+                placeholder="First Name"
+                onChangeText={(text) => {
+                  setContact({ ...contact, firstName: text });
+                }}
+                value={contact.firstName ? contact.firstName : undefined}
+              />
+              <TextInput
+                style={styles.formInput}
+                placeholder="Last Name"
+                onChangeText={(text) => {
+                  setContact({ ...contact, lastName: text });
+                }}
+                value={contact.lastName ? contact.lastName : undefined}
+              />
             </View>
 
             <View style={styles.headerRow}>
               <Text style={styles.rowHeader}>💡Events to Save</Text>
             </View>
             <View style={styles.formRow}>
-              <ReminderList />
+              <ReminderList type={DateTypes.solar} />
             </View>
 
             <View style={styles.headerRow}>
               <Text style={styles.rowHeader}>🥮Lunar Events to Save</Text>
             </View>
             <View style={styles.formRow}>
-              <ReminderList />
+              <ReminderList type={DateTypes.lunar} />
             </View>
 
             <View style={styles.headerRow}>

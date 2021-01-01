@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { TouchableHighlight, Image, View, Platform } from "react-native";
+import {
+  TouchableHighlight,
+  Image,
+  View,
+  Platform,
+  ImagePropTypes,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-export default ImageAndPicker = () => {
+export default ImageAndPicker = (props) => {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -32,6 +38,7 @@ export default ImageAndPicker = () => {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      props.setImage(result.uri);
     }
   };
 
