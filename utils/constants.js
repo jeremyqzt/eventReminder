@@ -24,6 +24,12 @@ export const EventEnum = Object.freeze({
       icon: "🎀",
       label: "🎀Other",
     },
+    {
+      value: 5,
+      name: "Single Occurence",
+      icon: "1️⃣",
+      label: "1️⃣Single Occurence",
+    },
   ],
   placeHolder: {
     value: 0,

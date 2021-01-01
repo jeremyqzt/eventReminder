@@ -5,12 +5,15 @@ import {
   ScrollView,
   StyleSheet,
   View,
-  Button,
+  TextInput,
 } from "react-native";
+import CheckBox from "@react-native-community/checkbox";
+
 import RNPickerSelect from "react-native-picker-select";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { getEvents, getTheme } from "../utils/utils.js";
+import { EventEnum } from "../utils/constants.js";
 
 const colors = getTheme();
 
@@ -61,6 +64,8 @@ const AdditionButton = (props) => {
 const ReminderItem = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [date, setDate] = useState("Pick a Date");
+  const [type, setType] = useState(EventEnum.placeHolder.value);
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -75,40 +80,65 @@ const ReminderItem = (props) => {
     hideDatePicker();
   };
 
+  const setEventType = (type) => {
+    setType(type);
+  };
   return (
-    <View style={styles.container}>
-      <View style={styles.selection}>
-        <RNPickerSelect
-          placeholder={getEvents().placeHolder}
-          onValueChange={(value) => console.log(value)}
-          items={getEvents().events}
-        />
-      </View>
-      <View style={styles.selectionBridge}>
-        <Text>{"Occurs on"}</Text>
+    <View>
+      <View style={styles.container}>
+        <View style={styles.selection}>
+          <RNPickerSelect
+            placeholder={getEvents().placeHolder}
+            onValueChange={(value) => setEventType(value)}
+            items={getEvents().events}
+          />
+        </View>
+        <View style={styles.selectionBridge}>
+          <Text>{"Occurs on"}</Text>
+        </View>
+
+        <View style={styles.dateSelection}>
+          <TouchableHighlight onPress={showDatePicker}>
+            <Text>{date}</Text>
+          </TouchableHighlight>
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
+        </View>
+
+        <View style={styles.deleteSelection}>
+          <TouchableHighlight
+            onPress={() => {
+              props.deleteItem(props.index);
+            }}
+          >
+            <Text>{"🗑️"}</Text>
+          </TouchableHighlight>
+        </View>
       </View>
 
-      <View style={styles.dateSelection}>
-        <TouchableHighlight onPress={showDatePicker}>
-          <Text>{date}</Text>
-        </TouchableHighlight>
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="date"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-        />
-      </View>
-
-      <View style={styles.deleteSelection}>
-        <TouchableHighlight
-          onPress={() => {
-            props.deleteItem(props.index);
-          }}
-        >
-          <Text>{"🗑️"}</Text>
-        </TouchableHighlight>
-      </View>
+      {type === EventEnum.events[3].value ||
+      type === EventEnum.events[4].value ? (
+        <View style={styles.container}>
+          <TextInput
+            style={styles.formInput}
+            placeholder="Enter a description for this event..."
+            onChangeText={(text) => {
+              console.log("Hi");
+            }}
+            value={undefined}
+          />
+          <CheckBox
+            disabled={false}
+            value={toggleCheckBox}
+            onValueChange={(newValue) => setToggleCheckBox(newValue)}
+          />
+          <Text>Reoccurs</Text>
+        </View>
+      ) : null}
     </View>
   );
 };
@@ -118,7 +148,15 @@ const borderColor = "#D3D3D3";
 const styles = StyleSheet.create({
   addBtnRow: {
     flex: 1,
+    marginBottom: 3,
     width: "100%",
+  },
+  formInput: {
+    width: "60%",
+    marginTop: 2,
+    marginBottom: 5,
+    borderColor: borderColor,
+    borderBottomWidth: 1,
   },
   addBtn: {
     borderColor: colors.secondary,
@@ -140,6 +178,7 @@ const styles = StyleSheet.create({
     borderColor: borderColor,
     borderWidth: 1,
     padding: 3,
+    margin: 3,
     borderRadius: 25,
   },
   scrollContainer: {
@@ -149,10 +188,11 @@ const styles = StyleSheet.create({
   scrollView: {
     paddingBottom: 5,
     paddingTop: 5,
-    maxHeight: 160,
+    maxHeight: 150,
   },
   container: {
     flex: 1,
+    marginBottom: 3,
     marginLeft: 5,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -160,7 +200,7 @@ const styles = StyleSheet.create({
   selection: {
     borderBottomWidth: 1,
     borderBottomColor: borderColor,
-    width: "35%",
+    width: "30%",
     marginTop: "auto",
   },
   dateSelection: {
