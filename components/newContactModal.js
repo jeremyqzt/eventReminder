@@ -17,14 +17,45 @@ const colors = getTheme();
 
 const NewContactModal = (props) => {
   const name = "add_contact";
-  const [events, setEvent] = useState([]);
+  const [events, setEvent] = useState([{}]);
+  const [lunarEvents, setLunarEvent] = useState([{}]);
+
   const [contact, setContact] = useState({});
 
   const setImage = (image) => {};
 
-  const addEvent = (event, type) => {};
+  const addEvent = (type) => {
+    switch (type) {
+      case DateTypes.solar:
+        setEvent([...events, {}]);
+        break;
+      case DateTypes.lunar:
+        setLunarEvent([...lunarEvents, {}]);
+        break;
+      default:
+        setEvent([...events, {}]);
+        break;
+    }
+  };
 
-  const removeEvent = (idx, type) => {};
+  const removeEvent = (type, idx) => {
+    let eventsCopy;
+    switch (type) {
+      case DateTypes.solar:
+        eventsCopy = [...events];
+        eventsCopy.splice(idx, 1);
+        setEvent(eventsCopy);
+        break;
+      case DateTypes.lunar:
+        eventsCopy = [...lunarEvents];
+        eventsCopy.splice(idx, 1);
+        setLunarEvent(eventsCopy);
+        break;
+      default:
+        //Do nothing here
+        break;
+    }
+  };
 
   return (
     <View style={styles.centeredView}>
@@ -69,14 +100,24 @@ const NewContactModal = (props) => {
               <Text style={styles.rowHeader}>💡Events to Save</Text>
             </View>
             <View style={styles.formRow}>
-              <ReminderList type={DateTypes.solar} />
+              <ReminderList
+                type={DateTypes.solar}
+                addEvent={addEvent}
+                events={events}
+                deleteEvent={removeEvent}
+              />
             </View>
 
             <View style={styles.headerRow}>
               <Text style={styles.rowHeader}>🥮Lunar Events to Save</Text>
             </View>
             <View style={styles.formRow}>
-              <ReminderList type={DateTypes.lunar} />
+              <ReminderList
+                type={DateTypes.lunar}
+                addEvent={addEvent}
+                events={lunarEvents}
+                deleteEvent={removeEvent}
+              />
             </View>
 
             <View style={styles.headerRow}>

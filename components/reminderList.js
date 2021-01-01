@@ -15,11 +15,28 @@ import { getEvents, getTheme } from "../utils/utils.js";
 const colors = getTheme();
 
 const ReminderList = (props) => {
+  const addEvent = () => {
+    props.addEvent(props.type);
+  };
+
+  const deleteEvent = (index) => {
+    props.deleteEvent(props.type, index);
+  };
+
+  const getEvents = () => {
+    const toRender = props.events.map((item, index) => {
+      return (
+        <ReminderItem event={item} index={index} deleteItem={deleteEvent} />
+      );
+    });
+    return toRender;
+  };
+
   return (
     <View style={styles.scrollContainer}>
       <ScrollView style={styles.scrollView}>
-        <ReminderItem />
-        <AdditionButton />
+        {getEvents()}
+        <AdditionButton add={addEvent} />
       </ScrollView>
     </View>
   );
@@ -32,10 +49,10 @@ const AdditionButton = (props) => {
         style={styles.addBtn}
         underlayColor={colors.primary}
         onPress={() => {
-          return;
+          props.add();
         }}
       >
-        <Text style={styles.addBtnTextStyle}>Add Event</Text>
+        <Text style={styles.addBtnTextStyle}>Add New Event</Text>
       </TouchableHighlight>
     </View>
   );
@@ -43,7 +60,7 @@ const AdditionButton = (props) => {
 
 const ReminderItem = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [date, setDate] = useState("Event Date");
+  const [date, setDate] = useState("Pick a Date");
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -84,7 +101,11 @@ const ReminderItem = (props) => {
       </View>
 
       <View style={styles.deleteSelection}>
-        <TouchableHighlight onPress={showDatePicker}>
+        <TouchableHighlight
+          onPress={() => {
+            props.deleteItem(props.index);
+          }}
+        >
           <Text>{"🗑️"}</Text>
         </TouchableHighlight>
       </View>
@@ -104,14 +125,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginLeft: "auto",
     borderRadius: 10,
-    paddingVertical: 4,
+    paddingVertical: 3,
     paddingHorizontal: 10,
     marginTop: 10,
     marginHorizontal: 0,
   },
   addBtnTextStyle: {
     color: colors.secondary,
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "bold",
     textAlign: "center",
   },
