@@ -7,7 +7,7 @@ import {
   View,
   TextInput,
 } from "react-native";
-import CheckBox from "@react-native-community/checkbox";
+import CheckBox from "react-native-checkbox-lite";
 
 import RNPickerSelect from "react-native-picker-select";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -65,7 +65,11 @@ const ReminderItem = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [date, setDate] = useState("Pick a Date");
   const [type, setType] = useState(EventEnum.placeHolder.value);
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
+
+  const toogleCheckBox = () => {
+    setIsChecked(!isChecked);
+  };
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -83,9 +87,17 @@ const ReminderItem = (props) => {
   const setEventType = (type) => {
     setType(type);
   };
+
+  const needExtraRow =
+    type === EventEnum.events[3].value || type === EventEnum.events[4].value;
   return (
     <View>
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          needExtraRow ? { marginBottom: 3 } : { marginBottom: 10 },
+        ]}
+      >
         <View style={styles.selection}>
           <RNPickerSelect
             placeholder={getEvents().placeHolder}
@@ -120,8 +132,7 @@ const ReminderItem = (props) => {
         </View>
       </View>
 
-      {type === EventEnum.events[3].value ||
-      type === EventEnum.events[4].value ? (
+      {needExtraRow ? (
         <View style={styles.container}>
           <TextInput
             style={styles.formInput}
@@ -132,11 +143,11 @@ const ReminderItem = (props) => {
             value={undefined}
           />
           <CheckBox
-            disabled={false}
-            value={toggleCheckBox}
-            onValueChange={(newValue) => setToggleCheckBox(newValue)}
+            text={"Reoccurs"}
+            isChecked={isChecked}
+            onPress={toogleCheckBox}
+            checkBoxColor={"#2980b9"}
           />
-          <Text>Reoccurs</Text>
         </View>
       ) : null}
     </View>
@@ -152,7 +163,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   formInput: {
-    width: "60%",
+    width: "70%",
     marginTop: 2,
     marginBottom: 5,
     borderColor: borderColor,
@@ -178,7 +189,8 @@ const styles = StyleSheet.create({
     borderColor: borderColor,
     borderWidth: 1,
     padding: 3,
-    margin: 3,
+    marginHorizontal: 3,
+    marginTop: "auto",
     borderRadius: 25,
   },
   scrollContainer: {
@@ -192,7 +204,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginBottom: 3,
+    marginBottom: 10,
     marginLeft: 5,
     flexDirection: "row",
     justifyContent: "space-between",
