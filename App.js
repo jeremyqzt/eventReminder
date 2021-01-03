@@ -7,7 +7,6 @@ import UpcomingCard from "./components/upcomingCard";
 import OverviewCard from "./components/overviewCard";
 import NewContactModal from "./components/newContactModal";
 
-import SectionHeading from "./components/sectionHeading";
 import HR from "./components/hr";
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -26,7 +25,13 @@ export default function App() {
     },
     {
       text: "Add a contact",
-      icon: <Icon name={"ios-contact"} size={25} color={colors.colorful[1]} />,
+      icon: (
+        <Icon
+          name={"person-circle-outline"}
+          size={25}
+          color={colors.colorful[1]}
+        />
+      ),
       color: "#FFFFFF",
       name: "add_contact",
       position: 2,
