@@ -67,6 +67,8 @@ const ReminderItem = (props) => {
   const [type, setType] = useState(EventEnum.placeHolder.value);
   const [isChecked, setIsChecked] = useState(true);
 
+  const [description, setDescription] = useState(undefined);
+
   const toogleCheckBox = () => {
     setIsChecked(!isChecked);
   };
@@ -138,9 +140,9 @@ const ReminderItem = (props) => {
             style={styles.formInput}
             placeholder="Enter a description for this event..."
             onChangeText={(text) => {
-              console.log("Hi");
+              setDescription(text);
             }}
-            value={undefined}
+            value={description}
           />
           <CheckBox
             text={"Reoccurs"}
