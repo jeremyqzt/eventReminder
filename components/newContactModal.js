@@ -55,8 +55,10 @@ const NewContactModal = (props) => {
     const valid = Boolean(
       checkValidEvents(events) && checkValidContact(contact)
     );
-    console.log(checkValidEvents(events));
-    //props.addCallBack(name);
+    if (valid) {
+      //Do here
+    }
+    props.addCallBack(name);
   };
 
   return (
@@ -120,7 +122,7 @@ const NewContactModal = (props) => {
                   ? `${getName(
                       contact.firstName,
                       contact.lastName
-                    )} will be saved into your contact bok!`
+                    )} will be saved into your contact book!`
                   : "Please enter a name!"}
               </Text>
             </View>
