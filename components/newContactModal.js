@@ -10,51 +10,53 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import { getTheme, getName } from "../utils/utils.js";
+import {
+  getTheme,
+  getName,
+  getDefaults,
+  checkValidEvents,
+  checkValidContact,
+} from "../utils/utils.js";
 import { DateTypes } from "../utils/constants.js";
 
 const colors = getTheme();
 
 const NewContactModal = (props) => {
   const name = "add_contact";
-  const [events, setEvent] = useState([{}]);
-  const [lunarEvents, setLunarEvent] = useState([{}]);
-
+  const defaultEvent = getDefaults();
+  const [events, setEvent] = useState([defaultEvent]);
   const [contact, setContact] = useState({});
 
-  const setImage = (image) => {};
-
-  const addEvent = (type) => {
-    switch (type) {
-      case DateTypes.solar:
-        setEvent([...events, {}]);
-        break;
-      case DateTypes.lunar:
-        setLunarEvent([...lunarEvents, {}]);
-        break;
-      default:
-        setEvent([...events, {}]);
-        break;
-    }
+  const setImage = (image) => {
+    setContact({ ...contact, imageURI: image });
   };
 
-  const removeEvent = (type, idx) => {
-    let eventsCopy;
-    switch (type) {
-      case DateTypes.solar:
-        eventsCopy = [...events];
-        eventsCopy.splice(idx, 1);
-        setEvent(eventsCopy);
-        break;
-      case DateTypes.lunar:
-        eventsCopy = [...lunarEvents];
-        eventsCopy.splice(idx, 1);
-        setLunarEvent(eventsCopy);
-        break;
-      default:
-        //Do nothing here
-        break;
-    }
+  const editEvent = (event, idx) => {
+    const oldEvent = events[idx];
+    const returnedTarget = Object.assign(oldEvent, event);
+
+    const newEvents = [...events];
+    newEvents[idx] = returnedTarget;
+    setEvent(newEvents);
+  };
+
+  const addEvent = () => {
+    setEvent([...events, defaultEvent]);
+  };
+
+  const removeEvent = (idx) => {
+    let eventsCopy = [...events];
+    eventsCopy.splice(idx, 1);
+    setEvent(eventsCopy);
+  };
+
+  const saveEvent = () => {
+    console.log(events);
+    const valid = Boolean(
+      checkValidEvents(events) && checkValidContact(contact)
+    );
+    console.log(checkValidEvents(events));
+    //props.addCallBack(name);
   };
 
   return (
@@ -105,6 +107,7 @@ const NewContactModal = (props) => {
                 addEvent={addEvent}
                 events={events}
                 deleteEvent={removeEvent}
+                editEvent={editEvent}
               />
             </View>
 
@@ -138,7 +141,7 @@ const NewContactModal = (props) => {
                 }}
                 underlayColor={colors.secondary}
                 onPress={() => {
-                  props.addCallBack(name);
+                  saveEvent();
                 }}
               >
                 <Text style={styles.textStyle}>Save Contact</Text>

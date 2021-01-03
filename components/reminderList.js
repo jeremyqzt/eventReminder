@@ -19,17 +19,22 @@ const colors = getTheme();
 
 const ReminderList = (props) => {
   const addEvent = () => {
-    props.addEvent(props.type);
+    props.addEvent();
   };
 
   const deleteEvent = (index) => {
-    props.deleteEvent(props.type, index);
+    props.deleteEvent(index);
   };
 
   const getEvents = () => {
     const toRender = props.events.map((item, index) => {
       return (
-        <ReminderItem event={item} index={index} deleteItem={deleteEvent} />
+        <ReminderItem
+          event={item}
+          index={index}
+          deleteItem={deleteEvent}
+          editItem={props.editEvent}
+        />
       );
     });
     return toRender;
@@ -72,10 +77,12 @@ const ReminderItem = (props) => {
 
   const toogleCheckBox = () => {
     setIsChecked(!isChecked);
+    props.editItem({ isReoccuring: !isChecked }, props.index);
   };
 
   const toogleLunarCheckBox = () => {
     setIsLunarChecked(!isLunarChecked);
+    props.editItem({ isLunar: !isLunarChecked }, props.index);
   };
 
   const showDatePicker = () => {
@@ -87,7 +94,10 @@ const ReminderItem = (props) => {
   };
 
   const handleConfirm = (newDate) => {
-    setDate(newDate.toISOString().slice(0, 10));
+    const dateValue = newDate.toISOString();
+    setDate(dateValue.slice(0, 10));
+    props.editItem({ eventDate: dateValue }, props.index);
+
     hideDatePicker();
   };
 
@@ -103,7 +113,10 @@ const ReminderItem = (props) => {
         <View style={styles.selection}>
           <RNPickerSelect
             placeholder={getEvents().placeHolder}
-            onValueChange={(value) => setEventType(value)}
+            onValueChange={(value) => {
+              setEventType(value);
+              props.editItem({ eventValue: value }, props.index);
+            }}
             items={getEvents().events}
           />
         </View>
@@ -141,6 +154,7 @@ const ReminderItem = (props) => {
             placeholder="Enter a description..."
             onChangeText={(text) => {
               setDescription(text);
+              props.editItem({ description: text }, props.index);
             }}
             value={description}
           />
@@ -173,7 +187,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   formInput: {
-    width: "50%",
+    width: "55%",
     marginTop: 2,
     marginBottom: 5,
     borderColor: borderColor,

@@ -23,3 +23,23 @@ export const getName = (first, last) => {
 
   return undefined;
 };
+
+export const getDefaults = () => {
+  return {
+    description: undefined,
+    eventDate: undefined,
+    eventValue: 0,
+    isLunar: false,
+    isReoccuring: true,
+  };
+};
+
+export const checkValidEvents = (events) => {
+  return events.every((item) => {
+    return item.eventDate && item.eventValue !== 0;
+  });
+};
+
+export const checkValidContact = (contact) => {
+  return Boolean(contact.firstName);
+};
