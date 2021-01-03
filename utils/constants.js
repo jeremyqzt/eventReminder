@@ -54,8 +54,8 @@ export const DateTypeEnum = Object.freeze({
     {
       value: 2,
       name: "Solar",
-      icon: "🌅",
-      label: "🌅Solar",
+      icon: "🌞",
+      label: "🌞Solar",
     },
   ],
   placeHolder: {

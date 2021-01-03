@@ -13,7 +13,7 @@ import RNPickerSelect from "react-native-picker-select";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { getEvents, getTheme } from "../utils/utils.js";
-import { EventEnum } from "../utils/constants.js";
+import { EventEnum, DateTypeEnum } from "../utils/constants.js";
 
 const colors = getTheme();
 
@@ -66,11 +66,16 @@ const ReminderItem = (props) => {
   const [date, setDate] = useState("Pick a Date");
   const [type, setType] = useState(EventEnum.placeHolder.value);
   const [isChecked, setIsChecked] = useState(true);
+  const [isLunarChecked, setIsLunarChecked] = useState(false);
 
   const [description, setDescription] = useState(undefined);
 
   const toogleCheckBox = () => {
     setIsChecked(!isChecked);
+  };
+
+  const toogleLunarCheckBox = () => {
+    setIsLunarChecked(!isLunarChecked);
   };
 
   const showDatePicker = () => {
@@ -90,16 +95,11 @@ const ReminderItem = (props) => {
     setType(type);
   };
 
-  const needExtraRow =
-    type === EventEnum.events[3].value || type === EventEnum.events[4].value;
+  const needExtraRow = true;
+
   return (
     <View>
-      <View
-        style={[
-          styles.container,
-          needExtraRow ? { marginBottom: 3 } : { marginBottom: 10 },
-        ]}
-      >
+      <View style={[styles.container]}>
         <View style={styles.selection}>
           <RNPickerSelect
             placeholder={getEvents().placeHolder}
@@ -135,10 +135,10 @@ const ReminderItem = (props) => {
       </View>
 
       {needExtraRow ? (
-        <View style={styles.container}>
+        <View style={styles.bottomRowContainer}>
           <TextInput
             style={styles.formInput}
-            placeholder="Enter a description for this event..."
+            placeholder="Enter a description..."
             onChangeText={(text) => {
               setDescription(text);
             }}
@@ -146,9 +146,17 @@ const ReminderItem = (props) => {
           />
           <CheckBox
             text={"Reoccurs"}
+            checkBoxSize={18}
             isChecked={isChecked}
             onPress={toogleCheckBox}
-            checkBoxColor={"#2980b9"}
+            checkBoxColor={colors.secondary}
+          />
+          <CheckBox
+            text={DateTypeEnum.types[0].name}
+            checkBoxSize={18}
+            isChecked={isLunarChecked}
+            onPress={toogleLunarCheckBox}
+            checkBoxColor={colors.secondary}
           />
         </View>
       ) : null}
@@ -165,7 +173,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   formInput: {
-    width: "70%",
+    width: "50%",
     marginTop: 2,
     marginBottom: 5,
     borderColor: borderColor,
@@ -188,10 +196,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   deleteSelection: {
-    borderColor: borderColor,
+    borderColor: colors.secondary,
     borderWidth: 1,
     padding: 3,
-    marginHorizontal: 3,
+    marginHorizontal: 2,
     marginTop: "auto",
     borderRadius: 25,
   },
@@ -202,11 +210,19 @@ const styles = StyleSheet.create({
   scrollView: {
     paddingBottom: 5,
     paddingTop: 5,
-    maxHeight: 150,
+    maxHeight: 200,
   },
   container: {
     flex: 1,
-    marginBottom: 10,
+    marginBottom: 3,
+    marginLeft: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  bottomRowContainer: {
+    flex: 1,
+    marginBottom: 12,
     marginLeft: 5,
     flexDirection: "row",
     justifyContent: "space-between",

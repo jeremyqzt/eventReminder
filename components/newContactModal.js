@@ -10,7 +10,7 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import { getTheme, getDateTypes } from "../utils/utils.js";
+import { getTheme, getName } from "../utils/utils.js";
 import { DateTypes } from "../utils/constants.js";
 
 const colors = getTheme();
@@ -109,22 +109,17 @@ const NewContactModal = (props) => {
             </View>
 
             <View style={styles.headerRow}>
-              <Text style={styles.rowHeader}>🥮Lunar Events to Save</Text>
-            </View>
-            <View style={styles.formRow}>
-              <ReminderList
-                type={DateTypes.lunar}
-                addEvent={addEvent}
-                events={lunarEvents}
-                deleteEvent={removeEvent}
-              />
-            </View>
-
-            <View style={styles.headerRow}>
               <Text style={styles.rowHeader}>📋Contact Summary</Text>
             </View>
             <View style={styles.formRow}>
-              <Text>Ben will be saved into your contact book!</Text>
+              <Text>
+                {getName(contact.firstName, contact.lastName)
+                  ? `${getName(
+                      contact.firstName,
+                      contact.lastName
+                    )} will be saved into your contact bok!`
+                  : "Please enter a name!"}
+              </Text>
             </View>
 
             <View style={styles.btnRow}>
