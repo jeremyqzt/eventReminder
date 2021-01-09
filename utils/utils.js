@@ -1,4 +1,4 @@
-import { EventEnum, DateTypeEnum, defaultTheme, DateTypes } from "./constants";
+import { EventEnum, DateTypeEnum, DefaultTheme, ColorMode } from "./constants";
 
 export const getEvents = () => {
   return EventEnum;
@@ -9,7 +9,7 @@ export const getDateTypes = () => {
 };
 
 export const getTheme = () => {
-  return defaultTheme;
+  return DefaultTheme;
 };
 
 export const getName = (first, last) => {
@@ -42,4 +42,8 @@ export const checkValidEvents = (events) => {
 
 export const checkValidContact = (contact) => {
   return Boolean(contact.firstName);
+};
+
+export const getColorMode = () => {
+  return ColorMode.normal;
 };

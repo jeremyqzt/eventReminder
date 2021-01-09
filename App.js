@@ -1,69 +1,28 @@
-import React, { useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
-import { FloatingAction } from "react-native-floating-action";
+import React from "react";
 
-import Heading from "./components/header";
-import UpcomingCard from "./components/upcomingCard";
-import OverviewCard from "./components/overviewCard";
-import NewContactModal from "./components/newContactModal";
-
-import HR from "./components/hr";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import MainPage from "./containers/mainPage";
 
-import tailwind from "tailwind-rn";
-import { getTheme } from "./utils/utils.js";
+import { getColorMode } from "./utils/utils.js";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
-
+import { ColorMode, DefaultTheme } from "./utils/constants";
 const Tabs = AnimatedTabBarNavigator();
 
-const colors = getTheme();
 export default function App() {
-  const actions = [
-    {
-      text: "Add a event",
-      icon: <Icon name={"ios-calendar"} size={25} color={colors.colorful[0]} />,
-      color: "#FFFFFF",
-      name: "add_event",
-      position: 1,
-    },
-    {
-      text: "Add a contact",
-      icon: (
-        <Icon
-          name={"person-circle-outline"}
-          size={25}
-          color={colors.colorful[1]}
-        />
-      ),
-      color: "#FFFFFF",
-      name: "add_contact",
-      position: 2,
-    },
-    {
-      text: "Import Contacts",
-      icon: <Icon name={"ios-download"} size={25} color={colors.colorful[2]} />,
-      color: "#FFFFFF",
-      name: "import_contact",
-      position: 2,
-    },
-  ];
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const addCallBack = (name) => {
-    switch (name) {
-      case "add_contact":
-        setModalVisible(!modalVisible);
-      default:
-        break;
-    }
-  };
+  const darkMode = getColorMode() !== ColorMode.normal;
 
   const getColor = (focused) => {
-    return focused ? "white" : "black";
+    if (darkMode) {
+      return focused
+        ? DefaultTheme.darkMode.background
+        : DefaultTheme.darkMode.text;
+    }
+
+    return focused
+      ? DefaultTheme.normalMode.background
+      : DefaultTheme.normalMode.text;
   };
 
   return (
@@ -71,24 +30,26 @@ export default function App() {
       <NavigationContainer>
         <Tabs.Navigator
           tabBarOptions={{
-            activeTintColor: "white",
-            inactiveTintColor: "black",
+            activeTintColor: darkMode ? "black" : "white",
+            inactiveTintColor: darkMode ? "black" : "white",
           }}
           appearence={{
             floating: true,
-            tabBarBackground: "white",
+            tabBarBackground: darkMode
+              ? DefaultTheme.offBlack
+              : DefaultTheme.offWhite,
             shadow: true,
-            activeTabBackgrounds: "black",
+            activeTabBackgrounds: darkMode ? "white" : "black",
           }}
         >
           <Tabs.Screen
             name="Home"
             component={MainPage}
             options={{
-              tabBarIcon: ({ focused, color, size }) => (
+              tabBarIcon: ({ focused }) => (
                 <Icon
                   name="home-outline"
-                  size={size ? size : 24}
+                  size={24}
                   color={getColor(focused)}
                   focused={focused}
                 />

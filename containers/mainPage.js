@@ -5,17 +5,28 @@ import OverviewCard from "../components/overviewCard";
 
 import HR from "../components/hr";
 
-import { getTheme } from "../utils/utils.js";
-import { SafeAreaView } from "react-native";
+import { getColorMode } from "../utils/utils.js";
+import { ColorMode, DefaultTheme } from "../utils/constants";
 
-const colors = getTheme();
+import { SafeAreaView } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 export default function MainPage() {
   return (
-    <SafeAreaView>
-      <Heading />
-      <HR />
-      <OverviewCard />
-    </SafeAreaView>
+    <View style={styles.mainPage}>
+      <SafeAreaView>
+        <Heading />
+      </SafeAreaView>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  mainPage: {
+    backgroundColor:
+      getColorMode() === ColorMode.dark
+        ? DefaultTheme.darkMode.main
+        : DefaultTheme.normalMode.main,
+    height: "100%",
+  },
+});

@@ -64,7 +64,7 @@ export const DateTypeEnum = Object.freeze({
   },
 });
 
-export const defaultTheme = {
+export const DefaultTheme = {
   primary: "#3D85C6",
   secondary: "#9EC2E3",
   tertiary: "#CBBDFF",
@@ -75,4 +75,24 @@ export const defaultTheme = {
   heading2: "grey",
   text: "text",
   cancel: "#A9A9A9",
+
+  normalMode: {
+    main: "white",
+    text: "black",
+    background: "white",
+  },
+
+  darkMode: {
+    main: "black",
+    text: "white",
+    background: "black",
+  },
+
+  offBlack: "#1a1a1a",
+  offWhite: "#f2f2f2",
 };
+
+export const ColorMode = Object.freeze({
+  normal: 0,
+  dark: 1,
+});
