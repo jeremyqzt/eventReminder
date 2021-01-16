@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import tailwind from "tailwind-rn";
-import Icon from "react-native-vector-icons/FontAwesome";
-import ProgressCircle from "react-native-progress-circle";
-import HR from "./hr";
 import { Card, ListItem, Button } from "react-native-elements";
 
 const OverviewCard = (props) => {
   return (
-    <Card>
+    <Card containerStyle={styles.card}>
       <Card.Title>card</Card.Title>
       <Card.Divider />
       <View>
@@ -19,6 +15,11 @@ const OverviewCard = (props) => {
 };
 
 const styles = StyleSheet.create({
+  card: {
+    borderRadius: 15,
+    borderLeftWidth: 7,
+    borderLeftColor: "red",
+  },
   cardContainer: {
     shadowColor: "rgba(0, 0, 0, 0.5)",
     shadowOffset: { x: 0, y: 10 },
