@@ -16,6 +16,7 @@ export default function MainPage() {
     <View style={styles.mainPage}>
       <SafeAreaView>
         <Heading />
+        <OverviewCard />
       </SafeAreaView>
     </View>
   );

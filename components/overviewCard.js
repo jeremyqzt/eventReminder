@@ -11,18 +11,9 @@ const OverviewCard = (props) => {
     <Card>
       <Card.Title>card</Card.Title>
       <Card.Divider />
-      {users.map((u, i) => {
-        return (
-          <View key={i} style={styles.user}>
-            <Image
-              style={styles.image}
-              resizeMode="cover"
-              source={{ uri: u.avatar }}
-            />
-            <Text style={styles.name}>{u.name}</Text>
-          </View>
-        );
-      })}
+      <View>
+        <Text>{"HASDASDASD"}</Text>
+      </View>
     </Card>
   );
 };
