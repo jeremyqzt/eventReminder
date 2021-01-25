@@ -4,11 +4,22 @@ import { Card, ListItem, Button } from "react-native-elements";
 
 const OverviewCard = (props) => {
   return (
-    <Card containerStyle={styles.card}>
-      <Card.Title>card</Card.Title>
+    <Card containerStyle={styles.card} style={styles.cardTitle}>
+      <View style={styles.cardTitle}>
+        <Text style={styles.titleText}>{"🎂 Birthdday"}</Text>
+      </View>
       <Card.Divider />
-      <View>
-        <Text>{"HASDASDASD"}</Text>
+      <View style={styles.item}>
+        <Text style={styles.subItem}>{"🎉 Ben's Birthday is in 5 days"}</Text>
+        <Text style={styles.subItemReminders}>
+          {"         ⏰ Reminder: T-1"}
+        </Text>
+        <Text style={styles.subItemReminders}>
+          {"         🌛 Event Type: Lunar"}
+        </Text>
+        <Text style={styles.subItemReminders}>
+          {"         🎁 Present: Missing"}
+        </Text>
       </View>
     </Card>
   );
@@ -20,20 +31,28 @@ const styles = StyleSheet.create({
     borderLeftWidth: 7,
     borderLeftColor: "red",
   },
-  cardContainer: {
-    shadowColor: "rgba(0, 0, 0, 0.5)",
-    shadowOffset: { x: 0, y: 10 },
-    shadowOpacity: 1,
-    alignSelf: "stretch",
-    backgroundColor: "white",
-  },
-  cardContent: {
+  cardTitle: {
+    display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
+    marginBottom: 7,
   },
-  cardFooter: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  titleText: {
+    fontSize: 25,
+    fontWeight: "800",
+  },
+  item: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  subItem: {
+    fontSize: 18,
+    paddingVertical: 4,
+    fontWeight: "500",
+  },
+  subItemReminders: {
+    fontSize: 12,
+    paddingVertical: 4,
   },
 });
 
