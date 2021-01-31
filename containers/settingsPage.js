@@ -1,31 +1,34 @@
 import React from "react";
 
 import Heading from "../components/header";
-import OverviewCard from "../components/overviewCard";
-
+import SettingsList from "../components/listSettings";
 import { connect } from "react-redux";
+
 import { DefaultTheme } from "../utils/constants";
 
 import { SafeAreaView } from "react-native";
 import { View, StyleSheet } from "react-native";
 
-const MainPage = (props) => {
+const SettingsPage = (props) => {
   return (
-    <View style={props.darkMode ? styles.mainPageDark : styles.mainPageNormal}>
+    <View
+      style={
+        props.darkMode ? styles.settingsPageDark : styles.settingsPageNormal
+      }
+    >
       <SafeAreaView>
-        <Heading />
-        <OverviewCard />
+        <SettingsList />
       </SafeAreaView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  mainPageNormal: {
+  settingsPageNormal: {
     backgroundColor: DefaultTheme.normalMode.main,
     height: "100%",
   },
-  mainPageDark: {
+  settingsPageDark: {
     backgroundColor: DefaultTheme.darkMode.main,
     height: "100%",
   },
@@ -37,4 +40,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(MainPage);
+export default connect(mapStateToProps, null)(SettingsPage);

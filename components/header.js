@@ -1,12 +1,11 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import tailwind from "tailwind-rn";
+import { connect } from "react-redux";
 
-import { getColorMode } from "../utils/utils.js";
-import { ColorMode, DefaultTheme } from "../utils/constants";
+import { DefaultTheme } from "../utils/constants";
 
-const HeadingGreet = () => {
+const HeadingGreet = (props) => {
   const date = new Date();
   const monthAbbreviation = [
     "Jan",
@@ -38,12 +37,13 @@ const HeadingGreet = () => {
       ? "Morning"
       : "Afternoon";
 
+  const textColor = props.darkMode ? styles.textDark : styles.textNormal;
   return (
     <View>
       <Text
-        style={[tailwind("font-bold text-2xl"), styles.text]}
+        style={[tailwind("font-bold text-2xl"), textColor]}
       >{`Good ${greeting}`}</Text>
-      <Text style={[tailwind("font-semibold text-lg"), styles.text]}>
+      <Text style={[tailwind("font-semibold text-lg"), textColor]}>
         {`${weekDay[date.getDay()]}, ${
           monthAbbreviation[date.getMonth()]
         }-${date.getDate()} ${date.getFullYear()}`}
@@ -52,34 +52,42 @@ const HeadingGreet = () => {
   );
 };
 
-const HeadingImage = () => {
+const HeadingImage = (props) => {
+  const textColor = props.darkMode ? styles.textDark : styles.textNormal;
+
   return (
     <View style={tailwind("items-center rounded px-1 py-1")}>
       <Text
-        style={[tailwind("font-bold text-xs"), styles.text]}
+        style={[tailwind("font-bold text-xs"), textColor]}
       >{`No Events Today`}</Text>
     </View>
   );
 };
 
-const Heading = () => {
+const Heading = (props) => {
   return (
     <View
       style={tailwind("px-5 py-1 flex-row flex justify-between items-center")}
     >
-      <HeadingGreet />
-      <HeadingImage />
+      <HeadingGreet darkMode={props.darkMode} />
+      <HeadingImage darkMode={props.darkMode} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  text: {
-    color:
-      getColorMode() === ColorMode.dark
-        ? DefaultTheme.darkMode.text
-        : DefaultTheme.normalMode.text,
+  textDark: {
+    color: DefaultTheme.darkMode.text,
+  },
+  textNormal: {
+    color: DefaultTheme.normalMode.text,
   },
 });
 
-export default Heading;
+const mapStateToProps = (state) => {
+  return {
+    darkMode: state.settingsReducer.darkMode,
+  };
+};
+
+export default connect(mapStateToProps, null)(Heading);

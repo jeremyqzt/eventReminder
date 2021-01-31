@@ -3,15 +3,17 @@ import React from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import MainPage from "./containers/mainPage";
+import SettingsPage from "./containers/settingsPage";
 
-import { getColorMode } from "./utils/utils.js";
 import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
-import { ColorMode, DefaultTheme } from "./utils/constants";
+import { DefaultTheme } from "./utils/constants";
+import { connect } from "react-redux";
+
 const Tabs = AnimatedTabBarNavigator();
 
-const TabsPage = () => {
-  const darkMode = getColorMode() !== ColorMode.normal;
+const TabsPage = (props) => {
+  const darkMode = props.darkMode;
 
   const getColor = (focused) => {
     if (darkMode) {
@@ -86,7 +88,7 @@ const TabsPage = () => {
           />
           <Tabs.Screen
             name="Settings"
-            component={MainPage}
+            component={SettingsPage}
             options={{
               tabBarIcon: ({ focused }) => (
                 <Icon
@@ -104,4 +106,10 @@ const TabsPage = () => {
   );
 };
 
-export default TabsPage;
+const mapStateToProps = (state) => {
+  return {
+    darkMode: state.settingsReducer.darkMode,
+  };
+};
+
+export default connect(mapStateToProps, null)(TabsPage);
