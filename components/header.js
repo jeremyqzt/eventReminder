@@ -2,6 +2,7 @@ import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import tailwind from "tailwind-rn";
 import { connect } from "react-redux";
+import { Divider } from "react-native-elements";
 
 import { DefaultTheme } from "../utils/constants";
 
@@ -43,7 +44,7 @@ const HeadingGreet = (props) => {
       <Text
         style={[tailwind("font-bold text-2xl"), textColor]}
       >{`Good ${greeting}`}</Text>
-      <Text style={[tailwind("font-semibold text-lg"), textColor]}>
+      <Text style={[tailwind("font-semibold"), textColor]}>
         {`${weekDay[date.getDay()]}, ${
           monthAbbreviation[date.getMonth()]
         }-${date.getDate()} ${date.getFullYear()}`}
@@ -66,11 +67,14 @@ const HeadingImage = (props) => {
 
 const Heading = (props) => {
   return (
-    <View
-      style={tailwind("px-5 py-1 flex-row flex justify-between items-center")}
-    >
-      <HeadingGreet darkMode={props.darkMode} />
-      <HeadingImage darkMode={props.darkMode} />
+    <View style={styles.headerContainer}>
+      <View
+        style={tailwind("px-5 py-1 flex-row flex justify-between items-center")}
+      >
+        <HeadingGreet darkMode={props.darkMode} />
+        <HeadingImage darkMode={props.darkMode} />
+      </View>
+      <Divider />
     </View>
   );
 };
@@ -81,6 +85,12 @@ const styles = StyleSheet.create({
   },
   textNormal: {
     color: DefaultTheme.normalMode.text,
+  },
+  headerContainer: {
+    marginBottom: 0,
+  },
+  header: {
+    paddingBottom: 10,
   },
 });
 

@@ -25,6 +25,7 @@ const SettingsToggle = (props) => {
       </View>
       <View style={styles.textAndSwitch}>
         <Switch
+          style={{ transform: [{ scaleX: 0.75 }, { scaleY: 0.75 }] }}
           trackColor={{
             false: DefaultTheme.normalMode.text,
             true: DefaultTheme.darkMode.text,
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-between",
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     alignItems: "center",
   },
   textAndSwitch: {
@@ -58,8 +59,8 @@ const styles = StyleSheet.create({
   text: {
     textAlignVertical: "center",
     textAlign: "center",
-    fontSize: 20,
-    fontWeight: "700",
+    fontSize: 18,
+    fontWeight: "600",
   },
 });
 

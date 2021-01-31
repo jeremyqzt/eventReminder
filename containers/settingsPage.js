@@ -1,6 +1,6 @@
 import React from "react";
 
-import Heading from "../components/header";
+import SettingsHeading from "../components/settingsHeader";
 import SettingsList from "../components/listSettings";
 import { connect } from "react-redux";
 
@@ -17,6 +17,7 @@ const SettingsPage = (props) => {
       }
     >
       <SafeAreaView>
+        <SettingsHeading />
         <SettingsList />
       </SafeAreaView>
     </View>
