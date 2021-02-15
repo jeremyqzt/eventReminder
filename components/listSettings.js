@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 
-import { getColorMode } from "../utils/utils.js";
-import { ColorMode, DefaultTheme } from "../utils/constants";
-
+import { DefaultTheme } from "../utils/constants";
 import { SafeAreaView } from "react-native";
-import { View, StyleSheet, Switch } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { settingsDarkMode } from "../actions/actions";
 import SettingsToggle from "./toggle";

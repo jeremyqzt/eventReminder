@@ -69,7 +69,10 @@ const Heading = (props) => {
   return (
     <View style={styles.headerContainer}>
       <View
-        style={tailwind("px-5 py-1 flex-row flex justify-between items-center")}
+        style={[
+          tailwind("px-5 py-1 flex-row flex justify-between items-center"),
+          styles.header,
+        ]}
       >
         <HeadingGreet darkMode={props.darkMode} />
         <HeadingImage darkMode={props.darkMode} />
