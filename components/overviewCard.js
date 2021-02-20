@@ -13,7 +13,7 @@ const OverviewCard = (props) => {
     >
       <View style={styles.cardTitle}>
         <Text style={props.darkMode ? styles.titleTextDark : styles.titleText}>
-          {"🎂 Birthdday"}
+          {"🎂 Ben's Birthdday"}
         </Text>
       </View>
       <Card.Divider />
@@ -32,7 +32,7 @@ const OverviewCard = (props) => {
         </View>
         <View>
           <Icon
-            name="anchor"
+            name="repeat"
             type="feather"
             color={
               props.darkMode

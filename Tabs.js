@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import MainPage from "./containers/mainPage";
 import SettingsPage from "./containers/settingsPage";
+import ContactsPage from "./containers/contactsPage";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
@@ -60,7 +61,7 @@ const TabsPage = (props) => {
           />
           <Tabs.Screen
             name="Contacts"
-            component={MainPage}
+            component={ContactsPage}
             options={{
               tabBarIcon: ({ focused }) => (
                 <Icon
