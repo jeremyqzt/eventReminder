@@ -1,7 +1,6 @@
 import React from "react";
 
-import Heading from "../components/header";
-import OverviewCard from "../components/overviewCard";
+import HeadingContact from "../components/contactHeader";
 
 import { connect } from "react-redux";
 import { DefaultTheme } from "../utils/constants";
@@ -13,7 +12,7 @@ const ContactsPage = (props) => {
   return (
     <View style={props.darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>
-        <Heading />
+        <HeadingContact />
       </SafeAreaView>
     </View>
   );
