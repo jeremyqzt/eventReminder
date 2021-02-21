@@ -1,12 +1,12 @@
-import * as React from "react";
-import { ListItem, Avatar } from "react-native-elements";
-import { TouchableHighlight, View } from "react-native";
-import { Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { ListItem, Avatar, Input } from "react-native-elements";
+import { StyleSheet, View } from "react-native";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { Icon } from "react-native-elements";
 
 export const ContactItem = (props) => {
+  const [expaneded, setExpanded] = useState(false);
   const defaultContact = {
     name: "Jeremy Qian",
     subtitle: "💖 Anniversary in 7 days",
@@ -19,7 +19,7 @@ export const ContactItem = (props) => {
 
   return (
     <View>
-      <ListItem key={1} bottomDivider>
+      <ListItem key={1} bottomDivider onPress={() => setExpanded(!expaneded)}>
         <Avatar
           size={"medium"}
           icon={{
@@ -36,16 +36,57 @@ export const ContactItem = (props) => {
           <ListItem.Subtitle>{contact.subtitle}</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron
-          name="chevron-down"
+          name={!expaneded ? "chevron-down" : "chevron-up"}
           size={20}
           color={iconColor}
         ></ListItem.Chevron>
       </ListItem>
+      {expaneded ? (
+        <ListItem key={2} bottomDivider>
+          <ListItem.Content>
+            <View style={styles.form}>
+              <Input
+                containerStyle={styles.inputs}
+                placeholder="First Name"
+                leftIcon={
+                  <Icon
+                    name="user"
+                    type="font-awesome"
+                    size={18}
+                    color={iconColor}
+                  />
+                }
+              />
+              <Input
+                containerStyle={styles.inputs}
+                placeholder="Last Name"
+                leftIcon={
+                  <Icon
+                    name="user-circle"
+                    type="font-awesome"
+                    size={18}
+                    color={iconColor}
+                  />
+                }
+              />
+            </View>
+          </ListItem.Content>
+        </ListItem>
+      ) : null}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  inputs: {
+    width: "50%",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+  },
   PageNormal: {
     backgroundColor: DefaultTheme.normalMode.main,
     height: "100%",
