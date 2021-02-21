@@ -3,6 +3,8 @@ import { Text, View, StyleSheet } from "react-native";
 import tailwind from "tailwind-rn";
 import { connect } from "react-redux";
 import { Divider } from "react-native-elements";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { Button } from "react-native-elements";
 
 import { DefaultTheme } from "../utils/constants";
 
@@ -22,13 +24,20 @@ const HeadingText = (props) => {
 };
 
 const HeadingImage = (props) => {
-  const textColor = props.darkMode ? styles.textDark : styles.textNormal;
+  const textColor = props.darkMode ? styles.textNormal : styles.textDark;
+  const iconColor = props.darkMode
+    ? DefaultTheme.normalMode.text
+    : DefaultTheme.darkMode.text;
 
   return (
     <View style={tailwind("items-center rounded px-1 py-1")}>
-      <Text
-        style={[tailwind("font-bold text-xs"), textColor]}
-      >{`No Events Today`}</Text>
+      <Button
+        icon={<Icon name="user-plus" size={15} color={iconColor} />}
+        buttonStyle={props.darkMode ? styles.buttonDark : styles.buttonNormal}
+        title=" Add Contact"
+        titleStyle={textColor}
+        raised
+      />
     </View>
   );
 };
@@ -51,6 +60,16 @@ const HeadingContact = (props) => {
 };
 
 const styles = StyleSheet.create({
+  buttonNormal: {
+    backgroundColor: DefaultTheme.darkMode.background,
+    borderRadius: 15,
+    paddingHorizontal: 10,
+  },
+  buttonDark: {
+    backgroundColor: DefaultTheme.normalMode.background,
+    borderRadius: 15,
+    paddingHorizontal: 10,
+  },
   textDark: {
     color: DefaultTheme.darkMode.text,
   },
