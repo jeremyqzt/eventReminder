@@ -7,12 +7,14 @@ import { DefaultTheme } from "../utils/constants";
 
 import { SafeAreaView } from "react-native";
 import { View, StyleSheet } from "react-native";
+import { ContactsList } from "../components/contactsList";
 
 const ContactsPage = (props) => {
   return (
     <View style={props.darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>
         <HeadingContact />
+        <ContactsList />
       </SafeAreaView>
     </View>
   );
