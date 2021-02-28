@@ -4,7 +4,7 @@ import { TouchableHighlight, View } from "react-native";
 import { Text, StyleSheet } from "react-native";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
-import { ContactItem } from "./contactItem";
+import ContactItem from "./contactItem";
 
 export const ContactsList = () => {
   return (

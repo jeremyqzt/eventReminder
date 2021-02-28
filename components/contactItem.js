@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import { ListItem, Avatar, Input } from "react-native-elements";
+import { ListItem, Avatar, Input, Icon, Button } from "react-native-elements";
 import { StyleSheet, View } from "react-native";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
-import { Icon } from "react-native-elements";
 
-export const ContactItem = (props) => {
+const ContactItem = (props) => {
   const [expaneded, setExpanded] = useState(false);
   const defaultContact = {
     name: "Jeremy Qian",
     subtitle: "💖 Anniversary in 7 days",
   };
-
+  console.log(props);
   const contact = props.contact ? props.contact : defaultContact;
   const iconColor = props.darkMode
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
-
+  console.log(props.darkMode);
   return (
     <View>
       <ListItem key={1} bottomDivider onPress={() => setExpanded(!expaneded)}>
@@ -70,6 +69,34 @@ export const ContactItem = (props) => {
                 }
               />
             </View>
+            <View style={[styles.form, styles.buttonRow]}>
+              <Button
+                title="Delete Contact"
+                type="outline"
+                raised
+                onPress={() => {}}
+                buttonStyle={
+                  props.darkMode ? styles.buttonDark : styles.buttonNormal
+                }
+                titleStyle={
+                  props.darkMode ? styles.textNormal : styles.textDark
+                }
+                containerStyle={styles.buttonContainer}
+              />
+              <Button
+                title="Update Contact"
+                type="outline"
+                raised
+                onPress={() => {}}
+                buttonStyle={
+                  props.darkMode ? styles.buttonDark : styles.buttonNormal
+                }
+                titleStyle={
+                  props.darkMode ? styles.textNormal : styles.textDark
+                }
+                containerStyle={styles.buttonContainer}
+              />
+            </View>
           </ListItem.Content>
         </ListItem>
       ) : null}
@@ -78,6 +105,28 @@ export const ContactItem = (props) => {
 };
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    marginHorizontal: 10,
+  },
+  buttonNormal: {
+    backgroundColor: DefaultTheme.darkMode.background,
+    borderRadius: 15,
+    paddingHorizontal: 10,
+  },
+  buttonDark: {
+    backgroundColor: DefaultTheme.normalMode.background,
+    borderRadius: 15,
+    paddingHorizontal: 10,
+  },
+  textDark: {
+    color: DefaultTheme.darkMode.text,
+  },
+  textNormal: {
+    color: DefaultTheme.normalMode.text,
+  },
+  buttonRow: {
+    justifyContent: "flex-end",
+  },
   inputs: {
     width: "50%",
   },
