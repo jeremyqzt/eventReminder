@@ -1,7 +1,6 @@
 import React from "react";
 
-import { getColorMode } from "../utils/utils.js";
-import { ColorMode, DefaultTheme } from "../utils/constants";
+import { DefaultTheme } from "../utils/constants";
 
 import { View, StyleSheet, Switch, Text } from "react-native";
 import { connect } from "react-redux";
