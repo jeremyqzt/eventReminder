@@ -31,8 +31,6 @@ const HeadingImage = (props) => {
     : DefaultTheme.darkMode.text;
 
   const addContact = () => {
-    //console.log(defaultContact);
-    console.log(props);
     props.addContact(defaultContact);
   };
 

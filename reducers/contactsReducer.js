@@ -5,10 +5,11 @@ const initial = {
 };
 
 const contactsReducer = (state = initial, action) => {
+  console.log(action);
   switch (action.type) {
     case "ADD_CONTACT": {
       return {
-        contacts: [...state.contacts, action.contacts],
+        contacts: [...state.contacts, action.contact],
       };
     }
     default: {

@@ -10,12 +10,10 @@ const ContactItem = (props) => {
     name: "Jeremy Qian",
     subtitle: "💖 Anniversary in 7 days",
   };
-  console.log(props);
   const contact = props.contact ? props.contact : defaultContact;
   const iconColor = props.darkMode
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
-  console.log(props.darkMode);
   return (
     <View>
       <ListItem key={1} bottomDivider onPress={() => setExpanded(!expaneded)}>
