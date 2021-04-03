@@ -6,7 +6,8 @@ import { Divider } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Button } from "react-native-elements";
 
-import { DefaultTheme } from "../utils/constants";
+import { DefaultTheme, defaultContact } from "../utils/constants";
+import { addContact } from "../actions/actions";
 
 const HeadingText = (props) => {
   const textColor = props.darkMode ? styles.textDark : styles.textNormal;
@@ -29,6 +30,12 @@ const HeadingImage = (props) => {
     ? DefaultTheme.normalMode.text
     : DefaultTheme.darkMode.text;
 
+  const addContact = () => {
+    //console.log(defaultContact);
+    console.log(props);
+    props.addContact(defaultContact);
+  };
+
   return (
     <View style={tailwind("items-center rounded px-1 py-1")}>
       <Button
@@ -37,6 +44,7 @@ const HeadingImage = (props) => {
         title=" Add Contact"
         titleStyle={textColor}
         raised
+        onPress={addContact}
       />
     </View>
   );
@@ -52,7 +60,7 @@ const HeadingContact = (props) => {
         ]}
       >
         <HeadingText darkMode={props.darkMode} />
-        <HeadingImage darkMode={props.darkMode} />
+        <HeadingImage darkMode={props.darkMode} addContact={props.addContact} />
       </View>
       <Divider />
     </View>
@@ -90,4 +98,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(HeadingContact);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addContact: (contact) => dispatch(addContact(contact)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeadingContact);

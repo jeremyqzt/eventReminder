@@ -64,6 +64,14 @@ export const DateTypeEnum = Object.freeze({
   },
 });
 
+export const defaultContact = Object.freeze({
+  date: "01-01-20",
+  dateType: DateTypes.solar,
+  eventType: EventEnum.events[0],
+  eventName: "Please Enter a Name",
+  equivalentSolarDate: "01-01-20",
+});
+
 export const DefaultTheme = {
   primary: "#3D85C6",
   secondary: "#9EC2E3",
