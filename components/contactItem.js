@@ -7,13 +7,15 @@ import { connect } from "react-redux";
 const ContactItem = (props) => {
   const [expaneded, setExpanded] = useState(false);
   const defaultContact = {
-    name: "Jeremy Qian",
-    subtitle: "💖 Anniversary in 7 days",
+    firstName: "Jeremy",
+    lastName: "Qian",
   };
+
   const contact = props.contact ? props.contact : defaultContact;
   const iconColor = props.darkMode
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
+
   return (
     <View>
       <ListItem key={1} bottomDivider onPress={() => setExpanded(!expaneded)}>
@@ -29,7 +31,7 @@ const ContactItem = (props) => {
           activeOpacity={0.7}
         />
         <ListItem.Content>
-          <ListItem.Title>{contact.name}</ListItem.Title>
+          <ListItem.Title>{`${contact.firstName}, ${contact.lastName}`}</ListItem.Title>
           <ListItem.Subtitle>{contact.subtitle}</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron

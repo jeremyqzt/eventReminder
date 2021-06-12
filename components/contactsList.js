@@ -1,15 +1,17 @@
 import * as React from "react";
-import { ListItem, Avatar } from "react-native-elements";
-import { TouchableHighlight, View } from "react-native";
-import { Text, StyleSheet } from "react-native";
+import { View } from "react-native";
+import { StyleSheet } from "react-native";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
 import ContactItem from "./contactItem";
 
-export const ContactsList = () => {
+const ContactsList = (props) => {
+  const allContacts = props.contacts || [];
   return (
     <View>
-      <ContactItem />
+      {allContacts.map((contact, index) => {
+        return <ContactItem contact={contact} key={index} />;
+      })}
     </View>
   );
 };
@@ -28,6 +30,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     darkMode: state.settingsReducer.darkMode,
+    contacts: state.contactsReducer.contacts,
   };
 };
 

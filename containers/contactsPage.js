@@ -7,7 +7,7 @@ import { DefaultTheme } from "../utils/constants";
 
 import { SafeAreaView } from "react-native";
 import { View, StyleSheet } from "react-native";
-import { ContactsList } from "../components/contactsList";
+import ContactsList from "../components/contactsList";
 
 const ContactsPage = (props) => {
   return (
