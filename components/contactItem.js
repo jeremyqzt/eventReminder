@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ListItem, Avatar, Input, Icon, Button } from "react-native-elements";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
+import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
 
@@ -27,7 +28,7 @@ const ContactItem = (props) => {
             type: "font-awesome",
           }}
           overlayContainerStyle={{ backgroundColor: "white" }}
-          onPress={() => console.log("Works!")}
+          onPress={() => setExpanded(!expaneded)}
           activeOpacity={0.7}
         />
         <ListItem.Content>
@@ -36,7 +37,7 @@ const ContactItem = (props) => {
         </ListItem.Content>
         <ListItem.Chevron
           name={!expaneded ? "chevron-down" : "chevron-up"}
-          size={20}
+          size={16}
           color={iconColor}
         ></ListItem.Chevron>
       </ListItem>
@@ -45,25 +46,53 @@ const ContactItem = (props) => {
           <ListItem.Content>
             <View style={styles.form}>
               <Input
-                containerStyle={styles.inputs}
+                containerStyle={styles.input}
+                inputContainerStyle={styles.inputContainer}
+                leftIconContainerStyle={styles.inputIconStyle}
                 placeholder="First Name"
+                spellCheck={false}
+                inputStyle={styles.inputStyle}
+                autoCorrect={false}
                 leftIcon={
                   <Icon
                     name="user"
                     type="font-awesome"
-                    size={18}
+                    size={14}
                     color={iconColor}
                   />
                 }
               />
               <Input
-                containerStyle={styles.inputs}
+                containerStyle={styles.input}
+                inputContainerStyle={styles.inputContainer}
+                inputStyle={styles.inputStyle}
+                leftIconContainerStyle={styles.inputIconStyle}
+                labelStyle={styles.inputLabelStyle}
+                spellCheck={false}
+                autoCorrect={false}
                 placeholder="Last Name"
                 leftIcon={
                   <Icon
                     name="user-circle"
                     type="font-awesome"
-                    size={18}
+                    size={14}
+                    color={iconColor}
+                  />
+                }
+              />
+            </View>
+            <View style={styles.form}>
+              <Input
+                inputContainerStyle={styles.inputContainer}
+                leftIconContainerStyle={styles.inputIconStyle}
+                placeholder="Describe This Person"
+                inputStyle={styles.inputStyle}
+                autoCorrect={false}
+                leftIcon={
+                  <Icon
+                    name="commenting"
+                    type="font-awesome"
+                    size={14}
                     color={iconColor}
                   />
                 }
@@ -71,29 +100,29 @@ const ContactItem = (props) => {
             </View>
             <View style={[styles.form, styles.buttonRow]}>
               <Button
-                title="Delete Contact"
                 type="outline"
                 raised
+                icon={{
+                  name: "trash",
+                  color: styles.deleteButtonIcon.backgroundColor,
+                  type: "font-awesome",
+                }}
                 onPress={() => {}}
-                buttonStyle={
-                  props.darkMode ? styles.buttonDark : styles.buttonNormal
-                }
-                titleStyle={
-                  props.darkMode ? styles.textNormal : styles.textDark
-                }
+                buttonStyle={styles.deleteButton}
                 containerStyle={styles.buttonContainer}
               />
               <Button
-                title="Update Contact"
+                icon={{
+                  name: "floppy-o",
+                  color: styles.saveButtonIcon.backgroundColor,
+                  type: "font-awesome",
+                }}
+                title="Save"
                 type="outline"
                 raised
                 onPress={() => {}}
-                buttonStyle={
-                  props.darkMode ? styles.buttonDark : styles.buttonNormal
-                }
-                titleStyle={
-                  props.darkMode ? styles.textNormal : styles.textDark
-                }
+                buttonStyle={styles.button}
+                titleStyle={styles.buttonText}
                 containerStyle={styles.buttonContainer}
               />
             </View>
@@ -103,48 +132,6 @@ const ContactItem = (props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    marginHorizontal: 10,
-  },
-  buttonNormal: {
-    backgroundColor: DefaultTheme.darkMode.background,
-    borderRadius: 15,
-    paddingHorizontal: 10,
-  },
-  buttonDark: {
-    backgroundColor: DefaultTheme.normalMode.background,
-    borderRadius: 15,
-    paddingHorizontal: 10,
-  },
-  textDark: {
-    color: DefaultTheme.darkMode.text,
-  },
-  textNormal: {
-    color: DefaultTheme.normalMode.text,
-  },
-  buttonRow: {
-    justifyContent: "flex-end",
-  },
-  inputs: {
-    width: "50%",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-between",
-  },
-  PageNormal: {
-    backgroundColor: DefaultTheme.normalMode.main,
-    height: "100%",
-  },
-  PageDark: {
-    backgroundColor: DefaultTheme.darkMode.main,
-    height: "100%",
-  },
-});
 
 const mapStateToProps = (state) => {
   return {

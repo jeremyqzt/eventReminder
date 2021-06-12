@@ -83,6 +83,8 @@ export const DefaultTheme = {
   secondary: "#9EC2E3",
   tertiary: "#CBBDFF",
 
+  delete: "#F08080",
+  save: "",
   colorful: ["#A4DEF9", "#CFBAE1", "#97F9F9"],
 
   heading1: "black",
