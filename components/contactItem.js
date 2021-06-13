@@ -29,6 +29,7 @@ const ContactItem = (props) => {
       id: props.id,
     };
     props.updateContact(updatedContact);
+    setExpanded(false);
   };
 
   return (
