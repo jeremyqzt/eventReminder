@@ -4,6 +4,7 @@ import { View } from "react-native";
 import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
+import { deleteContact, updateContact } from "../actions/actions";
 
 const ContactItem = (props) => {
   const [expaneded, setExpanded] = useState(false);
@@ -16,9 +17,19 @@ const ContactItem = (props) => {
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
 
-  const deleteContact = () => {};
+  const deleteContact = () => {
+    props.deleteContact(props.contact.id);
+  };
 
-  const saveContact = () => {};
+  const saveContact = () => {
+    const updatedContact = {
+      firstName: firstName,
+      lastName: lastName,
+      description: description,
+      id: props.id,
+    };
+    props.updateContact(updatedContact);
+  };
 
   return (
     <View>
@@ -151,10 +162,17 @@ const ContactItem = (props) => {
   );
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteContact: (id) => dispatch(deleteContact(id)),
+    updateContact: (contact) => dispatch(updateContact(contact)),
+  };
+};
+
 const mapStateToProps = (state) => {
   return {
     darkMode: state.settingsReducer.darkMode,
   };
 };
 
-export default connect(mapStateToProps, null)(ContactItem);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactItem);
