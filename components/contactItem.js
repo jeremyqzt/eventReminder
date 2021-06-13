@@ -7,10 +7,9 @@ import { connect } from "react-redux";
 
 const ContactItem = (props) => {
   const [expaneded, setExpanded] = useState(false);
-  const defaultContact = {
-    firstName: "Jeremy",
-    lastName: "Qian",
-  };
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [description, setDescription] = useState();
 
   const contact = props.contact ? props.contact : defaultContact;
   const iconColor = props.darkMode
@@ -32,8 +31,10 @@ const ContactItem = (props) => {
           activeOpacity={0.7}
         />
         <ListItem.Content>
-          <ListItem.Title>{`${contact.firstName}, ${contact.lastName}`}</ListItem.Title>
-          <ListItem.Subtitle>{contact.subtitle}</ListItem.Subtitle>
+          <ListItem.Title>{`${firstName}, ${lastName}`}</ListItem.Title>
+          <ListItem.Subtitle>{`${
+            description || "Enter a description"
+          }`}</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron
           name={!expaneded ? "chevron-down" : "chevron-up"}
@@ -49,10 +50,13 @@ const ContactItem = (props) => {
                 containerStyle={styles.input}
                 inputContainerStyle={styles.inputContainer}
                 leftIconContainerStyle={styles.inputIconStyle}
-                placeholder="First Name"
+                placeholder={firstName ? firstName : "First Name"}
                 spellCheck={false}
                 inputStyle={styles.inputStyle}
                 autoCorrect={false}
+                onChangeText={(value) => {
+                  setFirstName(value);
+                }}
                 leftIcon={
                   <Icon
                     name="user"
@@ -66,11 +70,14 @@ const ContactItem = (props) => {
                 containerStyle={styles.input}
                 inputContainerStyle={styles.inputContainer}
                 inputStyle={styles.inputStyle}
+                onChangeText={(value) => {
+                  setLastName(value);
+                }}
                 leftIconContainerStyle={styles.inputIconStyle}
                 labelStyle={styles.inputLabelStyle}
                 spellCheck={false}
                 autoCorrect={false}
-                placeholder="Last Name"
+                placeholder={lastName ? lastName : "Last Name"}
                 leftIcon={
                   <Icon
                     name="user-circle"
@@ -85,8 +92,13 @@ const ContactItem = (props) => {
               <Input
                 inputContainerStyle={styles.inputContainer}
                 leftIconContainerStyle={styles.inputIconStyle}
-                placeholder="Describe This Person"
+                placeholder={
+                  description ? description : "Describe this person!"
+                }
                 inputStyle={styles.inputStyle}
+                onChangeText={(value) => {
+                  setDescription(value);
+                }}
                 autoCorrect={false}
                 leftIcon={
                   <Icon

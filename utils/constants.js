@@ -73,8 +73,9 @@ export const defaultEvent = Object.freeze({
 });
 
 export const defaultContact = Object.freeze({
-  firstName: "Enter",
-  lastName: "a Name",
+  firstName: "",
+  lastName: "",
+  description: "",
   events: [],
 });
 
