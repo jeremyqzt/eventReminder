@@ -7,14 +7,18 @@ import { connect } from "react-redux";
 
 const ContactItem = (props) => {
   const [expaneded, setExpanded] = useState(false);
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [description, setDescription] = useState();
 
-  const contact = props.contact ? props.contact : defaultContact;
+  const [firstName, setFirstName] = useState(props.contact.firstName);
+  const [lastName, setLastName] = useState(props.contact.lastName);
+  const [description, setDescription] = useState(props.contact.description);
+
   const iconColor = props.darkMode
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
+
+  const deleteContact = () => {};
+
+  const saveContact = () => {};
 
   return (
     <View>
@@ -31,7 +35,9 @@ const ContactItem = (props) => {
           activeOpacity={0.7}
         />
         <ListItem.Content>
-          <ListItem.Title>{`${firstName}, ${lastName}`}</ListItem.Title>
+          <ListItem.Title>
+            {firstName ? `${firstName}` : "Enter a Name"}
+          </ListItem.Title>
           <ListItem.Subtitle>{`${
             description || "Enter a description"
           }`}</ListItem.Subtitle>
@@ -119,7 +125,7 @@ const ContactItem = (props) => {
                   color: styles.deleteButtonIcon.backgroundColor,
                   type: "font-awesome",
                 }}
-                onPress={() => {}}
+                onPress={deleteContact}
                 buttonStyle={styles.deleteButton}
                 containerStyle={styles.buttonContainer}
               />
@@ -132,7 +138,7 @@ const ContactItem = (props) => {
                 title="Save"
                 type="outline"
                 raised
-                onPress={() => {}}
+                onPress={saveContact}
                 buttonStyle={styles.button}
                 titleStyle={styles.buttonText}
                 containerStyle={styles.buttonContainer}
