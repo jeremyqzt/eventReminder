@@ -22,3 +22,21 @@ export const deleteContact = (id) => ({
   type: "DELETE_CONTACT",
   toRemove: id,
 });
+
+export const addEvent = (event) => ({
+  type: "ADD_EVENT",
+  event: {
+    ...event,
+    id: uuidv4(),
+  },
+});
+
+export const deleteEvent = (id) => ({
+  type: "DELETE_EVENT",
+  toRemove: id,
+});
+
+export const updateEvent = (event) => ({
+  type: "UPDATE_EVENT",
+  event: event,
+});
