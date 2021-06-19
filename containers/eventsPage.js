@@ -1,6 +1,7 @@
 import React from "react";
 
 import HeadingEvent from "../components/eventHeader";
+import AddEventTile from "../components/addEventTile";
 
 import { connect } from "react-redux";
 import { DefaultTheme } from "../utils/constants";
@@ -13,6 +14,7 @@ const EventsPage = (props) => {
     <View style={props.darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>
         <HeadingEvent />
+        <AddEventTile />
       </SafeAreaView>
     </View>
   );
