@@ -4,6 +4,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import MainPage from "./containers/mainPage";
 import SettingsPage from "./containers/settingsPage";
+import EventsPage from "./containers/eventsPage";
+
 import ContactsPage from "./containers/contactsPage";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -75,7 +77,7 @@ const TabsPage = (props) => {
           />
           <Tabs.Screen
             name="Events"
-            component={MainPage}
+            component={EventsPage}
             options={{
               tabBarIcon: ({ focused }) => (
                 <Icon

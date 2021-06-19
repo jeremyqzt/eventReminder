@@ -1,20 +1,18 @@
 import React from "react";
 
-import HeadingContact from "../components/contactHeader";
+import HeadingEvent from "../components/eventHeader";
 
 import { connect } from "react-redux";
 import { DefaultTheme } from "../utils/constants";
 
 import { SafeAreaView } from "react-native";
 import { View, StyleSheet } from "react-native";
-import { ContactsList } from "../components/contactsList";
 
-const ContactsPage = (props) => {
+const EventsPage = (props) => {
   return (
     <View style={props.darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>
-        <HeadingContact />
-        <ContactsList />
+        <HeadingEvent />
       </SafeAreaView>
     </View>
   );
@@ -37,4 +35,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(ContactsPage);
+export default connect(mapStateToProps, null)(EventsPage);
