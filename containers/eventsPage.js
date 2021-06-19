@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import HeadingEvent from "../components/eventHeader";
 import AddEventTile from "../components/addEventTile";
@@ -8,6 +8,7 @@ import { DefaultTheme } from "../utils/constants";
 
 import { SafeAreaView } from "react-native";
 import { View, StyleSheet } from "react-native";
+import DatePicker from "react-native-date-picker";
 
 const EventsPage = (props) => {
   return (
