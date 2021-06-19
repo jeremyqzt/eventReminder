@@ -11,14 +11,14 @@ import { addEvent } from "../actions/actions";
 
 const HeadingText = (props) => {
   const textColor = props.darkMode ? styles.textDark : styles.textNormal;
-
+  const today = new Date();
   return (
     <View>
       <Text
         style={[tailwind("font-bold text-2xl"), textColor]}
-      >{`Contacts`}</Text>
+      >{`Events`}</Text>
       <Text style={[tailwind("font-semibold"), textColor]}>
-        {`Edit or update contacts`}
+        {`☀️ ${today.toDateString()}`}
       </Text>
     </View>
   );
@@ -39,7 +39,7 @@ const HeadingImage = (props) => {
       <Button
         icon={<Icon name="user-plus" size={15} color={iconColor} />}
         buttonStyle={props.darkMode ? styles.buttonDark : styles.buttonNormal}
-        title=" Add Contact"
+        title=" Add Event"
         titleStyle={textColor}
         raised
         onPress={addEvent}
