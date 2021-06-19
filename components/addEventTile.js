@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ListItem, Avatar, Input, Icon, Button } from "react-native-elements";
+import { ListItem, Text, Input, Icon, Button } from "react-native-elements";
 import { View } from "react-native";
 import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
@@ -72,14 +72,45 @@ const AddEventTile = (props) => {
               />
             </View>
             <View style={styles.datePicker}>
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode={"date"}
-                is24Hour={true}
-                display="default"
-                onChange={onChange}
-              />
+              <Text
+                style={{
+                  fontSize: 18,
+                  marginRight: 5,
+                }}
+              >
+                Select Event Date:
+              </Text>
+              <View style={styles.iOsPickerContainer}>
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={date}
+                  mode={"date"}
+                  is24Hour={true}
+                  display="calendar"
+                  style={styles.iOsPicker}
+                  onChange={onChange}
+                />
+              </View>
+            </View>
+            <View style={styles.dateInformation}>
+              <View style={styles.dateInformationText}>
+                <Icon
+                  name="info-circle"
+                  type="font-awesome"
+                  size={12}
+                  color={iconColor}
+                />
+                <Text> {"Next Event Occurence:   "} 78 days</Text>
+              </View>
+              <View style={styles.dateInformationText}>
+                <Icon
+                  name="moon-o"
+                  type="font-awesome"
+                  size={12}
+                  color={iconColor}
+                />
+                <Text> {"Equivalent Lunar Event:  "} Jun, 19 2021</Text>
+              </View>
             </View>
             <View style={styles.form}>
               <Input

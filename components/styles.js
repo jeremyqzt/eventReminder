@@ -44,6 +44,10 @@ export const styles = StyleSheet.create({
   inputStyle: {
     marginBottom: 0,
   },
+  titleStyle: {
+    marginBottom: 0,
+    fontSize: 18,
+  },
   inputIconStyle: {
     marginVertical: -10,
   },
@@ -66,6 +70,32 @@ export const styles = StyleSheet.create({
     height: "100%",
   },
   datePicker: {
+    display: "flex",
+    flexDirection: "row",
+    paddingHorizontal: 10,
+    marginTop: 3,
+    alignItems: "center",
     width: "100%",
+  },
+  iOsPicker: {
+    flex: 1,
+    height: 30,
+  },
+  iOsPickerContainer: {
+    flex: 1,
+    height: 30,
+  },
+  dateInformation: {
+    width: "100%",
+    paddingLeft: 25,
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: 15,
+  },
+  dateInformationText: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
   },
 });
