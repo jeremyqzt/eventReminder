@@ -5,6 +5,7 @@ import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
 import { deleteContact, updateContact } from "../actions/actions";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const AddEventTile = (props) => {
   const [expaneded, setExpanded] = useState(true);
@@ -12,6 +13,14 @@ const AddEventTile = (props) => {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [description, setDescription] = useState();
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(true);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
+  };
 
   const iconColor = props.darkMode
     ? DefaultTheme.darkMode.text
@@ -37,6 +46,24 @@ const AddEventTile = (props) => {
       {expaneded ? (
         <ListItem key={2} bottomDivider>
           <ListItem.Content>
+            <View>
+              <Button
+                onPress={() => {
+                  setShow(!show);
+                }}
+                title="Show date picker!"
+              />
+              {show && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={date}
+                  mode={"date"}
+                  is24Hour={true}
+                  display="default"
+                  onChange={onChange}
+                />
+              )}
+            </View>
             <View style={styles.form}>
               <Input
                 containerStyle={styles.input}
