@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { Divider } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Button } from "react-native-elements";
+import moment from "moment";
+import "moment-lunar";
 
 import { DefaultTheme, defaultContact } from "../utils/constants";
 import { addEvent } from "../actions/actions";
@@ -12,13 +14,25 @@ import { addEvent } from "../actions/actions";
 const HeadingText = (props) => {
   const textColor = props.darkMode ? styles.textDark : styles.textNormal;
   const today = new Date();
+  const todayLunar = moment()
+    .year(today.getFullYear())
+    .month(today.getMonth())
+    .date(today.getDay())
+    .lunar()
+    .format("MMM, DD YYYY");
+
   return (
     <View>
       <Text
         style={[tailwind("font-bold text-2xl"), textColor]}
       >{`Events`}</Text>
       <Text style={[tailwind("font-semibold"), textColor]}>
-        {`☀️ ${today.toDateString()}`}
+        <Icon name="calendar" size={15} />
+        {` ${moment().format("MMM, DD YYYY")}`}
+      </Text>
+      <Text style={[tailwind("font-semibold"), textColor]}>
+        <Icon name="moon-o" size={15} />
+        {` ${todayLunar}`}
       </Text>
     </View>
   );
@@ -37,7 +51,7 @@ const HeadingImage = (props) => {
   return (
     <View style={tailwind("items-center rounded px-1 py-1")}>
       <Button
-        icon={<Icon name="user-plus" size={15} color={iconColor} />}
+        icon={<Icon name="calendar-plus-o" size={15} color={iconColor} />}
         buttonStyle={props.darkMode ? styles.buttonDark : styles.buttonNormal}
         title=" Add Event"
         titleStyle={textColor}
