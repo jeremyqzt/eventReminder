@@ -10,7 +10,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 const AddEventTile = (props) => {
   const [expaneded, setExpanded] = useState(true);
 
-  const [firstName, setFirstName] = useState();
+  const [eventName, setEventName] = useState();
   const [lastName, setLastName] = useState();
   const [description, setDescription] = useState();
   const [date, setDate] = useState(new Date());
@@ -31,13 +31,11 @@ const AddEventTile = (props) => {
   };
 
   const saveContact = () => {
-    const updatedContact = {
-      firstName: firstName,
-      lastName: lastName,
-      description: description,
+    const updateEvent = {
+      eventName,
       id: props.id,
     };
-    props.updateContact(updatedContact);
+    props.updateContact(updateEvent);
     setExpanded(false);
   };
 
@@ -46,35 +44,54 @@ const AddEventTile = (props) => {
       {expaneded ? (
         <ListItem key={2} bottomDivider>
           <ListItem.Content>
-            <View>
-              <Button
-                onPress={() => {
-                  setShow(!show);
+            <View style={styles.form}>
+              <Input
+                inputContainerStyle={styles.inputContainer}
+                leftIconContainerStyle={styles.inputIconStyle}
+                placeholder={
+                  eventName ? eventName : "Event Name (E.g. 🥮 Moon Festival)"
+                }
+                spellCheck={false}
+                inputStyle={styles.titleStyle}
+                autoCorrect={false}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 20,
                 }}
-                title="Show date picker!"
+                onChangeText={(value) => {
+                  setEventName(value);
+                }}
+                leftIcon={
+                  <Icon
+                    name="caret-right"
+                    type="font-awesome"
+                    size={14}
+                    color={iconColor}
+                  />
+                }
               />
-              {show && (
-                <DateTimePicker
-                  testID="dateTimePicker"
-                  value={date}
-                  mode={"date"}
-                  is24Hour={true}
-                  display="default"
-                  onChange={onChange}
-                />
-              )}
+            </View>
+            <View style={styles.datePicker}>
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode={"date"}
+                is24Hour={true}
+                display="default"
+                onChange={onChange}
+              />
             </View>
             <View style={styles.form}>
               <Input
                 containerStyle={styles.input}
                 inputContainerStyle={styles.inputContainer}
                 leftIconContainerStyle={styles.inputIconStyle}
-                placeholder={firstName ? firstName : "First Name"}
+                placeholder={eventName ? eventName : "First Name"}
                 spellCheck={false}
                 inputStyle={styles.inputStyle}
                 autoCorrect={false}
                 onChangeText={(value) => {
-                  setFirstName(value);
+                  setEventName(value);
                 }}
                 leftIcon={
                   <Icon

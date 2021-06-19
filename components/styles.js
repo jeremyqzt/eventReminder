@@ -65,4 +65,7 @@ export const styles = StyleSheet.create({
     backgroundColor: DefaultTheme.darkMode.main,
     height: "100%",
   },
+  datePicker: {
+    width: "100%",
+  },
 });
