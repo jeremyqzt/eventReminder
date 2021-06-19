@@ -48,7 +48,7 @@ const ContactItem = (props) => {
         />
         <ListItem.Content>
           <ListItem.Title>
-            {firstName ? `${firstName}` : "Enter a Name"}
+            {firstName ? `${firstName} ${lastName || ""}` : "Enter a Name"}
           </ListItem.Title>
           <ListItem.Subtitle>{`${
             description || "Enter a description"
