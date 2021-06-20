@@ -114,7 +114,7 @@ const AddEventTile = (props) => {
                 type="outline"
                 raised
                 icon={{
-                  name: "trash",
+                  name: "ban",
                   color: styles.deleteButtonIcon.backgroundColor,
                   type: "font-awesome",
                 }}
@@ -128,7 +128,7 @@ const AddEventTile = (props) => {
                   color: styles.saveButtonIcon.backgroundColor,
                   type: "font-awesome",
                 }}
-                title="Save"
+                title="Save Event"
                 type="outline"
                 raised
                 onPress={saveContact}
