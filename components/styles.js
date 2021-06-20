@@ -127,6 +127,7 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
     minHeight: 70,
+    marginBottom: 15,
   },
   colorPicker: {
     minHeight: 65,

@@ -109,6 +109,34 @@ const AddEventTile = (props) => {
             <View style={styles.colorPickerContainer}>
               <ColorPicker />
             </View>
+            <View style={[styles.form, styles.buttonRow]}>
+              <Button
+                type="outline"
+                raised
+                icon={{
+                  name: "trash",
+                  color: styles.deleteButtonIcon.backgroundColor,
+                  type: "font-awesome",
+                }}
+                onPress={deleteContact}
+                buttonStyle={styles.deleteButton}
+                containerStyle={styles.buttonContainer}
+              />
+              <Button
+                icon={{
+                  name: "floppy-o",
+                  color: styles.saveButtonIcon.backgroundColor,
+                  type: "font-awesome",
+                }}
+                title="Save"
+                type="outline"
+                raised
+                onPress={saveContact}
+                buttonStyle={styles.button}
+                titleStyle={styles.buttonText}
+                containerStyle={styles.buttonContainer}
+              />
+            </View>
           </ListItem.Content>
         </ListItem>
       ) : null}
