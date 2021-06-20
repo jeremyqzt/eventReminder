@@ -119,6 +119,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 5,
   },
   colorPickerContainer: {
     paddingHorizontal: 10,
