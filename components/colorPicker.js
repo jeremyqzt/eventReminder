@@ -1,11 +1,33 @@
 import React, { useState } from "react";
-import { ListItem, Text, Input, Icon, Button } from "react-native-elements";
-import { View } from "react-native";
+import { ListItem, Text, Input, Icon } from "react-native-elements";
+import { View, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
 
+const Square = (props) => {
+  const borderColor = props.color === "#000000" ? "#6495ed" : "black";
+  const outlined = props.selected ? { borderWidth: 2 } : {};
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        props.onSelect(props.index);
+      }}
+      style={[
+        styles.colorBox,
+        { backgroundColor: props.color, ...outlined, borderColor },
+      ]}
+    >
+      <View></View>
+    </TouchableOpacity>
+  );
+};
+
 const ColorPicker = (props) => {
-  const [color, setColor] = useState("white");
+  // const [color, setColor] = useState("#f0f8ff");
+  const [selected, setSelected] = useState(0);
+  const onSelect = (idx) => {
+    setSelected(idx);
+  };
 
   const availColors = [
     "#000000",
@@ -17,15 +39,19 @@ const ColorPicker = (props) => {
     "#ffd700",
     "#ff6347",
   ];
-  const Square = (prop) => {
-    return (
-      <View style={[styles.colorBox, { backgroundColor: prop.color }]}></View>
-    );
-  };
+
   return (
     <View style={styles.colorBoxContainer}>
-      {availColors.map((color) => {
-        return <Square color={color} />;
+      {availColors.map((color, idx) => {
+        return (
+          <Square
+            color={color}
+            key={idx}
+            index={idx}
+            selected={selected === idx}
+            onSelect={onSelect}
+          />
+        );
       })}
     </View>
   );
