@@ -73,14 +73,7 @@ const AddEventTile = (props) => {
               />
             </View>
             <View style={styles.datePicker}>
-              <Text
-                style={{
-                  fontSize: 18,
-                  marginRight: 5,
-                }}
-              >
-                Select Event Date:
-              </Text>
+              <Text style={styles.tileHeader}>Select Event Date:</Text>
               <View style={styles.iOsPickerContainer}>
                 <DateTimePicker
                   testID="dateTimePicker"
@@ -113,101 +106,8 @@ const AddEventTile = (props) => {
                 <Text> {"Equivalent Lunar Event:  "} Jun, 19 2021</Text>
               </View>
             </View>
-            <View style={styles.form}>
+            <View style={styles.colorPickerContainer}>
               <ColorPicker />
-            </View>
-            <View style={styles.form}>
-              <Input
-                containerStyle={styles.input}
-                inputContainerStyle={styles.inputContainer}
-                leftIconContainerStyle={styles.inputIconStyle}
-                placeholder={eventName ? eventName : "First Name"}
-                spellCheck={false}
-                inputStyle={styles.inputStyle}
-                autoCorrect={false}
-                onChangeText={(value) => {
-                  setEventName(value);
-                }}
-                leftIcon={
-                  <Icon
-                    name="user"
-                    type="font-awesome"
-                    size={14}
-                    color={iconColor}
-                  />
-                }
-              />
-              <Input
-                containerStyle={styles.input}
-                inputContainerStyle={styles.inputContainer}
-                inputStyle={styles.inputStyle}
-                onChangeText={(value) => {
-                  setLastName(value);
-                }}
-                leftIconContainerStyle={styles.inputIconStyle}
-                labelStyle={styles.inputLabelStyle}
-                spellCheck={false}
-                autoCorrect={false}
-                placeholder={lastName ? lastName : "Last Name"}
-                leftIcon={
-                  <Icon
-                    name="user-circle"
-                    type="font-awesome"
-                    size={14}
-                    color={iconColor}
-                  />
-                }
-              />
-            </View>
-            <View style={styles.form}>
-              <Input
-                inputContainerStyle={styles.inputContainer}
-                leftIconContainerStyle={styles.inputIconStyle}
-                placeholder={
-                  description ? description : "Describe this person!"
-                }
-                inputStyle={styles.inputStyle}
-                onChangeText={(value) => {
-                  setDescription(value);
-                }}
-                autoCorrect={false}
-                leftIcon={
-                  <Icon
-                    name="commenting"
-                    type="font-awesome"
-                    size={14}
-                    color={iconColor}
-                  />
-                }
-              />
-            </View>
-            <View style={[styles.form, styles.buttonRow]}>
-              <Button
-                type="outline"
-                raised
-                icon={{
-                  name: "trash",
-                  color: styles.deleteButtonIcon.backgroundColor,
-                  type: "font-awesome",
-                }}
-                onPress={deleteContact}
-                buttonStyle={styles.deleteButton}
-                containerStyle={styles.buttonContainer}
-              />
-              <Button
-                icon={{
-                  name: "floppy-o",
-                  color: styles.saveButtonIcon.backgroundColor,
-                  type: "font-awesome",
-                }}
-                title="Save"
-                type="outline"
-                raised
-                onPress={saveContact}
-                buttonStyle={styles.button}
-                titleStyle={styles.buttonText}
-                containerStyle={styles.buttonContainer}
-              />
             </View>
           </ListItem.Content>
         </ListItem>

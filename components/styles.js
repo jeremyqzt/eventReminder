@@ -61,6 +61,11 @@ export const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-between",
   },
+  colorPickerContainer: {
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+  },
   PageNormal: {
     backgroundColor: DefaultTheme.normalMode.main,
     height: "100%",
@@ -105,10 +110,31 @@ export const styles = StyleSheet.create({
   },
   colorBoxContainer: {
     flex: 1,
-    paddingHorizontal: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
+  },
+  colorBoxContainerText: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  colorPickerContainer: {
+    paddingHorizontal: 10,
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    minHeight: 70,
+  },
+  colorPicker: {
+    minHeight: 65,
+    display: "flex",
+    flexDirection: "column",
+  },
+  tileHeader: {
+    fontSize: 20,
+    marginRight: 5,
+    fontWeight: "600",
   },
 });

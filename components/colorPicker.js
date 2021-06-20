@@ -41,18 +41,23 @@ const ColorPicker = (props) => {
   ];
 
   return (
-    <View style={styles.colorBoxContainer}>
-      {availColors.map((color, idx) => {
-        return (
-          <Square
-            color={color}
-            key={idx}
-            index={idx}
-            selected={selected === idx}
-            onSelect={onSelect}
-          />
-        );
-      })}
+    <View style={styles.colorPicker}>
+      <View style={styles.colorBoxContainerText}>
+        <Text style={styles.tileHeader}>Select Color Code:</Text>
+      </View>
+      <View style={styles.colorBoxContainer}>
+        {availColors.map((color, idx) => {
+          return (
+            <Square
+              color={color}
+              key={idx}
+              index={idx}
+              selected={selected === idx}
+              onSelect={onSelect}
+            />
+          );
+        })}
+      </View>
     </View>
   );
 };
