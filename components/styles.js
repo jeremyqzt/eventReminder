@@ -98,4 +98,17 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
   },
+  colorBox: {
+    width: "12.5%",
+    flex: 1,
+    aspectRatio: 1,
+  },
+  colorBoxContainer: {
+    flex: 1,
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+  },
 });

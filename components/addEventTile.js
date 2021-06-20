@@ -6,6 +6,7 @@ import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
 import { deleteContact, updateContact } from "../actions/actions";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import ColorPicker from "../components/colorPicker";
 
 const AddEventTile = (props) => {
   const [expaneded, setExpanded] = useState(true);
@@ -111,6 +112,9 @@ const AddEventTile = (props) => {
                 />
                 <Text> {"Equivalent Lunar Event:  "} Jun, 19 2021</Text>
               </View>
+            </View>
+            <View style={styles.form}>
+              <ColorPicker />
             </View>
             <View style={styles.form}>
               <Input
