@@ -14,10 +14,13 @@ import { addEvent } from "../actions/actions";
 const HeadingText = (props) => {
   const textColor = props.darkMode ? styles.textDark : styles.textNormal;
   const today = new Date();
+  const todayStr = `${today.getFullYear()}-${
+    today.getMonth() + 1
+  }-${today.getDate()}`;
   const todayLunar = moment()
     .year(today.getFullYear())
     .month(today.getMonth())
-    .date(today.getDay())
+    .date(today.getDate())
     .lunar()
     .format("MMM, DD YYYY");
 

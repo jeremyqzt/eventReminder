@@ -89,21 +89,21 @@ const AddEventTile = (props) => {
             <View style={styles.dateInformation}>
               <View style={styles.dateInformationText}>
                 <Icon
-                  name="info-circle"
-                  type="font-awesome"
-                  size={12}
-                  color={iconColor}
-                />
-                <Text> {"Next Event Occurence:   "} 78 days</Text>
-              </View>
-              <View style={styles.dateInformationText}>
-                <Icon
                   name="moon-o"
                   type="font-awesome"
                   size={12}
                   color={iconColor}
                 />
                 <Text> {"Equivalent Lunar Event:  "} Jun, 19 2021</Text>
+              </View>
+              <View style={styles.dateInformationText}>
+                <Icon
+                  name="info-circle"
+                  type="font-awesome"
+                  size={12}
+                  color={iconColor}
+                />
+                <Text> {"Next Event Occurence:   "} 78 days</Text>
               </View>
             </View>
             <View style={styles.colorPickerContainer}>
