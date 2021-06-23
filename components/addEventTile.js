@@ -10,8 +10,11 @@ import ColorPicker from "../components/colorPicker";
 import moment from "moment";
 import "moment-lunar";
 
+import { constGetNextOccurence } from '../utils/utils';
+
 const AddEventTile = (props) => {
   const [expaneded, setExpanded] = useState(true);
+  const [nextOccur, setNextOccur] = useState(0);
 
   const [eventName, setEventName] = useState();
   const today = new Date();
@@ -37,6 +40,8 @@ const AddEventTile = (props) => {
       .format("MMM, DD YYYY");
     
       setLunarDate(lunarDate);
+
+      setNextOccur(constGetNextOccurence(currentDate));
   };
 
   const iconColor = props.darkMode
@@ -119,7 +124,7 @@ const AddEventTile = (props) => {
                   size={12}
                   color={iconColor}
                 />
-                <Text> {"Next Event Occurence:   "} 78 days</Text>
+                <Text> {`Next Event Occurence:    ${nextOccur}`} days</Text>
               </View>
             </View>
             <View style={styles.colorPickerContainer}>
