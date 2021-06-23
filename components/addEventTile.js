@@ -7,20 +7,36 @@ import { connect } from "react-redux";
 import { deleteContact, updateContact } from "../actions/actions";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import ColorPicker from "../components/colorPicker";
+import moment from "moment";
+import "moment-lunar";
 
 const AddEventTile = (props) => {
   const [expaneded, setExpanded] = useState(true);
 
   const [eventName, setEventName] = useState();
-  const [lastName, setLastName] = useState();
-  const [description, setDescription] = useState();
-  const [date, setDate] = useState(new Date());
-  const [show, setShow] = useState(true);
+  const today = new Date();
+  const todayLunar = moment()
+    .year(today.getFullYear())
+    .month(today.getMonth())
+    .date(today.getDate())
+    .lunar()
+    .format("MMM, DD YYYY");
 
-  const onChange = (event, selectedDate) => {
+  const [date, setDate] = useState(today);
+  const [lunarDateState, setLunarDate] = useState(todayLunar);
+
+  const onChange = (_, selectedDate) => {
     const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
     setDate(currentDate);
+
+    const lunarDate = moment()
+      .year(currentDate.getFullYear())
+      .month(currentDate.getMonth())
+      .date(currentDate.getDate())
+      .lunar()
+      .format("MMM, DD YYYY");
+    
+      setLunarDate(lunarDate);
   };
 
   const iconColor = props.darkMode
@@ -94,7 +110,7 @@ const AddEventTile = (props) => {
                   size={12}
                   color={iconColor}
                 />
-                <Text> {"Equivalent Lunar Event:  "} Jun, 19 2021</Text>
+                <Text> {"Equivalent Lunar Event:  "} {`${lunarDateState}`}</Text>
               </View>
               <View style={styles.dateInformationText}>
                 <Icon
