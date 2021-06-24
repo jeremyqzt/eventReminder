@@ -27,18 +27,10 @@ const ColorPicker = (props) => {
   const [selected, setSelected] = useState(0);
   const onSelect = (idx) => {
     setSelected(idx);
+    props.onSelect(idx);
   };
 
-  const availColors = [
-    "#000000",
-    "#f0f8ff",
-    "#6495ed",
-    "#ff7f50",
-    "#7fffd4",
-    "#8fbc8f",
-    "#ffd700",
-    "#ff6347",
-  ];
+  const availColors = props.availColors;
 
   return (
     <View style={styles.colorPicker}>

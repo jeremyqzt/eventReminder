@@ -22,6 +22,8 @@ import { constGetNextOccurence } from "../utils/utils";
 
 const AddEventTile = (props) => {
   const [nextOccur, setNextOccur] = useState(0);
+  const [colorIdx, setColorIdx] = useState(0);
+
   const [expaneded, setExpanded] = useState(true);
 
   const [eventName, setEventName] = useState();
@@ -69,13 +71,31 @@ const AddEventTile = (props) => {
     setExpanded(false);
   };
 
+  const availableColors = [
+    "#000000",
+    "#C0C0C0",
+    "#6495ed",
+    "#ff7f50",
+    "#7fffd4",
+    "#8fbc8f",
+    "#ffd700",
+    "#ff6347",
+  ];
+
+  const onSelectColor = (idx) => {
+    setColorIdx(idx);
+  };
+
   return (
     <View>
       <ListItem
         key={1}
         bottomDivider
         onPress={() => setExpanded(!expaneded)}
-        style={{ ...styles.eventTile, borderColor: "red" }}
+        style={{
+          ...styles.eventTile,
+          borderColor: `${availableColors[colorIdx]}`,
+        }}
       >
         <Avatar
           size={"medium"}
@@ -164,7 +184,10 @@ const AddEventTile = (props) => {
               </View>
             </View>
             <View style={styles.colorPickerContainer}>
-              <ColorPicker />
+              <ColorPicker
+                availColors={availableColors}
+                onSelect={onSelectColor}
+              />
             </View>
             <View style={[styles.form, styles.buttonRow]}>
               <Button
