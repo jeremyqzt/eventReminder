@@ -74,6 +74,9 @@ export const styles = StyleSheet.create({
     backgroundColor: DefaultTheme.darkMode.main,
     height: "100%",
   },
+  eventTile: {
+    borderLeftWidth: 6,
+  },
   datePicker: {
     display: "flex",
     flexDirection: "row",

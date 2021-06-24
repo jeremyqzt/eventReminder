@@ -71,7 +71,12 @@ const AddEventTile = (props) => {
 
   return (
     <View>
-      <ListItem key={1} bottomDivider onPress={() => setExpanded(!expaneded)}>
+      <ListItem
+        key={1}
+        bottomDivider
+        onPress={() => setExpanded(!expaneded)}
+        style={{ ...styles.eventTile, borderColor: "red" }}
+      >
         <Avatar
           size={"medium"}
           icon={{
