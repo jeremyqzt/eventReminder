@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { ListItem, Text, Input, Icon, Button } from "react-native-elements";
+import {
+  ListItem,
+  Text,
+  Input,
+  Icon,
+  Button,
+  CheckBox,
+  Avatar,
+} from "react-native-elements";
 import { View } from "react-native";
 import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
@@ -10,11 +18,11 @@ import ColorPicker from "../components/colorPicker";
 import moment from "moment";
 import "moment-lunar";
 
-import { constGetNextOccurence } from '../utils/utils';
+import { constGetNextOccurence } from "../utils/utils";
 
 const AddEventTile = (props) => {
-  const [expaneded, setExpanded] = useState(true);
   const [nextOccur, setNextOccur] = useState(0);
+  const [expaneded, setExpanded] = useState(true);
 
   const [eventName, setEventName] = useState();
   const today = new Date();
@@ -38,10 +46,10 @@ const AddEventTile = (props) => {
       .date(currentDate.getDate())
       .lunar()
       .format("MMM, DD YYYY");
-    
-      setLunarDate(lunarDate);
 
-      setNextOccur(constGetNextOccurence(currentDate));
+    setLunarDate(lunarDate);
+
+    setNextOccur(constGetNextOccurence(currentDate));
   };
 
   const iconColor = props.darkMode
@@ -63,6 +71,28 @@ const AddEventTile = (props) => {
 
   return (
     <View>
+      <ListItem key={1} bottomDivider onPress={() => setExpanded(!expaneded)}>
+        <Avatar
+          size={"medium"}
+          icon={{
+            name: "address-card",
+            color: iconColor,
+            type: "font-awesome",
+          }}
+          overlayContainerStyle={{ backgroundColor: "white" }}
+          onPress={() => setExpanded(!expaneded)}
+          activeOpacity={0.7}
+        />
+        <ListItem.Content>
+          <ListItem.Title>{eventName | ""}</ListItem.Title>
+          <ListItem.Subtitle>{`${"Event subtitle"}`}</ListItem.Subtitle>
+        </ListItem.Content>
+        <ListItem.Chevron
+          name={!expaneded ? "chevron-down" : "chevron-up"}
+          size={16}
+          color={iconColor}
+        ></ListItem.Chevron>
+      </ListItem>
       {expaneded ? (
         <ListItem key={2} bottomDivider>
           <ListItem.Content>
@@ -70,9 +100,7 @@ const AddEventTile = (props) => {
               <Input
                 inputContainerStyle={styles.inputContainer}
                 leftIconContainerStyle={styles.inputIconStyle}
-                placeholder={
-                  eventName ? eventName : "Event Name (E.g. 🥮 Moon Festival)"
-                }
+                placeholder={eventName || "Event Name (E.g. 🥮 Moon Festival)"}
                 spellCheck={false}
                 inputStyle={styles.titleStyle}
                 autoCorrect={false}
@@ -115,7 +143,10 @@ const AddEventTile = (props) => {
                   size={12}
                   color={iconColor}
                 />
-                <Text> {"Equivalent Lunar Event:  "} {`${lunarDateState}`}</Text>
+                <Text>
+                  {" "}
+                  {"Equivalent Lunar Event:  "} {`${lunarDateState}`}
+                </Text>
               </View>
               <View style={styles.dateInformationText}>
                 <Icon
