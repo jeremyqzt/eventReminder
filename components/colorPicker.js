@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { ListItem, Text, Input, Icon } from "react-native-elements";
+import { Text } from "react-native-elements";
 import { View, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
-import { DefaultTheme } from "../utils/constants";
 
 const Square = (props) => {
   const borderColor = props.color === "#000000" ? "#6495ed" : "black";
@@ -35,7 +34,7 @@ const ColorPicker = (props) => {
   return (
     <View style={styles.colorPicker}>
       <View style={styles.colorBoxContainerText}>
-        <Text style={styles.tileHeader}>Select Color Code:</Text>
+        <Text style={styles.tileHeader}>Select A Color:</Text>
       </View>
       <View style={styles.colorBoxContainer}>
         {availColors.map((color, idx) => {

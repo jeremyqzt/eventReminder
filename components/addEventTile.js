@@ -125,7 +125,7 @@ const AddEventTile = (props) => {
         </ListItem.Content>
         <ListItem.Chevron
           name={!expaneded ? "chevron-down" : "chevron-up"}
-          size={16}
+          size={22}
           color={iconColor}
         ></ListItem.Chevron>
       </ListItem>
