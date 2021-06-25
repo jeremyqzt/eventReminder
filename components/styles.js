@@ -65,6 +65,7 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     width: "100%",
+    zIndex: 0,
   },
   PageNormal: {
     backgroundColor: DefaultTheme.normalMode.main,

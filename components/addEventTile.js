@@ -19,10 +19,17 @@ import moment from "moment";
 import "moment-lunar";
 
 import { constGetNextOccurence } from "../utils/utils";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const AddEventTile = (props) => {
   const [nextOccur, setNextOccur] = useState(0);
   const [colorIdx, setColorIdx] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+  ]);
 
   const [expaneded, setExpanded] = useState(true);
 
@@ -109,7 +116,9 @@ const AddEventTile = (props) => {
           activeOpacity={0.7}
         />
         <ListItem.Content>
-          <ListItem.Title>{eventName | ""}</ListItem.Title>
+          <ListItem.Title style={{ fontWeight: "bold" }}>
+            {eventName || ""}
+          </ListItem.Title>
           <ListItem.Subtitle>{`${"Event subtitle"}`}</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron
@@ -183,12 +192,31 @@ const AddEventTile = (props) => {
                 <Text> {`Next Event Occurence:    ${nextOccur}`} days</Text>
               </View>
             </View>
+            <View style={[styles.colorPickerContainer, { zIndex: 10 }]}>
+              <Text style={[styles.tileHeader, { zIndex: 10 }]}>
+                Event Options:
+              </Text>
+
+              <DropDownPicker
+                zIndex={3000}
+                zIndexInverse={1000}
+                open={open}
+                value={value}
+                items={items}
+                searchable={true}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+                style={{ width: "48%" }}
+              />
+            </View>
             <View style={styles.colorPickerContainer}>
               <ColorPicker
                 availColors={availableColors}
                 onSelect={onSelectColor}
               />
             </View>
+
             <View style={[styles.form, styles.buttonRow]}>
               <Button
                 type="outline"
