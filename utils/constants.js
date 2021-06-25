@@ -116,3 +116,46 @@ export const ColorMode = Object.freeze({
   normal: 0,
   dark: 1,
 });
+
+export const AvailableIcons = [
+  {
+    name: "Calendar",
+    icon: "calendar",
+  },
+  {
+    name: "Heart",
+    icon: "heart",
+  },
+  {
+    name: "Present",
+    icon: "gift",
+  },
+  {
+    name: "Cake",
+    icon: "birthday-cake",
+  },
+  {
+    name: "Flag",
+    icon: "flag",
+  },
+  {
+    name: "Flag",
+    icon: "flag",
+  },
+  {
+    name: "Plane",
+    icon: "plane",
+  },
+  {
+    name: "Therometer",
+    icon: "therometer",
+  },
+  {
+    name: "Moon",
+    icon: "moon-o",
+  },
+  {
+    name: "Diamond",
+    icon: "diamond",
+  },
+];

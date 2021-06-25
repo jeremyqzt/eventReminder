@@ -100,8 +100,8 @@ const AddEventTile = (props) => {
         <Avatar
           size={"medium"}
           icon={{
-            name: "address-card",
-            color: iconColor,
+            name: "thermometer",
+            color: `${availableColors[colorIdx]}`,
             type: "font-awesome",
           }}
           overlayContainerStyle={{ backgroundColor: "white" }}
