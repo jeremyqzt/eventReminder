@@ -80,13 +80,13 @@ const AddEventTile = (props) => {
 
   const availableColors = [
     "#000000",
-    "#C0C0C0",
+    "#EA80FC",
     "#6495ed",
     "#ff7f50",
     "#7fffd4",
     "#8fbc8f",
     "#ffd700",
-    "#ff6347",
+    "red",
   ];
 
   const onSelectColor = (idx) => {
@@ -107,7 +107,7 @@ const AddEventTile = (props) => {
         <Avatar
           size={"medium"}
           icon={{
-            name: "thermometer",
+            name: "heart",
             color: `${availableColors[colorIdx]}`,
             type: "font-awesome",
           }}
@@ -116,10 +116,12 @@ const AddEventTile = (props) => {
           activeOpacity={0.7}
         />
         <ListItem.Content>
-          <ListItem.Title style={{ fontWeight: "bold" }}>
+          <ListItem.Title style={{ fontWeight: "bold", fontSize: 20 }}>
             {eventName || ""}
           </ListItem.Title>
-          <ListItem.Subtitle>{`${"Event subtitle"}`}</ListItem.Subtitle>
+          <ListItem.Subtitle
+            style={{ fontWeight: "normal", fontSize: 14 }}
+          >{`${"Event subtitle"}`}</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron
           name={!expaneded ? "chevron-down" : "chevron-up"}

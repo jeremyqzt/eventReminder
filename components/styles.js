@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
   },
   inputStyle: {
     marginBottom: 0,
+    fontSize: 20,
   },
   titleStyle: {
     marginBottom: 0,

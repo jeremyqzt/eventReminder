@@ -47,16 +47,16 @@ const ContactItem = (props) => {
           activeOpacity={0.7}
         />
         <ListItem.Content>
-          <ListItem.Title>
+          <ListItem.Title style={{ fontWeight: "bold", fontSize: 20 }}>
             {firstName ? `${firstName} ${lastName || ""}` : "Enter a Name"}
           </ListItem.Title>
-          <ListItem.Subtitle>{`${
+          <ListItem.Subtitle style={{ fontWeight: "normal", fontSize: 14 }}>{`${
             description || "Enter a description"
           }`}</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron
           name={!expaneded ? "chevron-down" : "chevron-up"}
-          size={16}
+          size={22}
           color={iconColor}
         ></ListItem.Chevron>
       </ListItem>
@@ -79,7 +79,7 @@ const ContactItem = (props) => {
                   <Icon
                     name="user"
                     type="font-awesome"
-                    size={14}
+                    size={22}
                     color={iconColor}
                   />
                 }
@@ -100,7 +100,7 @@ const ContactItem = (props) => {
                   <Icon
                     name="user-circle"
                     type="font-awesome"
-                    size={14}
+                    size={22}
                     color={iconColor}
                   />
                 }
@@ -122,7 +122,7 @@ const ContactItem = (props) => {
                   <Icon
                     name="commenting"
                     type="font-awesome"
-                    size={14}
+                    size={22}
                     color={iconColor}
                   />
                 }
