@@ -119,43 +119,43 @@ export const ColorMode = Object.freeze({
 
 export const AvailableIcons = [
   {
-    name: "Calendar",
-    icon: "calendar",
+    label: "Calendar",
+    value: "calendar",
   },
   {
-    name: "Heart",
-    icon: "heart",
+    label: "Heart",
+    value: "heart",
   },
   {
-    name: "Present",
-    icon: "gift",
+    label: "Present",
+    value: "gift",
   },
   {
-    name: "Cake",
-    icon: "birthday-cake",
+    label: "Cake",
+    value: "birthday-cake",
   },
   {
-    name: "Flag",
-    icon: "flag",
+    label: "Flag",
+    value: "flag",
   },
   {
-    name: "Flag",
-    icon: "flag",
+    label: "Flag",
+    value: "flag",
   },
   {
-    name: "Plane",
-    icon: "plane",
+    label: "Plane",
+    value: "plane",
   },
   {
-    name: "Therometer",
-    icon: "therometer",
+    label: "Therometer",
+    value: "therometer",
   },
   {
-    name: "Moon",
-    icon: "moon-o",
+    label: "Moon",
+    value: "moon-o",
   },
   {
-    name: "Diamond",
-    icon: "diamond",
+    label: "Diamond",
+    value: "diamond",
   },
 ];
