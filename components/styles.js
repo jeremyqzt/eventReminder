@@ -64,9 +64,24 @@ export const styles = StyleSheet.create({
   },
   colorPickerContainer: {
     display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    zIndex: 0,
+  },
+  eventOptline: {
+    marginHorizontal: 15,
+    display: "flex",
     flexDirection: "row",
     width: "100%",
     zIndex: 0,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  eventOptContainer: {
+    marginVertical: 3,
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
   },
   PageNormal: {
     backgroundColor: DefaultTheme.normalMode.main,

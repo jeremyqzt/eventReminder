@@ -194,23 +194,43 @@ const AddEventTile = (props) => {
                 <Text> {`Next Event Occurence:    ${nextOccur}`} days</Text>
               </View>
             </View>
-            <View style={[styles.colorPickerContainer, { zIndex: 10 }]}>
-              <Text style={[styles.tileHeader, { zIndex: 10 }]}>
-                Event Options:
-              </Text>
-
-              <DropDownPicker
-                zIndex={3000}
-                zIndexInverse={1000}
-                open={open}
-                value={value}
-                items={items}
-                searchable={true}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                style={{ width: "48%" }}
-              />
+            <View style={[styles.eventOptContainer, { zIndex: 10 }]}>
+              <View style={[styles.eventOptline]}>
+                <Text style={{ width: "45%" }}>Select Event Icon:</Text>
+                <View style={{ width: "45%", paddingRight: 5 }}>
+                  <DropDownPicker
+                    style={{ height: 35 }}
+                    zIndex={3000}
+                    zIndexInverse={1000}
+                    open={open}
+                    value={value}
+                    items={items}
+                    searchable={true}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+                  />
+                </View>
+              </View>
+            </View>
+            <View style={[styles.eventOptContainer, { zIndex: 10 }]}>
+              <View style={[styles.eventOptline]}>
+                <Text style={{ width: "45%" }}>Select Event Reoccurence:</Text>
+                <View style={{ width: "45%", paddingRight: 5 }}>
+                  <DropDownPicker
+                    style={{ height: 35 }}
+                    zIndex={3000}
+                    zIndexInverse={1000}
+                    open={open}
+                    value={value}
+                    items={items}
+                    searchable={true}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+                  />
+                </View>
+              </View>
             </View>
             <View style={styles.colorPickerContainer}>
               <ColorPicker
