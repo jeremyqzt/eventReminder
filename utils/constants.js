@@ -139,10 +139,6 @@ export const AvailableIcons = [
     value: "flag",
   },
   {
-    label: "Flag",
-    value: "flag",
-  },
-  {
     label: "Plane",
     value: "plane",
   },
@@ -157,5 +153,25 @@ export const AvailableIcons = [
   {
     label: "Diamond",
     value: "diamond",
+  },
+];
+
+export const OccurenceTypes = Object.freeze({
+  never: 0,
+  monthly: 1,
+  yearly: 2,
+});
+export const AvailableReoccurences = [
+  {
+    label: "One-Time",
+    value: OccurenceTypes.never,
+  },
+  {
+    label: "Monthly",
+    value: OccurenceTypes.monthly,
+  },
+  {
+    label: "Yearly",
+    value: OccurenceTypes.yearly,
   },
 ];

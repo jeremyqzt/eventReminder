@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   ListItem,
   Text,
   Input,
   Icon,
   Button,
-  CheckBox,
   Avatar,
 } from "react-native-elements";
 import { View } from "react-native";
@@ -19,21 +18,58 @@ import moment from "moment";
 import "moment-lunar";
 
 import { constGetNextOccurence } from "../utils/utils";
+import { AvailableIcons, AvailableReoccurences } from "../utils/constants";
+
 import DropDownPicker from "react-native-dropdown-picker";
 
 const AddEventTile = (props) => {
   const [nextOccur, setNextOccur] = useState(0);
   const [colorIdx, setColorIdx] = useState(0);
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "Apple", value: "apple" },
-    { label: "Banana", value: "banana" },
-  ]);
+
+  const [openRecurr, setOpenRecurr] = useState(false);
+  const [valueRecurr, setValueRecurr] = useState(null);
+  const [itemsRecurr, setItemsRecurr] = useState([...AvailableReoccurences]);
+
+  const [openIcon, setOpenIcon] = useState(false);
+  const [valueIcon, setValueIcon] = useState(null);
+  const availIcons = AvailableIcons.map((item) => {
+    return {
+      ...item,
+      icon: () => (
+        <Avatar
+          size={"small"}
+          icon={{
+            name: item.value,
+            color: `${availableColors[colorIdx]}`,
+            type: "font-awesome",
+          }}
+          overlayContainerStyle={{ backgroundColor: "white" }}
+          activeOpacity={0.7}
+        />
+      ),
+    };
+  });
+  const [itemsIcon, setItemsIcon] = useState(availIcons);
 
   const [expaneded, setExpanded] = useState(true);
 
   const [eventName, setEventName] = useState();
+
+  const [displayIcon, setDisplayIcon] = useState(availIcons[0].value);
+
+  const setSelectedIcon = (icon) => {
+    setValueIcon(icon);
+    setDisplayIcon(icon);
+  };
+
+  const onRecurrOpen = useCallback(() => {
+    setOpenIcon(false);
+  }, []);
+
+  const onIconOpen = useCallback(() => {
+    setOpenRecurr(false);
+  }, []);
+
   const today = new Date();
   const todayLunar = moment()
     .year(today.getFullYear())
@@ -107,7 +143,7 @@ const AddEventTile = (props) => {
         <Avatar
           size={"medium"}
           icon={{
-            name: "heart",
+            name: displayIcon,
             color: `${availableColors[colorIdx]}`,
             type: "font-awesome",
           }}
@@ -194,40 +230,52 @@ const AddEventTile = (props) => {
                 <Text> {`Next Event Occurence:    ${nextOccur}`} days</Text>
               </View>
             </View>
-            <View style={[styles.eventOptContainer, { zIndex: 10 }]}>
+            <View
+              style={[
+                styles.eventOptContainer,
+                { zIndex: 3000, zIndexInverse: 1000 },
+              ]}
+            >
               <View style={[styles.eventOptline]}>
                 <Text style={{ width: "45%" }}>Select Event Icon:</Text>
                 <View style={{ width: "45%", paddingRight: 5 }}>
                   <DropDownPicker
-                    style={{ height: 35 }}
+                    placeholder={"Icon"}
+                    onOpen={onIconOpen}
+                    style={{ height: 40 }}
                     zIndex={3000}
                     zIndexInverse={1000}
-                    open={open}
-                    value={value}
-                    items={items}
-                    searchable={true}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
+                    open={openIcon}
+                    value={valueIcon}
+                    items={itemsIcon}
+                    setOpen={setOpenIcon}
+                    setValue={setSelectedIcon}
+                    setItems={setItemsIcon}
                   />
                 </View>
               </View>
             </View>
-            <View style={[styles.eventOptContainer, { zIndex: 10 }]}>
+            <View
+              style={[
+                styles.eventOptContainer,
+                { zIndex: 2000, zIndexInverse: 2000 },
+              ]}
+            >
               <View style={[styles.eventOptline]}>
                 <Text style={{ width: "45%" }}>Select Event Reoccurence:</Text>
                 <View style={{ width: "45%", paddingRight: 5 }}>
                   <DropDownPicker
-                    style={{ height: 35 }}
-                    zIndex={3000}
-                    zIndexInverse={1000}
-                    open={open}
-                    value={value}
-                    items={items}
-                    searchable={true}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
+                    placeholder={"Reoccurence"}
+                    onOpen={onRecurrOpen}
+                    style={{ height: 40 }}
+                    zIndex={2000}
+                    zIndexInverse={2000}
+                    open={openRecurr}
+                    value={valueRecurr}
+                    items={itemsRecurr}
+                    setOpen={setOpenRecurr}
+                    setValue={setValueRecurr}
+                    setItems={setItemsRecurr}
                   />
                 </View>
               </View>
