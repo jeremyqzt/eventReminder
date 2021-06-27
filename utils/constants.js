@@ -161,17 +161,56 @@ export const OccurenceTypes = Object.freeze({
   monthly: 1,
   yearly: 2,
 });
+
 export const AvailableReoccurences = [
   {
-    label: "One-Time",
+    label: "Once",
     value: OccurenceTypes.never,
+    indicator: "↖️",
   },
   {
     label: "Monthly",
     value: OccurenceTypes.monthly,
+    indicator: "🔃",
   },
   {
     label: "Yearly",
     value: OccurenceTypes.yearly,
+    indicator: "🔄",
+  },
+];
+
+export const AvailableColors = [
+  {
+    label: "Dark",
+    value: "#000000",
+  },
+  {
+    label: "Lilac",
+    value: "#EA80FC",
+  },
+  {
+    label: "Sky Blue",
+    value: "#6495ed",
+  },
+  {
+    label: "Tangerine",
+    value: "#ff7f50",
+  },
+  {
+    label: "Cyan",
+    value: "#7fffd4",
+  },
+  {
+    label: "Grass",
+    value: "#8fbc8f",
+  },
+  {
+    label: "Gold",
+    value: "#ffd700",
+  },
+  {
+    label: "Red",
+    value: "red",
   },
 ];

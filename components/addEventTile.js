@@ -28,7 +28,20 @@ const AddEventTile = (props) => {
 
   const [openRecurr, setOpenRecurr] = useState(false);
   const [valueRecurr, setValueRecurr] = useState(null);
-  const [itemsRecurr, setItemsRecurr] = useState([...AvailableReoccurences]);
+  const availReoccurences = AvailableReoccurences.map((item) => {
+    return {
+      ...item,
+      icon: () => (
+        <Avatar
+          size={"small"}
+          title={item.indicator}
+          overlayContainerStyle={{ backgroundColor: "white" }}
+          activeOpacity={0.7}
+        />
+      ),
+    };
+  });
+  const [itemsRecurr, setItemsRecurr] = useState([...availReoccurences]);
 
   const [openIcon, setOpenIcon] = useState(false);
   const [valueIcon, setValueIcon] = useState(null);
