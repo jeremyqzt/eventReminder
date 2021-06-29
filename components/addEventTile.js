@@ -13,12 +13,15 @@ import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
 import { deleteContact, updateContact } from "../actions/actions";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import ColorPicker from "../components/colorPicker";
 import moment from "moment";
 import "moment-lunar";
 
 import { constGetNextOccurence } from "../utils/utils";
-import { AvailableIcons, AvailableReoccurences } from "../utils/constants";
+import {
+  AvailableIcons,
+  AvailableReoccurences,
+  AvailableColors,
+} from "../utils/constants";
 
 import DropDownPicker from "react-native-dropdown-picker";
 
@@ -26,11 +29,13 @@ const AddEventTile = (props) => {
   const [nextOccur, setNextOccur] = useState(0);
   const [colorIdx, setColorIdx] = useState(0);
 
+  // Reoccurence
   const [openRecurr, setOpenRecurr] = useState(false);
   const [valueRecurr, setValueRecurr] = useState(null);
-  const availReoccurences = AvailableReoccurences.map((item) => {
+  const availReoccurences = AvailableReoccurences.map((item, idx) => {
     return {
       ...item,
+      index: idx,
       icon: () => (
         <Avatar
           size={"small"}
@@ -43,6 +48,7 @@ const AddEventTile = (props) => {
   });
   const [itemsRecurr, setItemsRecurr] = useState([...availReoccurences]);
 
+  // Icons
   const [openIcon, setOpenIcon] = useState(false);
   const [valueIcon, setValueIcon] = useState(null);
   const availIcons = AvailableIcons.map((item) => {
@@ -53,7 +59,7 @@ const AddEventTile = (props) => {
           size={"small"}
           icon={{
             name: item.value,
-            color: `${availableColors[colorIdx]}`,
+            color: `${AvailableColors[colorIdx].value}`,
             type: "font-awesome",
           }}
           overlayContainerStyle={{ backgroundColor: "white" }}
@@ -64,23 +70,40 @@ const AddEventTile = (props) => {
   });
   const [itemsIcon, setItemsIcon] = useState(availIcons);
 
+  // Colors
+  const [openColor, setOpenColor] = useState(false);
+  const [valueColor, setValueColor] = useState(null);
+  const availColors = AvailableColors.map((item) => {
+    return {
+      ...item,
+      icon: () => (
+        <Avatar
+          size={"small"}
+          overlayContainerStyle={{ backgroundColor: `${item.value}` }}
+          activeOpacity={0.7}
+        />
+      ),
+    };
+  });
+  const [itemsColor, setItemsColor] = useState(availColors);
+
   const [expaneded, setExpanded] = useState(true);
 
   const [eventName, setEventName] = useState();
 
-  const [displayIcon, setDisplayIcon] = useState(availIcons[0].value);
-
-  const setSelectedIcon = (icon) => {
-    setValueIcon(icon);
-    setDisplayIcon(icon);
-  };
-
   const onRecurrOpen = useCallback(() => {
     setOpenIcon(false);
+    setOpenColor(false);
   }, []);
 
   const onIconOpen = useCallback(() => {
     setOpenRecurr(false);
+    setOpenColor(false);
+  }, []);
+
+  const onColorOpen = useCallback(() => {
+    setOpenRecurr(false);
+    setOpenIcon(false);
   }, []);
 
   const today = new Date();
@@ -127,21 +150,6 @@ const AddEventTile = (props) => {
     setExpanded(false);
   };
 
-  const availableColors = [
-    "#000000",
-    "#EA80FC",
-    "#6495ed",
-    "#ff7f50",
-    "#7fffd4",
-    "#8fbc8f",
-    "#ffd700",
-    "red",
-  ];
-
-  const onSelectColor = (idx) => {
-    setColorIdx(idx);
-  };
-
   return (
     <View>
       <ListItem
@@ -150,14 +158,14 @@ const AddEventTile = (props) => {
         onPress={() => setExpanded(!expaneded)}
         style={{
           ...styles.eventTile,
-          borderColor: `${availableColors[colorIdx]}`,
+          borderColor: `${valueColor ? valueColor : AvailableColors[0].value}`,
         }}
       >
         <Avatar
           size={"medium"}
           icon={{
-            name: displayIcon,
-            color: `${availableColors[colorIdx]}`,
+            name: valueIcon ? valueIcon : "calendar",
+            color: `${valueColor ? valueColor : AvailableColors[0].value}`,
             type: "font-awesome",
           }}
           overlayContainerStyle={{ backgroundColor: "white" }}
@@ -251,7 +259,7 @@ const AddEventTile = (props) => {
             >
               <View style={[styles.eventOptline]}>
                 <Text style={{ width: "45%" }}>Select Event Icon:</Text>
-                <View style={{ width: "45%", paddingRight: 5 }}>
+                <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
                     placeholder={"Icon"}
                     onOpen={onIconOpen}
@@ -262,7 +270,7 @@ const AddEventTile = (props) => {
                     value={valueIcon}
                     items={itemsIcon}
                     setOpen={setOpenIcon}
-                    setValue={setSelectedIcon}
+                    setValue={setValueIcon}
                     setItems={setItemsIcon}
                   />
                 </View>
@@ -276,7 +284,7 @@ const AddEventTile = (props) => {
             >
               <View style={[styles.eventOptline]}>
                 <Text style={{ width: "45%" }}>Select Event Reoccurence:</Text>
-                <View style={{ width: "45%", paddingRight: 5 }}>
+                <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
                     placeholder={"Reoccurence"}
                     onOpen={onRecurrOpen}
@@ -293,13 +301,31 @@ const AddEventTile = (props) => {
                 </View>
               </View>
             </View>
-            <View style={styles.colorPickerContainer}>
-              <ColorPicker
-                availColors={availableColors}
-                onSelect={onSelectColor}
-              />
+            <View
+              style={[
+                styles.eventOptContainer,
+                { zIndex: 1000, zIndexInverse: 3000 },
+              ]}
+            >
+              <View style={[styles.eventOptline]}>
+                <Text style={{ width: "45%" }}>Select Event Color:</Text>
+                <View style={{ width: "50%", paddingRight: 5 }}>
+                  <DropDownPicker
+                    placeholder={"Color"}
+                    onOpen={onColorOpen}
+                    style={{ height: 40 }}
+                    zIndex={1000}
+                    zIndexInverse={3000}
+                    open={openColor}
+                    value={valueColor}
+                    items={itemsColor}
+                    setOpen={setOpenColor}
+                    setValue={setValueColor}
+                    setItems={setItemsColor}
+                  />
+                </View>
+              </View>
             </View>
-
             <View style={[styles.form, styles.buttonRow]}>
               <Button
                 type="outline"
