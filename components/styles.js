@@ -31,6 +31,7 @@ export const styles = StyleSheet.create({
     color: DefaultTheme.offBlack,
   },
   buttonRow: {
+    marginTop: 10,
     justifyContent: "flex-end",
   },
   input: {

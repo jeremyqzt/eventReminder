@@ -141,7 +141,7 @@ const AddEventTile = (props) => {
     props.deleteContact(props.contact.id);
   };
 
-  const saveContact = () => {
+  const saveEvent = () => {
     const updateEvent = {
       eventName,
       id: props.id,
@@ -348,7 +348,7 @@ const AddEventTile = (props) => {
                 title="Save Event"
                 type="outline"
                 raised
-                onPress={saveContact}
+                onPress={saveEvent}
                 buttonStyle={styles.button}
                 titleStyle={styles.buttonText}
                 containerStyle={styles.buttonContainer}
