@@ -57,16 +57,6 @@ export const getDefaults = () => {
   };
 };
 
-export const checkValidEvents = (events) => {
-  return events.every((item) => {
-    return item.eventDate && item.eventValue !== 0;
-  });
-};
-
-export const checkValidContact = (contact) => {
-  return Boolean(contact.firstName);
-};
-
 export const getColorMode = () => {
   return ColorMode.normal;
 };
