@@ -329,7 +329,10 @@ const AddEventTile = (props) => {
                 </View>
               </View>
             </View>
-            <View style={[styles.eventOptContainer]}>
+            <View style={[styles.extraNotesContainer]}>
+              <Text style={{ width: "100%", marginBottom: 5 }}>
+                Additional Notes:
+              </Text>
               <TextInput
                 style={styles.bulkInput}
                 onChangeText={onChangeText}

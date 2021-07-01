@@ -79,10 +79,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   bulkInput: {
-    width: "100%",
+    width: "98%",
     paddingHorizontal: 5,
     height: 60,
-    marginLeft: 10,
     borderWidth: 1,
     borderRadius: 10,
   },
@@ -90,6 +89,13 @@ export const styles = StyleSheet.create({
     marginVertical: 3,
     display: "flex",
     flexDirection: "row",
+    width: "100%",
+  },
+  extraNotesContainer: {
+    marginLeft: 15,
+    marginVertical: 12,
+    display: "flex",
+    flexDirection: "column",
     width: "100%",
   },
   PageNormal: {
