@@ -153,6 +153,8 @@ const AddEventTile = (props) => {
     setExpanded(false);
   };
 
+  //console.log(props.contacts["allIds"]);
+
   return (
     <View>
       <ListItem
@@ -386,6 +388,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     darkMode: state.settingsReducer.darkMode,
+    contacts: state.contactsReducer,
   };
 };
 
