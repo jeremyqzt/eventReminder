@@ -7,7 +7,7 @@ import {
   Button,
   Avatar,
 } from "react-native-elements";
-import { View } from "react-native";
+import { View, TextInput } from "react-native";
 import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
@@ -27,8 +27,11 @@ import DropDownPicker from "react-native-dropdown-picker";
 
 const AddEventTile = (props) => {
   const [nextOccur, setNextOccur] = useState(0);
-  const [colorIdx, setColorIdx] = useState(0);
+  const [text, setText] = useState("");
 
+  const onChangeText = (newText) => {
+    setText(newText);
+  };
   // Reoccurence
   const [openRecurr, setOpenRecurr] = useState(false);
   const [valueRecurr, setValueRecurr] = useState(null);
@@ -59,7 +62,7 @@ const AddEventTile = (props) => {
           size={"small"}
           icon={{
             name: item.value,
-            color: `${AvailableColors[colorIdx].value}`,
+            color: `${AvailableColors[0].value}`,
             type: "font-awesome",
           }}
           overlayContainerStyle={{ backgroundColor: "white" }}
@@ -325,6 +328,15 @@ const AddEventTile = (props) => {
                   />
                 </View>
               </View>
+            </View>
+            <View style={[styles.eventOptContainer]}>
+              <TextInput
+                style={styles.bulkInput}
+                onChangeText={onChangeText}
+                value={text}
+                multiline
+                placeholder="Enter Notes"
+              />
             </View>
             <View style={[styles.form, styles.buttonRow]}>
               <Button

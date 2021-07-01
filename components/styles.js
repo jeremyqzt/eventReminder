@@ -78,6 +78,14 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  bulkInput: {
+    width: "100%",
+    paddingHorizontal: 5,
+    height: 60,
+    marginLeft: 10,
+    borderWidth: 1,
+    borderRadius: 10,
+  },
   eventOptContainer: {
     marginVertical: 3,
     display: "flex",
