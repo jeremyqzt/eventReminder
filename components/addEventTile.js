@@ -333,6 +333,30 @@ const AddEventTile = (props) => {
             </View>
             <View style={[styles.extraNotesContainer]}>
               <Text style={{ width: "100%", marginBottom: 5 }}>
+                Apply Event To:
+              </Text>
+              <DropDownPicker
+                placeholder={"Color"}
+                onOpen={onColorOpen}
+                style={{ height: 40 }}
+                searchable
+                listMode="MODAL"
+                mode="BADGE"
+                multiple={true}
+                min={0}
+                max={5}
+                zIndex={100}
+                zIndexInverse={4000}
+                open={openColor}
+                value={valueColor}
+                items={itemsColor}
+                setOpen={setOpenColor}
+                setValue={setValueColor}
+                setItems={setItemsColor}
+              />
+            </View>
+            <View style={[styles.extraNotesContainer]}>
+              <Text style={{ width: "100%", marginBottom: 5 }}>
                 Additional Notes:
               </Text>
               <TextInput
