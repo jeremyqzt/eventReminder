@@ -11,7 +11,7 @@ import { View, TextInput } from "react-native";
 import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
-import { deleteContact, updateContact } from "../actions/actions";
+import { deleteEvent, updateEvent } from "../actions/actions";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import "moment-lunar";
@@ -140,8 +140,8 @@ const AddEventTile = (props) => {
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
 
-  const deleteContact = () => {
-    props.deleteContact(props.contact.id);
+  const deleteEvent = () => {
+    props.deleteEvent(props.contact.id);
   };
 
   const saveEvent = () => {
@@ -149,7 +149,7 @@ const AddEventTile = (props) => {
       eventName,
       id: props.id,
     };
-    props.updateContact(updateEvent);
+    props.updateEvent(updateEvent);
     setExpanded(false);
   };
 
@@ -376,7 +376,7 @@ const AddEventTile = (props) => {
                   color: styles.deleteButtonIcon.backgroundColor,
                   type: "font-awesome",
                 }}
-                onPress={deleteContact}
+                onPress={deleteEvent}
                 buttonStyle={styles.deleteButton}
                 containerStyle={styles.buttonContainer}
               />
@@ -404,8 +404,8 @@ const AddEventTile = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteContact: (id) => dispatch(deleteContact(id)),
-    updateContact: (contact) => dispatch(updateContact(contact)),
+    deleteEvent: (id) => dispatch(deleteEvent(id)),
+    deleteEvent: (event) => dispatch(updateEvent(event)),
   };
 };
 
