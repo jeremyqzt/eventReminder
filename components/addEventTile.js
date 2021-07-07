@@ -51,6 +51,17 @@ const AddEventTile = (props) => {
   });
   const [itemsRecurr, setItemsRecurr] = useState([...availReoccurences]);
 
+  // Contacts
+  const [openContacts, setOpenContacts] = useState(false);
+  const [valuesContacts, setValuesContacts] = useState(null);
+  const availableContacts = (props.contacts.allIds || []).map((item) => {
+    return {
+      label: item,
+      value: item,
+    };
+  });
+  const [itemsContacts, setItemContacts] = useState([...availableContacts]);
+
   // Icons
   const [openIcon, setOpenIcon] = useState(false);
   const [valueIcon, setValueIcon] = useState(null);
@@ -331,28 +342,28 @@ const AddEventTile = (props) => {
                 </View>
               </View>
             </View>
-            <View style={[styles.extraNotesContainer]}>
+            <View style={[styles.contactsContainer]}>
               <Text style={{ width: "100%", marginBottom: 5 }}>
                 Apply Event To:
               </Text>
               <DropDownPicker
-                placeholder={"Color"}
+                placeholder={"Pick some contacts..."}
                 onOpen={onColorOpen}
-                style={{ height: 40 }}
+                style={{ height: 40, width: "100%" }}
                 searchable
                 listMode="MODAL"
                 mode="BADGE"
                 multiple={true}
                 min={0}
-                max={5}
+                max={99}
                 zIndex={100}
                 zIndexInverse={4000}
-                open={openColor}
-                value={valueColor}
-                items={itemsColor}
-                setOpen={setOpenColor}
-                setValue={setValueColor}
-                setItems={setItemsColor}
+                open={openContacts}
+                value={valuesContacts}
+                items={itemsContacts}
+                setOpen={setOpenContacts}
+                setValue={setValuesContacts}
+                setItems={setItemContacts}
               />
             </View>
             <View style={[styles.extraNotesContainer]}>

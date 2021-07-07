@@ -10,7 +10,6 @@ const ContactsList = (props) => {
   return (
     <View>
       {allContactIds.map((contact, index) => {
-        console.log(allContactByIds[contact]);
         return <ContactItem contact={allContactByIds[contact]} key={index} />;
       })}
     </View>

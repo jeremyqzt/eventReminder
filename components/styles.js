@@ -98,6 +98,14 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
   },
+  contactsContainer: {
+    marginLeft: 15,
+    width: "100%",
+    marginVertical: 12,
+    display: "flex",
+    flexDirection: "column",
+    paddingRight: 5,
+  },
   PageNormal: {
     backgroundColor: DefaultTheme.normalMode.main,
     height: "100%",
