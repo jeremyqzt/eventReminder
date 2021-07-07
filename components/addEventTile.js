@@ -56,7 +56,7 @@ const AddEventTile = (props) => {
   const [valuesContacts, setValuesContacts] = useState(null);
   const availableContacts = (props.contacts.allIds || []).map((item) => {
     return {
-      label: item,
+      label: props.contacts.byId[item].firstName || "Skipped",
       value: item,
     };
   });
