@@ -21,6 +21,7 @@ import {
   AvailableIcons,
   AvailableReoccurences,
   AvailableColors,
+  Everyone,
 } from "../utils/constants";
 
 import DropDownPicker from "react-native-dropdown-picker";
@@ -53,14 +54,17 @@ const AddEventTile = (props) => {
 
   // Contacts
   const [openContacts, setOpenContacts] = useState(false);
-  const [valuesContacts, setValuesContacts] = useState(null);
+  const [valuesContacts, setValuesContacts] = useState([Everyone.value]);
   const availableContacts = (props.contacts.allIds || []).map((item) => {
     return {
       label: props.contacts.byId[item].firstName || "Skipped",
       value: item,
     };
   });
-  const [itemsContacts, setItemContacts] = useState([...availableContacts]);
+  const [itemsContacts, setItemContacts] = useState([
+    Everyone,
+    ...availableContacts,
+  ]);
 
   // Icons
   const [openIcon, setOpenIcon] = useState(false);

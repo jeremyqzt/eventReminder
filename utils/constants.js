@@ -214,3 +214,8 @@ export const AvailableColors = [
     value: "red",
   },
 ];
+
+export const Everyone = {
+  label: "Everyone",
+  value: "0-0-0-0",
+};
