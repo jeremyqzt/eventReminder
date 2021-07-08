@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   ListItem,
   Text,
@@ -52,6 +52,7 @@ const AddEventTile = (props) => {
   });
   const [itemsRecurr, setItemsRecurr] = useState([...availReoccurences]);
 
+  console.log(props.contacts.allIds);
   // Contacts
   const [openContacts, setOpenContacts] = useState(false);
   const [valuesContacts, setValuesContacts] = useState([Everyone.value]);
@@ -65,6 +66,10 @@ const AddEventTile = (props) => {
     Everyone,
     ...availableContacts,
   ]);
+
+  useEffect(() => {
+    setItemContacts([Everyone, ...availableContacts]);
+  }, [props.contacts.allIds]);
 
   // Icons
   const [openIcon, setOpenIcon] = useState(false);
@@ -167,8 +172,6 @@ const AddEventTile = (props) => {
     props.updateEvent(updateEvent);
     setExpanded(false);
   };
-
-  //console.log(props.contacts["allIds"]);
 
   return (
     <View>
