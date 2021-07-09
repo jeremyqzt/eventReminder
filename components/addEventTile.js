@@ -8,6 +8,8 @@ import {
   Avatar,
 } from "react-native-elements";
 import { View, TextInput } from "react-native";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+
 import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
@@ -29,6 +31,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 const AddEventTile = (props) => {
   const [nextOccur, setNextOccur] = useState(0);
   const [text, setText] = useState("");
+  const [isLunar, setIsLunar] = useState(false);
 
   const onChangeText = (newText) => {
     setText(newText);

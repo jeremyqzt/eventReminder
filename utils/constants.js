@@ -162,6 +162,11 @@ export const OccurenceTypes = Object.freeze({
   yearly: 2,
 });
 
+export const EventTypes = Object.freeze({
+  lunar: 0,
+  gregorian: 1,
+});
+
 export const AvailableReoccurences = [
   {
     label: "Once",
@@ -177,6 +182,19 @@ export const AvailableReoccurences = [
     label: "Yearly",
     value: OccurenceTypes.yearly,
     indicator: "🔄",
+  },
+];
+
+export const EveryType = [
+  {
+    label: "Lunar",
+    value: EventTypes.lunar,
+    indicator: "🌑",
+  },
+  {
+    label: "Gregorian",
+    value: EventTypes.gregorian,
+    indicator: "📅",
   },
 ];
 
