@@ -35,7 +35,9 @@ const AddEventTile = (props) => {
   };
   // Reoccurence
   const [openRecurr, setOpenRecurr] = useState(false);
-  const [valueRecurr, setValueRecurr] = useState(null);
+  const [valueRecurr, setValueRecurr] = useState(
+    AvailableReoccurences[2].value
+  );
   const availReoccurences = AvailableReoccurences.map((item, idx) => {
     return {
       ...item,
@@ -52,7 +54,6 @@ const AddEventTile = (props) => {
   });
   const [itemsRecurr, setItemsRecurr] = useState([...availReoccurences]);
 
-  console.log(props.contacts.allIds);
   // Contacts
   const [openContacts, setOpenContacts] = useState(false);
   const [valuesContacts, setValuesContacts] = useState([Everyone.value]);
@@ -73,7 +74,7 @@ const AddEventTile = (props) => {
 
   // Icons
   const [openIcon, setOpenIcon] = useState(false);
-  const [valueIcon, setValueIcon] = useState(null);
+  const [valueIcon, setValueIcon] = useState(AvailableIcons[0].value);
   const availIcons = AvailableIcons.map((item) => {
     return {
       ...item,
@@ -95,7 +96,7 @@ const AddEventTile = (props) => {
 
   // Colors
   const [openColor, setOpenColor] = useState(false);
-  const [valueColor, setValueColor] = useState(null);
+  const [valueColor, setValueColor] = useState(AvailableColors[0].value);
   const availColors = AvailableColors.map((item) => {
     return {
       ...item,
@@ -166,10 +167,16 @@ const AddEventTile = (props) => {
 
   const saveEvent = () => {
     const updateEvent = {
-      eventName,
       id: props.id,
+      eventName,
+      color: valueColor,
+      icon: valueIcon,
+      contacts: valuesContacts,
+      reoccurence: valueRecurr,
+      notes: text,
     };
-    props.updateEvent(updateEvent);
+    console.log(updateEvent);
+    //props.updateEvent(updateEvent);
     setExpanded(false);
   };
 
