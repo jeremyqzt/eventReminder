@@ -31,7 +31,6 @@ import DropDownPicker from "react-native-dropdown-picker";
 const AddEventTile = (props) => {
   const [nextOccur, setNextOccur] = useState(0);
   const [text, setText] = useState("");
-  const [isLunar, setIsLunar] = useState(false);
 
   const onChangeText = (newText) => {
     setText(newText);
@@ -137,19 +136,28 @@ const AddEventTile = (props) => {
 
   const [eventName, setEventName] = useState();
 
+  const onEventTypeOpen = useCallback(() => {
+    setOpenIcon(false);
+    setOpenColor(false);
+    setOpenRecurr(false);
+  }, []);
+
   const onRecurrOpen = useCallback(() => {
     setOpenIcon(false);
     setOpenColor(false);
+    setopenDateType(false);
   }, []);
 
   const onIconOpen = useCallback(() => {
     setOpenRecurr(false);
     setOpenColor(false);
+    setopenDateType(false);
   }, []);
 
   const onColorOpen = useCallback(() => {
     setOpenRecurr(false);
     setOpenIcon(false);
+    setopenDateType(false);
   }, []);
 
   const today = new Date();
@@ -196,6 +204,7 @@ const AddEventTile = (props) => {
       contacts: valuesContacts,
       reoccurence: valueRecurr,
       notes: text,
+      type: valueDateType,
     };
     console.log(updateEvent);
     //props.updateEvent(updateEvent);
@@ -339,7 +348,7 @@ const AddEventTile = (props) => {
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
                     placeholder={"Type"}
-                    onOpen={onRecurrOpen}
+                    onOpen={onEventTypeOpen}
                     style={{ height: 40 }}
                     zIndex={2000}
                     zIndexInverse={2000}
