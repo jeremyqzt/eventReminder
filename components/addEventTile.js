@@ -8,7 +8,6 @@ import {
   Avatar,
 } from "react-native-elements";
 import { View, TextInput } from "react-native";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
@@ -24,6 +23,7 @@ import {
   AvailableReoccurences,
   AvailableColors,
   Everyone,
+  EventType,
 } from "../utils/constants";
 
 import DropDownPicker from "react-native-dropdown-picker";
@@ -56,6 +56,25 @@ const AddEventTile = (props) => {
     };
   });
   const [itemsRecurr, setItemsRecurr] = useState([...availReoccurences]);
+
+  // Event DateType
+  const [openDateType, setopenDateType] = useState(false);
+  const [valueDateType, setValueDateType] = useState(EventType[1].value);
+  const availEventTypes = EventType.map((item, idx) => {
+    return {
+      ...item,
+      index: idx,
+      icon: () => (
+        <Avatar
+          size={"small"}
+          title={item.indicator}
+          overlayContainerStyle={{ backgroundColor: "white" }}
+          activeOpacity={0.7}
+        />
+      ),
+    };
+  });
+  const [itemsEventType, setItemsEventType] = useState([...availEventTypes]);
 
   // Contacts
   const [openContacts, setOpenContacts] = useState(false);
@@ -309,6 +328,32 @@ const AddEventTile = (props) => {
                 </View>
               </View>
             </View>
+            <View
+              style={[
+                styles.eventOptContainer,
+                { zIndex: 2001, zIndexInverse: 1999 },
+              ]}
+            >
+              <View style={[styles.eventOptline]}>
+                <Text style={{ width: "45%" }}>Select Event Type:</Text>
+                <View style={{ width: "50%", paddingRight: 5 }}>
+                  <DropDownPicker
+                    placeholder={"Type"}
+                    onOpen={onRecurrOpen}
+                    style={{ height: 40 }}
+                    zIndex={2000}
+                    zIndexInverse={2000}
+                    open={openDateType}
+                    value={valueDateType}
+                    items={itemsEventType}
+                    setOpen={setopenDateType}
+                    setValue={setValueDateType}
+                    setItems={setItemsEventType}
+                  />
+                </View>
+              </View>
+            </View>
+
             <View
               style={[
                 styles.eventOptContainer,

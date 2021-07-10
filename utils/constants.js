@@ -185,7 +185,7 @@ export const AvailableReoccurences = [
   },
 ];
 
-export const EveryType = [
+export const EventType = [
   {
     label: "Lunar",
     value: EventTypes.lunar,
