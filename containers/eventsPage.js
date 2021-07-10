@@ -6,7 +6,7 @@ import AddEventTile from "../components/addEventTile";
 import { connect } from "react-redux";
 import { DefaultTheme } from "../utils/constants";
 
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, ScrollView } from "react-native";
 import { View, StyleSheet } from "react-native";
 
 const EventsPage = (props) => {
@@ -14,7 +14,10 @@ const EventsPage = (props) => {
     <View style={props.darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>
         <HeadingEvent />
-        <AddEventTile />
+        <ScrollView>
+          <AddEventTile />
+          <View style={styles.flat} />
+        </ScrollView>
       </SafeAreaView>
     </View>
   );
@@ -28,6 +31,9 @@ const styles = StyleSheet.create({
   PageDark: {
     backgroundColor: DefaultTheme.darkMode.main,
     height: "100%",
+  },
+  flat: {
+    height: 150,
   },
 });
 

@@ -123,6 +123,7 @@ const AddEventTile = (props) => {
       ...item,
       icon: () => (
         <Avatar
+          rounded
           size={"small"}
           overlayContainerStyle={{ backgroundColor: `${item.value}` }}
           activeOpacity={0.7}
@@ -315,13 +316,14 @@ const AddEventTile = (props) => {
             <View
               style={[
                 styles.eventOptContainer,
-                { zIndex: 3000, zIndexInverse: 1000 },
+                { zIndex: 4000, zIndexInverse: 1000 },
               ]}
             >
               <View style={[styles.eventOptline]}>
                 <Text style={{ width: "45%" }}>Select Event Icon:</Text>
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
+                    dropDownDirection="DOWN"
                     placeholder={"Icon"}
                     onOpen={onIconOpen}
                     style={{ height: 40 }}
@@ -340,13 +342,14 @@ const AddEventTile = (props) => {
             <View
               style={[
                 styles.eventOptContainer,
-                { zIndex: 2001, zIndexInverse: 1999 },
+                { zIndex: 3000, zIndexInverse: 2000 },
               ]}
             >
               <View style={[styles.eventOptline]}>
                 <Text style={{ width: "45%" }}>Select Event Type:</Text>
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
+                    dropDownDirection="DOWN"
                     placeholder={"Type"}
                     onOpen={onEventTypeOpen}
                     style={{ height: 40 }}
@@ -366,13 +369,14 @@ const AddEventTile = (props) => {
             <View
               style={[
                 styles.eventOptContainer,
-                { zIndex: 2000, zIndexInverse: 2000 },
+                { zIndex: 2000, zIndexInverse: 3000 },
               ]}
             >
               <View style={[styles.eventOptline]}>
                 <Text style={{ width: "45%" }}>Select Event Reoccurence:</Text>
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
+                    dropDownDirection="DOWN"
                     placeholder={"Reoccurence"}
                     onOpen={onRecurrOpen}
                     style={{ height: 40 }}
@@ -391,13 +395,14 @@ const AddEventTile = (props) => {
             <View
               style={[
                 styles.eventOptContainer,
-                { zIndex: 1000, zIndexInverse: 3000 },
+                { zIndex: 1000, zIndexInverse: 4000 },
               ]}
             >
               <View style={[styles.eventOptline]}>
                 <Text style={{ width: "45%" }}>Select Event Color:</Text>
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
+                    dropDownDirection="DOWN"
                     placeholder={"Color"}
                     onOpen={onColorOpen}
                     style={{ height: 40 }}
