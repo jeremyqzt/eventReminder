@@ -237,3 +237,13 @@ export const Everyone = {
   label: "Everyone",
   value: "0-0-0-0",
 };
+
+export const defaultEvent = Object.freeze({
+  eventName: "Event Name (E.g. 🥮 Moon Festival)",
+  color: AvailableColors[0].value,
+  icon: AvailableIcons[0].value,
+  contacts: [{ ...Everyone }],
+  reoccurence: AvailableReoccurences[2].value,
+  notes: "",
+  type: EventType[1].value,
+});

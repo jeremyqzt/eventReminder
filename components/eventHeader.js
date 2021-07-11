@@ -8,7 +8,7 @@ import { Button } from "react-native-elements";
 import moment from "moment";
 import "moment-lunar";
 
-import { DefaultTheme, defaultContact } from "../utils/constants";
+import { DefaultTheme, defaultEvent } from "../utils/constants";
 import { addEvent } from "../actions/actions";
 
 const HeadingText = (props) => {
@@ -45,7 +45,7 @@ const HeadingImage = (props) => {
     : DefaultTheme.darkMode.text;
 
   const addEvent = () => {
-    props.addContact(defaultContact);
+    props.addEvent(defaultEvent);
   };
 
   return (
