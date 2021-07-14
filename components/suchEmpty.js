@@ -1,9 +1,12 @@
 import React from "react";
-import { Text, View } from "react-native";
-import tailwind from "tailwind-rn";
+import { View } from "react-native";
 
 const SuchEmptyWow = (props) => {
-  return <View></View>;
+  return (
+    <View>
+      <Image source={require("../assets/pixabay.png")} />
+    </View>
+  );
 };
 
 export default SuchEmptyWow;
