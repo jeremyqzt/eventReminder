@@ -3,9 +3,15 @@ import { View } from "react-native";
 import { connect } from "react-redux";
 import ContactItem from "./contactItem";
 
+import SuchEmptyWow from "./suchEmpty";
+
 const ContactsList = (props) => {
   const allContactIds = props.contacts.allIds || [];
   const allContactByIds = props.contacts.byId || {};
+
+  if (allContactIds.length === 0) {
+    return <SuchEmptyWow />;
+  }
 
   return (
     <View>
