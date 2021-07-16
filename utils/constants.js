@@ -64,14 +64,6 @@ export const DateTypeEnum = Object.freeze({
   },
 });
 
-export const defaultEvent = Object.freeze({
-  date: "01-01-20",
-  dateType: DateTypes.solar,
-  eventType: EventEnum.events[0],
-  eventName: "Please Enter a Name",
-  equivalentSolarDate: "01-01-20",
-});
-
 export const defaultContact = Object.freeze({
   firstName: "",
   lastName: "",
