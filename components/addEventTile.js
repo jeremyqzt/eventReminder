@@ -215,7 +215,7 @@ const AddEventTile = (props) => {
   return (
     <View>
       <ListItem
-        key={1}
+        id={props.event.id}
         bottomDivider
         onPress={() => setExpanded(!expaneded)}
         style={{
@@ -249,7 +249,7 @@ const AddEventTile = (props) => {
         ></ListItem.Chevron>
       </ListItem>
       {expaneded ? (
-        <ListItem key={2} bottomDivider>
+        <ListItem id={props.event.id + "2"} bottomDivider>
           <ListItem.Content>
             <View style={styles.form}>
               <Input

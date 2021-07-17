@@ -1,7 +1,8 @@
 import * as React from "react";
-import { View } from "react-native";
+import { View, FlatList, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import AddEventTile from "./addEventTile";
+import { styles } from "./styles";
 
 import SuchEmptyWow from "./suchEmpty";
 
@@ -10,15 +11,22 @@ const EventsList = (props) => {
   const allEventById = props.events.byId || {};
 
   if (allEventIds.length === 0) {
-    return <SuchEmptyWow />;
+    return (
+      <ScrollView>
+        <SuchEmptyWow />
+      </ScrollView>
+    );
   }
 
   return (
-    <View>
-      {allEventIds.map((event, index) => {
-        return <AddEventTile event={allEventById[event]} key={index} />;
-      })}
-    </View>
+    <FlatList
+      data={allEventIds}
+      renderItem={({ item }) => {
+        return <AddEventTile event={allEventById[item]} />;
+      }}
+      keyExtractor={(item, index) => index.toString()}
+      ListFooterComponent={<View style={styles.flat} />}
+    />
   );
 };
 

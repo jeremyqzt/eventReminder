@@ -2,6 +2,9 @@ import { StyleSheet } from "react-native";
 import { DefaultTheme } from "../utils/constants";
 
 export const styles = StyleSheet.create({
+  flat: {
+    height: 150,
+  },
   buttonContainer: {
     marginHorizontal: 5,
   },

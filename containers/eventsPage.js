@@ -14,10 +14,7 @@ const EventsPage = (props) => {
     <View style={props.darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>
         <HeadingEvent />
-        <ScrollView>
-          <EventsList />
-          <View style={styles.flat} />
-        </ScrollView>
+        <EventsList />
       </SafeAreaView>
     </View>
   );
@@ -31,9 +28,6 @@ const styles = StyleSheet.create({
   PageDark: {
     backgroundColor: DefaultTheme.darkMode.main,
     height: "100%",
-  },
-  flat: {
-    height: 150,
   },
 });
 
