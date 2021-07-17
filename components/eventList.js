@@ -9,7 +9,6 @@ const EventsList = (props) => {
   const allEventIds = props.events.allIds || [];
   const allEventById = props.events.byId || {};
 
-  console.log(props);
   if (allEventIds.length === 0) {
     return <SuchEmptyWow />;
   }
@@ -17,7 +16,7 @@ const EventsList = (props) => {
   return (
     <View>
       {allEventIds.map((event, index) => {
-        return <AddEventTile contact={allEventById[event]} key={index} />;
+        return <AddEventTile event={allEventById[event]} key={index} />;
       })}
     </View>
   );

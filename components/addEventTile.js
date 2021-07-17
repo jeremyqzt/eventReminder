@@ -29,6 +29,7 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 
 const AddEventTile = (props) => {
+  console.log(props);
   const [nextOccur, setNextOccur] = useState(0);
   const [text, setText] = useState("");
 
@@ -193,7 +194,7 @@ const AddEventTile = (props) => {
     : DefaultTheme.normalMode.text;
 
   const deleteEvent = () => {
-    props.deleteEvent(props.contact.id);
+    props.deleteEvent(props.event.id);
   };
 
   const saveEvent = () => {
@@ -207,8 +208,7 @@ const AddEventTile = (props) => {
       notes: text,
       type: valueDateType,
     };
-    console.log(updateEvent);
-    //props.updateEvent(updateEvent);
+    props.updateEvent(updateEvent);
     setExpanded(false);
   };
 
@@ -492,7 +492,7 @@ const AddEventTile = (props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteEvent: (id) => dispatch(deleteEvent(id)),
-    deleteEvent: (event) => dispatch(updateEvent(event)),
+    updateEvent: (event) => dispatch(updateEvent(event)),
   };
 };
 
