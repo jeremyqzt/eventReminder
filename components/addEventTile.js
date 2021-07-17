@@ -133,7 +133,7 @@ const AddEventTile = (props) => {
   });
   const [itemsColor, setItemsColor] = useState(availColors);
 
-  const [expaneded, setExpanded] = useState(true);
+  const [expaneded, setExpanded] = useState(false);
 
   const [eventName, setEventName] = useState();
 

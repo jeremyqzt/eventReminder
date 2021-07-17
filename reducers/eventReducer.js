@@ -1,17 +1,10 @@
 import "react-native-get-random-values";
 import { combineReducers } from "redux";
+import { defaultEvent } from "../utils/constants";
 
 const initial = {
   event: {
-    id: "event1",
-    date: "2021-01-01",
-    eventName: "",
-    description: "",
-    notes: [],
-    reoccurs: true,
-    notify: false,
-    syncCalender: false,
-    contacts: [],
+    ...defaultEvent,
   },
 };
 
@@ -19,28 +12,18 @@ const initialIds = [];
 
 const addOrEditEventEntry = (state, action) => {
   const { event } = action;
-  const {
-    id,
-    date,
-    eventName,
-    description,
-    notes,
-    reoccurs,
-    notify,
-    syncCalender,
-    contacts,
-  } = event;
+  const { id, eventName, color, icon, contacts, reoccurence, notes, type } =
+    event;
 
   const newEvent = {
-    id: id,
-    date,
+    id,
     eventName,
-    description,
-    notes,
-    reoccurs,
-    notify,
-    syncCalender,
+    color,
+    icon,
     contacts,
+    reoccurence,
+    notes,
+    type,
   };
 
   return {
@@ -64,7 +47,7 @@ const removeEventEntry = (state, action) => {
 const allIds = (state = initialIds, action) => {
   switch (action.type) {
     case "ADD_EVENT": {
-      return state.concat(action.contact.id);
+      return state.concat(action.event.id);
     }
     case "UPDATE_EVENT": {
       return state;

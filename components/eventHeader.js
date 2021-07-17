@@ -72,7 +72,7 @@ const HeadingEvent = (props) => {
         ]}
       >
         <HeadingText darkMode={props.darkMode} />
-        <HeadingImage darkMode={props.darkMode} addContact={props.addContact} />
+        <HeadingImage darkMode={props.darkMode} addEvent={props.addEvent} />
       </View>
       <Divider />
     </View>
