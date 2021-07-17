@@ -1,7 +1,7 @@
 import React from "react";
 
 import HeadingEvent from "../components/eventHeader";
-import AddEventTile from "../components/addEventTile";
+import ContactsList from "../components/addEventTile";
 
 import { connect } from "react-redux";
 import { DefaultTheme } from "../utils/constants";
@@ -15,7 +15,7 @@ const EventsPage = (props) => {
       <SafeAreaView>
         <HeadingEvent />
         <ScrollView>
-          <AddEventTile />
+          <ContactsList />
           <View style={styles.flat} />
         </ScrollView>
       </SafeAreaView>
