@@ -15,7 +15,7 @@ const initial = {
   },
 };
 
-const initialIds = ["event1"];
+const initialIds = [];
 
 const addOrEditEventEntry = (state, action) => {
   const { event } = action;
@@ -95,9 +95,9 @@ const byId = (state = initial, action) => {
   }
 };
 
-const eventReducer = combineReducers({
+const eventsReducer = combineReducers({
   allIds: allIds,
   byId: byId,
 });
 
-export default eventReducer;
+export default eventsReducer;

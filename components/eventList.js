@@ -5,10 +5,11 @@ import AddEventTile from "./addEventTile";
 
 import SuchEmptyWow from "./suchEmpty";
 
-const ContactsList = (props) => {
+const EventsList = (props) => {
   const allEventIds = props.events.allIds || [];
   const allEventById = props.events.byId || {};
 
+  console.log(props);
   if (allEventIds.length === 0) {
     return <SuchEmptyWow />;
   }
@@ -29,4 +30,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(ContactsList);
+export default connect(mapStateToProps, null)(EventsList);
