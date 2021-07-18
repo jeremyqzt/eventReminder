@@ -238,4 +238,7 @@ export const defaultEvent = Object.freeze({
   reoccurence: AvailableReoccurences[2].value,
   notes: "",
   type: EventType[1].value,
+  year: "2020",
+  month: "0",
+  day: "1",
 });

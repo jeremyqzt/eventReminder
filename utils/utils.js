@@ -1,6 +1,6 @@
 import { EventEnum, DateTypeEnum, DefaultTheme, ColorMode } from "./constants";
 
-export const constGetNextOccurence = (date) => {
+export const GetNextOccurence = (date) => {
   const today = new Date();
 
   if (today === date) {

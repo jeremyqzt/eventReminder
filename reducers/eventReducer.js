@@ -12,8 +12,19 @@ const initialIds = [];
 
 const addOrEditEventEntry = (state, action) => {
   const { event } = action;
-  const { id, eventName, color, icon, contacts, reoccurence, notes, type } =
-    event;
+  const {
+    id,
+    eventName,
+    color,
+    icon,
+    contacts,
+    reoccurence,
+    notes,
+    type,
+    year,
+    month,
+    day,
+  } = event;
 
   const newEvent = {
     id,
@@ -24,6 +35,9 @@ const addOrEditEventEntry = (state, action) => {
     reoccurence,
     notes,
     type,
+    year,
+    month,
+    day,
   };
 
   return {

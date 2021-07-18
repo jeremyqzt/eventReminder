@@ -17,7 +17,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import "moment-lunar";
 
-import { constGetNextOccurence } from "../utils/utils";
+import { GetNextOccurence } from "../utils/utils";
 import {
   AvailableIcons,
   AvailableReoccurences,
@@ -29,18 +29,14 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 
 const AddEventTile = (props) => {
-  console.log(props);
-  const [nextOccur, setNextOccur] = useState(0);
-  const [text, setText] = useState("");
+  const [text, setText] = useState(props.event.notes);
 
   const onChangeText = (newText) => {
     setText(newText);
   };
   // Reoccurence
   const [openRecurr, setOpenRecurr] = useState(false);
-  const [valueRecurr, setValueRecurr] = useState(
-    AvailableReoccurences[2].value
-  );
+  const [valueRecurr, setValueRecurr] = useState(props.event.reoccurence);
   const availReoccurences = AvailableReoccurences.map((item, idx) => {
     return {
       ...item,
@@ -96,7 +92,7 @@ const AddEventTile = (props) => {
 
   // Icons
   const [openIcon, setOpenIcon] = useState(false);
-  const [valueIcon, setValueIcon] = useState(AvailableIcons[0].value);
+  const [valueIcon, setValueIcon] = useState(props.event.icon);
   const availIcons = AvailableIcons.map((item) => {
     return {
       ...item,
@@ -118,7 +114,7 @@ const AddEventTile = (props) => {
 
   // Colors
   const [openColor, setOpenColor] = useState(false);
-  const [valueColor, setValueColor] = useState(AvailableColors[0].value);
+  const [valueColor, setValueColor] = useState(props.event.color);
   const availColors = AvailableColors.map((item) => {
     return {
       ...item,
@@ -136,7 +132,7 @@ const AddEventTile = (props) => {
 
   const [expaneded, setExpanded] = useState(false);
 
-  const [eventName, setEventName] = useState();
+  const [eventName, setEventName] = useState(props.event.eventName);
 
   const onEventTypeOpen = useCallback(() => {
     setOpenIcon(false);
@@ -162,7 +158,7 @@ const AddEventTile = (props) => {
     setopenDateType(false);
   }, []);
 
-  const today = new Date();
+  const today = new Date(props.event.year, props.event.month, props.event.day);
   const todayLunar = moment()
     .year(today.getFullYear())
     .month(today.getMonth())
@@ -172,6 +168,8 @@ const AddEventTile = (props) => {
 
   const [date, setDate] = useState(today);
   const [lunarDateState, setLunarDate] = useState(todayLunar);
+
+  const [nextOccur, setNextOccur] = useState(GetNextOccurence(today));
 
   const onChange = (_, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -186,7 +184,7 @@ const AddEventTile = (props) => {
 
     setLunarDate(lunarDate);
 
-    setNextOccur(constGetNextOccurence(currentDate));
+    setNextOccur(GetNextOccurence(currentDate));
   };
 
   const iconColor = props.darkMode
@@ -207,6 +205,9 @@ const AddEventTile = (props) => {
       reoccurence: valueRecurr,
       notes: text,
       type: valueDateType,
+      year: today.getFullYear(),
+      month: today.getMonth(),
+      date: today.getDate(),
     };
     props.updateEvent(updateEvent);
     setExpanded(false);
@@ -240,7 +241,12 @@ const AddEventTile = (props) => {
           </ListItem.Title>
           <ListItem.Subtitle
             style={{ fontWeight: "normal", fontSize: 14 }}
-          >{`${"Event subtitle"}`}</ListItem.Subtitle>
+          >{`${moment()
+            .year(date.getFullYear())
+            .month(date.getMonth())
+            .date(date.getDate())
+            .lunar()
+            .format("MMM, DD YYYY")}`}</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron
           name={!expaneded ? "chevron-down" : "chevron-up"}
