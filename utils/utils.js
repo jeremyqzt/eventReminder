@@ -1,6 +1,12 @@
-import { EventEnum, DateTypeEnum, DefaultTheme, ColorMode } from "./constants";
+import {
+  EventEnum,
+  DateTypeEnum,
+  DefaultTheme,
+  ColorMode,
+  AvailableReoccurences,
+} from "./constants";
 
-export const GetNextOccurence = (date) => {
+export const GetNextOccurence = (date, reoccurType) => {
   const today = new Date();
 
   if (today === date) {
@@ -13,11 +19,32 @@ export const GetNextOccurence = (date) => {
     return diffDays;
   }
 
-  const nextEvent = new Date(
-    date.getFullYear() + 1,
-    date.getMonth(),
-    date.getDate()
-  );
+  let nextEvent;
+  switch (reoccurType) {
+    case AvailableReoccurences[0].value: {
+      //impossible
+      break;
+    }
+    case AvailableReoccurences[1].value: {
+      //Monthly
+      nextEvent = new Date(
+        today.getFullYear(),
+        today.getMonth() + 1,
+        today.getDate()
+      );
+      break;
+    }
+    case AvailableReoccurences[2].value: {
+      //Yearly
+      nextEvent = new Date(
+        today.getFullYear() + 1,
+        today.getMonth(),
+        today.getDate()
+      );
+      break;
+    }
+  }
+
   const diffTime = Math.abs(nextEvent - today);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return diffDays;
