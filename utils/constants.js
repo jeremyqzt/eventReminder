@@ -231,7 +231,7 @@ export const Everyone = {
 };
 
 export const defaultEvent = Object.freeze({
-  eventName: "Event Name (E.g. 🥮 Moon Festival)",
+  eventName: "🥮 Event Name",
   color: AvailableColors[0].value,
   icon: AvailableIcons[0].value,
   contacts: [{ ...Everyone }],
