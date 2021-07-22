@@ -299,14 +299,18 @@ const AddEventTile = (props) => {
             <View style={styles.dateInformation}>
               <View style={styles.dateInformationText}>
                 <Icon
-                  name="moon-o"
+                  name={
+                    valueDateType === EventType[1].value ? "moon-o" : "calendar"
+                  }
                   type="font-awesome"
                   size={12}
                   color={iconColor}
                 />
                 <Text>
                   {" "}
-                  {"Equivalent Lunar Event:  "} {`${lunarDateState}`}
+                  {valueDateType === EventType[1].value
+                    ? "Equivalent Lunar Event:         " + `${lunarDateState}`
+                    : "Equivalent Gregorian Event:  " + `${lunarDateState}`}
                 </Text>
               </View>
               <View style={styles.dateInformationText}>
@@ -316,7 +320,10 @@ const AddEventTile = (props) => {
                   size={12}
                   color={iconColor}
                 />
-                <Text> {`Next Event Occurence:    ${nextOccur}`} days</Text>
+                <Text>
+                  {" "}
+                  {`Next Event Occurence:          ${nextOccur}`} days
+                </Text>
               </View>
             </View>
             <View
