@@ -336,7 +336,7 @@ const AddEventTile = (props) => {
                 <Text style={{ width: "45%" }}>Select Event Icon:</Text>
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
-                    dropDownDirection="DOWN"
+                    listMode="MODAL"
                     placeholder={"Icon"}
                     onOpen={onIconOpen}
                     style={{ height: 40 }}
@@ -362,7 +362,7 @@ const AddEventTile = (props) => {
                 <Text style={{ width: "45%" }}>Select Event Type:</Text>
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
-                    dropDownDirection="DOWN"
+                    listMode="MODAL"
                     placeholder={"Type"}
                     onOpen={onEventTypeOpen}
                     style={{ height: 40 }}
@@ -389,7 +389,7 @@ const AddEventTile = (props) => {
                 <Text style={{ width: "45%" }}>Select Event Reoccurence:</Text>
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
-                    dropDownDirection="DOWN"
+                    listMode="MODAL"
                     placeholder={"Reoccurence"}
                     onOpen={onRecurrOpen}
                     style={{ height: 40 }}
@@ -415,7 +415,7 @@ const AddEventTile = (props) => {
                 <Text style={{ width: "45%" }}>Select Event Color:</Text>
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
-                    dropDownDirection="DOWN"
+                    listMode="MODAL"
                     placeholder={"Color"}
                     onOpen={onColorOpen}
                     style={{ height: 40 }}
