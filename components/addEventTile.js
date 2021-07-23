@@ -464,7 +464,7 @@ const AddEventTile = (props) => {
                 onChangeText={onChangeText}
                 value={text}
                 multiline
-                placeholder="Enter Notes"
+                placeholder="Enter some notes..."
               />
             </View>
             <View style={[styles.form, styles.buttonRow]}>
