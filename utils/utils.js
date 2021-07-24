@@ -6,39 +6,8 @@ import {
   AvailableReoccurences,
 } from "./constants";
 
-export const DoINeedToGetNextDate = (date, reoccurType) => {
-  const today = new Date();
-  let ret = false;
-
-  switch (reoccurType) {
-    case AvailableReoccurences[0].value: {
-      break;
-    }
-    case AvailableReoccurences[1].value: {
-      //Monthly
-      const thisMonth = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        date.getDate()
-      );
-
-      if (thisMonth < today) {
-        ret = true;
-      }
-
-      break;
-    }
-    case AvailableReoccurences[2].value: {
-      //Yearly
-      const thisYear = new Date(today.getFullYear(), 0, 1);
-      if (thisYear < today) {
-        ret = true;
-      }
-      break;
-    }
-  }
-
-  return ret;
+export const getNextOccurence = (date, reoccurType, eventType) => {
+  // Case 1
 };
 
 export const GetNextOccurence = (date, reoccurType) => {
