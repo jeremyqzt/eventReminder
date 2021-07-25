@@ -4,10 +4,44 @@ import {
   DefaultTheme,
   ColorMode,
   AvailableReoccurences,
+  EventTypes,
 } from "./constants";
 
+import moment from "moment";
+import "moment-lunar";
+
+const getEqualGregorianDate = (date) => {
+  return moment()
+    .year(date.getFullYear())
+    .month(date.getMonth() + 1)
+    .date(date.getDate())
+    .solar();
+};
+
+const getNextNoReoccur = (date, dateType) => {
+  const today = new Date();
+
+  if (dateType === EventTypes.lunar) {
+    const equalGregorian = getEqualGregorianDate(date);
+  } else if (dateType === EventTypes.gregorian) {
+    if (today < date) {
+      return null;
+    } else {
+      return date;
+    }
+  }
+};
+
 export const getNextOccurence = (date, reoccurType, eventType) => {
-  // Case 1
+  let ret = null;
+
+  // Case 1, Does not reoccur
+  switch (reoccurType) {
+    case AvailableReoccurences[0].value: {
+      ret = getNextNoOccur(date, dateType);
+      break;
+    }
+  }
 };
 
 export const GetNextOccurence = (date, reoccurType) => {
