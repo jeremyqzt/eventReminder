@@ -10,12 +10,20 @@ import {
 import moment from "moment";
 import "moment-lunar";
 
-const getEqualGregorianDate = (date) => {
+export const getEqualGregorianDate = (lunarDate) => {
+  return moment()
+    .year(lunarDate.getFullYear())
+    .month(lunarDate.getMonth() + 1)
+    .date(lunarDate.getDate())
+    .solar();
+};
+
+export const getEqualLunarDate = (date) => {
   return moment()
     .year(date.getFullYear())
     .month(date.getMonth() + 1)
     .date(date.getDate())
-    .solar();
+    .lunar();
 };
 
 const getNextNoReoccur = (date, dateType) => {
