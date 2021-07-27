@@ -13,17 +13,19 @@ import "moment-lunar";
 export const getEqualGregorianDate = (lunarDate) => {
   return moment()
     .year(lunarDate.getFullYear())
-    .month(lunarDate.getMonth() + 1)
+    .month(lunarDate.getMonth())
     .date(lunarDate.getDate())
-    .solar();
+    .solar()
+    .toDate();
 };
 
 export const getEqualLunarDate = (date) => {
   return moment()
     .year(date.getFullYear())
-    .month(date.getMonth() + 1)
+    .month(date.getMonth())
     .date(date.getDate())
-    .lunar();
+    .lunar()
+    .toDate();
 };
 
 const getNextNoReoccur = (date, dateType) => {

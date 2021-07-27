@@ -17,7 +17,11 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import "moment-lunar";
 
-import { GetNextOccurence } from "../utils/utils";
+import {
+  GetNextOccurence,
+  getEqualGregorianDate,
+  getEqualLunarDate,
+} from "../utils/utils";
 import {
   AvailableIcons,
   AvailableReoccurences,
@@ -159,12 +163,7 @@ const AddEventTile = (props) => {
   }, []);
 
   const today = new Date(props.event.year, props.event.month, props.event.day);
-  const todayLunar = moment()
-    .year(today.getFullYear())
-    .month(today.getMonth())
-    .date(today.getDate())
-    .lunar()
-    .format("MMM, DD YYYY");
+  const todayLunar = getEqualLunarDate(today).toLocaleDateString("en-US");
 
   const [date, setDate] = useState(today);
   const [lunarDateState, setLunarDate] = useState(todayLunar);
@@ -175,14 +174,10 @@ const AddEventTile = (props) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
 
-    const lunarDate = moment()
-      .year(currentDate.getFullYear())
-      .month(currentDate.getMonth())
-      .date(currentDate.getDate())
-      .lunar()
-      .format("MMM, DD YYYY");
+    const lunarDate = getEqualLunarDate(currentDate);
+    //const back = getEqualGregorianDate(lunarDate);
 
-    setLunarDate(lunarDate);
+    setLunarDate(lunarDate.toLocaleDateString("en-US"));
 
     setNextOccur(GetNextOccurence(currentDate));
   };

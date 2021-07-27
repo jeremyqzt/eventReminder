@@ -6,7 +6,7 @@ import EventsList from "../components/eventList";
 import { connect } from "react-redux";
 import { DefaultTheme } from "../utils/constants";
 
-import { SafeAreaView, ScrollView } from "react-native";
+import { SafeAreaView } from "react-native";
 import { View, StyleSheet } from "react-native";
 
 const EventsPage = (props) => {
