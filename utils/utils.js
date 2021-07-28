@@ -28,6 +28,15 @@ export const getEqualLunarDate = (date) => {
     .toDate();
 };
 
+export const formatDate = (date) => {
+  var options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+  return date.toLocaleDateString("en-US", options);
+};
+
 const getNextNoReoccur = (date, dateType) => {
   const today = new Date();
 

@@ -21,6 +21,7 @@ import {
   GetNextOccurence,
   getEqualGregorianDate,
   getEqualLunarDate,
+  formatDate,
 } from "../utils/utils";
 import {
   AvailableIcons,
@@ -163,7 +164,7 @@ const AddEventTile = (props) => {
   }, []);
 
   const today = new Date(props.event.year, props.event.month, props.event.day);
-  const todayLunar = getEqualLunarDate(today).toLocaleDateString("en-US");
+  const todayLunar = formatDate(getEqualLunarDate(today));
 
   const [date, setDate] = useState(today);
   const [lunarDateState, setLunarDate] = useState(todayLunar);
@@ -177,7 +178,7 @@ const AddEventTile = (props) => {
     const lunarDate = getEqualLunarDate(currentDate);
     //const back = getEqualGregorianDate(lunarDate);
 
-    setLunarDate(lunarDate.toLocaleDateString("en-US"));
+    setLunarDate(formatDate(lunarDate));
 
     setNextOccur(GetNextOccurence(currentDate));
   };
