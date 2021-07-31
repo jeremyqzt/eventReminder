@@ -164,23 +164,19 @@ const AddEventTile = (props) => {
   }, []);
 
   const today = new Date(props.event.year, props.event.month, props.event.day);
-  const todayLunar = formatDate(getEqualLunarDate(today));
 
   const [date, setDate] = useState(today);
-  const [lunarDateState, setLunarDate] = useState(todayLunar);
 
-  const [nextOccur, setNextOccur] = useState(GetNextOccurence(today));
+  const otherDate =
+    valueDateType === EventType[0].value
+      ? formatDate(getEqualGregorianDate(date))
+      : formatDate(getEqualLunarDate(date));
+
+  const nextOccur = GetNextOccurence(today);
 
   const onChange = (_, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
-
-    const lunarDate = getEqualLunarDate(currentDate);
-    //const back = getEqualGregorianDate(lunarDate);
-
-    setLunarDate(formatDate(lunarDate));
-
-    setNextOccur(GetNextOccurence(currentDate));
   };
 
   const iconColor = props.darkMode
@@ -305,8 +301,8 @@ const AddEventTile = (props) => {
                 <Text>
                   {" "}
                   {valueDateType === EventType[1].value
-                    ? "Equivalent Lunar Event:         " + `${lunarDateState}`
-                    : "Equivalent Gregorian Event:  " + `${lunarDateState}`}
+                    ? "Equivalent Lunar Event:         " + `${otherDate}`
+                    : "Equivalent Gregorian Event:  " + `${otherDate}`}
                 </Text>
               </View>
               <View style={styles.dateInformationText}>
