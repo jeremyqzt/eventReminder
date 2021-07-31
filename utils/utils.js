@@ -37,30 +37,68 @@ export const formatDate = (date) => {
   return date.toLocaleDateString("en-US", options);
 };
 
-const getNextNoReoccur = (date, dateType) => {
-  const today = new Date();
+const getNextMonthOccurence = (date, today) => {
+  const wouldBeThisMonth = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    date.getDate()
+  );
 
-  if (dateType === EventTypes.lunar) {
-    const equalGregorian = getEqualGregorianDate(date);
-  } else if (dateType === EventTypes.gregorian) {
-    if (today < date) {
-      return null;
-    } else {
-      return date;
-    }
+  if (wouldBeThisMonth === today) {
+    return today;
+  }
+
+  if (wouldBeThisMonth < today) {
+    return new Date(today.getFullYear(), today.getMonth() + 1, date.getDate());
+  }
+
+  if (wouldBeThisMonth > today) {
+    return wouldBeThisMonth;
   }
 };
 
-export const getNextOccurence = (date, reoccurType, eventType) => {
+const getNextYearOccurence = (date, today) => {
+  const wouldBeThisYear = new Date(
+    today.getFullYear(),
+    date.getMonth(),
+    date.getDate()
+  );
+
+  if (wouldBeThisMonth === today) {
+    return today;
+  }
+
+  if (wouldBeThisMonth < today) {
+    return new Date(today.getFullYear() + 1, date.getMonth(), date.getDate());
+  }
+
+  if (wouldBeThisMonth > today) {
+    return wouldBeThisYear;
+  }
+};
+
+export const getNextOccurence = (date, reoccurType, today) => {
   let ret = null;
 
-  // Case 1, Does not reoccur
   switch (reoccurType) {
+    // Case 1, Does not reoccur
     case AvailableReoccurences[0].value: {
-      ret = getNextNoOccur(date, dateType);
+      ret = date;
+      break;
+    }
+    // Case 2, Monthly
+    case AvailableReoccurences[1].value: {
+      ret = getNextMonthOccurence(date, today);
+      break;
+    }
+    // Case 3, Yearly
+    case AvailableReoccurences[2].value: {
+      ret = getNextYearOccurence(date, today);
       break;
     }
   }
+
+  return ret;
 };
 
 export const GetNextOccurence = (date, reoccurType) => {
