@@ -18,7 +18,7 @@ import moment from "moment";
 import "moment-lunar";
 
 import {
-  GetNextOccurence,
+  getNextOccurence,
   getEqualGregorianDate,
   getEqualLunarDate,
   formatDate,
@@ -163,16 +163,25 @@ const AddEventTile = (props) => {
     setopenDateType(false);
   }, []);
 
-  const today = new Date(props.event.year, props.event.month, props.event.day);
+  const today = new Date();
+  const eventDate = new Date(
+    props.event.year,
+    props.event.month,
+    props.event.day
+  );
 
-  const [date, setDate] = useState(today);
+  const [date, setDate] = useState(eventDate);
 
   const otherDate =
     valueDateType === EventType[0].value
       ? formatDate(getEqualGregorianDate(date))
       : formatDate(getEqualLunarDate(date));
 
-  const nextOccur = GetNextOccurence(today);
+  const todayTyped =
+    valueDateType === EventType[0].value ? getEqualLunarDate(today) : today;
+  const nextOccur = formatDate(
+    getNextOccurence(eventDate, valueRecurr, todayTyped)
+  );
 
   const onChange = (_, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -197,9 +206,9 @@ const AddEventTile = (props) => {
       reoccurence: valueRecurr,
       notes: text,
       type: valueDateType,
-      year: today.getFullYear(),
-      month: today.getMonth(),
-      date: today.getDate(),
+      year: eventDate.getFullYear(),
+      month: eventDate.getMonth(),
+      date: eventDate.getDate(),
     };
     props.updateEvent(updateEvent);
     setExpanded(false);
@@ -312,10 +321,7 @@ const AddEventTile = (props) => {
                   size={12}
                   color={iconColor}
                 />
-                <Text>
-                  {" "}
-                  {`Next Event Occurence:          ${nextOccur}`} days
-                </Text>
+                <Text> {`Next Event Occurence:          ${nextOccur}`}</Text>
               </View>
             </View>
             <View

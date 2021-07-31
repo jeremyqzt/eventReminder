@@ -64,15 +64,15 @@ const getNextYearOccurence = (date, today) => {
     date.getDate()
   );
 
-  if (wouldBeThisMonth === today) {
+  if (wouldBeThisYear === today) {
     return today;
   }
 
-  if (wouldBeThisMonth < today) {
+  if (wouldBeThisYear < today) {
     return new Date(today.getFullYear() + 1, date.getMonth(), date.getDate());
   }
 
-  if (wouldBeThisMonth > today) {
+  if (wouldBeThisYear > today) {
     return wouldBeThisYear;
   }
 };
