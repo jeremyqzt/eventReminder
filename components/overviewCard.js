@@ -6,6 +6,13 @@ import { DefaultTheme } from "../utils/constants";
 
 const OverviewCard = (props) => {
   const [checked, setChecked] = useState(false);
+  const contactsCount = props.event.contacts.length || 0;
+  const contactsText =
+    contactsCount === 1
+      ? props.event.contacts[0].label
+      : contactsCount > 1
+      ? `${props.event.contacts[0].label} + ${contactsCount - 1}`
+      : "None";
   return (
     <Card
       containerStyle={props.darkMode ? styles.cardDark : styles.cardNormal}
@@ -13,7 +20,7 @@ const OverviewCard = (props) => {
     >
       <View style={styles.cardTitle}>
         <Text style={props.darkMode ? styles.titleTextDark : styles.titleText}>
-          {"🎂 Ben's Birthdday"}
+          {props.event.eventName}
         </Text>
       </View>
       <Card.Divider />
@@ -28,19 +35,7 @@ const OverviewCard = (props) => {
                 : DefaultTheme.normalMode.text
             }
           />
-          <Text>{"Ben"}</Text>
-        </View>
-        <View>
-          <Icon
-            name="repeat"
-            type="feather"
-            color={
-              props.darkMode
-                ? DefaultTheme.darkMode.text
-                : DefaultTheme.normalMode.text
-            }
-          />
-          <Text>{"22nd"}</Text>
+          <Text>{contactsText}</Text>
         </View>
         <View>
           <Icon
