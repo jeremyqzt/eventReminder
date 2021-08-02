@@ -284,7 +284,7 @@ const AddEventTile = (props) => {
               />
             </View>
             <View style={styles.datePicker}>
-              <Text style={styles.tileHeader}>Select Event Date:</Text>
+              <Text style={styles.tileHeader}>Select Original Event Date:</Text>
               <View style={styles.iOsPickerContainer}>
                 <DateTimePicker
                   testID="dateTimePicker"
