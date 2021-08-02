@@ -1,7 +1,7 @@
 import React from "react";
 
 import Heading from "../components/header";
-import OverviewCard from "../components/overviewCard";
+import OverviewList from "../components/overviewList";
 
 import { connect } from "react-redux";
 import { DefaultTheme } from "../utils/constants";
@@ -14,7 +14,7 @@ const MainPage = (props) => {
     <View style={props.darkMode ? styles.mainPageDark : styles.mainPageNormal}>
       <SafeAreaView>
         <Heading />
-        <OverviewCard />
+        <OverviewList />
       </SafeAreaView>
     </View>
   );
