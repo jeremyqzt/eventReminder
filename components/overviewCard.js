@@ -2,17 +2,26 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Card, CheckBox, Icon } from "react-native-elements";
 import { connect } from "react-redux";
-import { DefaultTheme } from "../utils/constants";
+import { DefaultTheme, Everyone } from "../utils/constants";
 
 const OverviewCard = (props) => {
+  console.log(props);
   const [checked, setChecked] = useState(false);
+  const allContacts = props.contacts;
   const contactsCount = props.event.contacts.length || 0;
-  const contactsText =
-    contactsCount === 1
-      ? props.event.contacts[0].label
-      : contactsCount > 1
-      ? `${props.event.contacts[0].label} + ${contactsCount - 1}`
-      : "None";
+
+  const isEveryone = props.event.contacts.some(
+    (event) => event.value === Everyone.value
+  );
+
+  const contactsText = isEveryone
+    ? "Everyone"
+    : contactsCount === 1
+    ? allContacts[props.event.contacts[0]].firstName
+    : contactsCount > 1
+    ? `${allContacts[props.event.contacts[0]].firstName} + ${contactsCount - 1}`
+    : "None";
+
   return (
     <Card
       containerStyle={props.darkMode ? styles.cardDark : styles.cardNormal}

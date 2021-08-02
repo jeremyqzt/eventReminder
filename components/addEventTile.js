@@ -34,7 +34,6 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 
 const AddEventTile = (props) => {
-  console.log(props);
   const [text, setText] = useState(props.event.notes);
 
   const onChangeText = (newText) => {
