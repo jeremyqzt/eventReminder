@@ -7,8 +7,8 @@ import rootReducer from "../reducers/index";
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["settingsReducer", "contactsReducer", "eventsReducer"],
-  blacklist: [],
+  whitelist: ["settingsReducer", "contactsReducer"], //, "eventsReducer"],
+  blacklist: ["eventsReducer"],
 };
 // Middleware: Redux Persist Persisted Reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -34,6 +34,7 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 
 const AddEventTile = (props) => {
+  console.log(props);
   const [text, setText] = useState(props.event.notes);
 
   const onChangeText = (newText) => {
@@ -198,7 +199,7 @@ const AddEventTile = (props) => {
 
   const saveEvent = () => {
     const updateEvent = {
-      id: props.id,
+      id: props.event.id,
       eventName,
       color: valueColor,
       icon: valueIcon,
@@ -208,7 +209,7 @@ const AddEventTile = (props) => {
       type: valueDateType,
       year: eventDate.getFullYear(),
       month: eventDate.getMonth(),
-      date: eventDate.getDate(),
+      day: eventDate.getDate(),
     };
     props.updateEvent(updateEvent);
     setExpanded(false);
