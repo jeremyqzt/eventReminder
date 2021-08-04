@@ -21,9 +21,14 @@ const OverviewCard = (props) => {
     ? `${allContacts[props.event.contacts[0]].firstName} + ${contactsCount - 1}`
     : "None";
 
+  const leftBorderColor = props.event.color;
   return (
     <Card
-      containerStyle={props.darkMode ? styles.cardDark : styles.cardNormal}
+      containerStyle={
+        props.darkMode
+          ? { ...styles.cardDark }
+          : { ...styles.cardNormal, borderLeftColor: leftBorderColor }
+      }
       style={styles.cardTitle}
     >
       <View style={styles.cardTitle}>
