@@ -15,7 +15,7 @@ const EventsList = (props) => {
   if (allEventIds.length === 0) {
     return (
       <ScrollView>
-        <SuchEmptyWow />
+        <SuchEmptyWow useTree />
       </ScrollView>
     );
   }
