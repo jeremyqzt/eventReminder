@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { DefaultTheme, Everyone } from "../utils/constants";
 
 const OverviewCard = (props) => {
-  console.log(props);
   const [checked, setChecked] = useState(false);
   const allContacts = props.contacts;
   const contactsCount = props.event.contacts.length || 0;
