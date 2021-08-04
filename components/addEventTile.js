@@ -214,12 +214,19 @@ const AddEventTile = (props) => {
     setExpanded(false);
   };
 
+  const onSave = () => {
+    saveEvent();
+  };
+
   return (
     <View>
       <ListItem
         id={props.event.id}
         bottomDivider
-        onPress={() => setExpanded(!expaneded)}
+        onPress={() => {
+          saveEvent();
+          setExpanded(!expaneded);
+        }}
         style={{
           ...styles.eventTile,
           borderColor: `${valueColor ? valueColor : AvailableColors[0].value}`,
@@ -487,7 +494,7 @@ const AddEventTile = (props) => {
                 title="Save Event"
                 type="outline"
                 raised
-                onPress={saveEvent}
+                onPress={onSave}
                 buttonStyle={styles.button}
                 titleStyle={styles.buttonText}
                 containerStyle={styles.buttonContainer}
