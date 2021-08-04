@@ -9,9 +9,11 @@ const OverviewCard = (props) => {
   const allContacts = props.contacts;
   const contactsCount = props.event.contacts.length || 0;
 
+  console.log(props.event);
   const isEveryone = props.event.contacts.some(
-    (event) => event.value === Everyone.value
+    (event) => event === Everyone.value
   );
+  console.log(isEveryone);
 
   const contactsText = isEveryone
     ? "Everyone"
@@ -26,7 +28,7 @@ const OverviewCard = (props) => {
     <Card
       containerStyle={
         props.darkMode
-          ? { ...styles.cardDark }
+          ? { ...styles.cardDark, borderLeftColor: leftBorderColor }
           : { ...styles.cardNormal, borderLeftColor: leftBorderColor }
       }
       style={styles.cardTitle}

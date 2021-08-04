@@ -234,7 +234,7 @@ export const defaultEvent = Object.freeze({
   eventName: "🥮 Event Name",
   color: AvailableColors[0].value,
   icon: AvailableIcons[0].value,
-  contacts: [{ ...Everyone }],
+  contacts: [Everyone.value],
   reoccurence: AvailableReoccurences[2].value,
   notes: "",
   type: EventType[1].value,
