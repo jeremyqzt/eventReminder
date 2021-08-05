@@ -9,11 +9,9 @@ const OverviewCard = (props) => {
   const allContacts = props.contacts;
   const contactsCount = props.event.contacts.length || 0;
 
-  console.log(props.event);
   const isEveryone = props.event.contacts.some(
     (event) => event === Everyone.value
   );
-  console.log(isEveryone);
 
   const contactsText = isEveryone
     ? "Everyone"
