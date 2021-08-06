@@ -1,11 +1,4 @@
-import {
-  EventEnum,
-  DateTypeEnum,
-  DefaultTheme,
-  ColorMode,
-  AvailableReoccurences,
-  EventTypes,
-} from "./constants";
+import { AvailableReoccurences } from "./constants";
 
 import moment from "moment";
 import "moment-lunar";
@@ -114,42 +107,4 @@ export const getDifferenceFromToday = (date) => {
   }
 
   return -1;
-};
-
-export const getEvents = () => {
-  return EventEnum;
-};
-
-export const getDateTypes = () => {
-  return DateTypeEnum;
-};
-
-export const getTheme = () => {
-  return DefaultTheme;
-};
-
-export const getName = (first, last) => {
-  if (first) {
-    if (last) {
-      return `${first} ${last}`;
-    }
-
-    return first;
-  }
-
-  return undefined;
-};
-
-export const getDefaults = () => {
-  return {
-    description: undefined,
-    eventDate: undefined,
-    eventValue: 0,
-    isLunar: false,
-    isReoccuring: true,
-  };
-};
-
-export const getColorMode = () => {
-  return ColorMode.normal;
 };
