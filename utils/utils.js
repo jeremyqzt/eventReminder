@@ -101,6 +101,21 @@ export const getNextOccurence = (date, reoccurType, today) => {
   return ret;
 };
 
+export const getDifferenceFromToday = (date) => {
+  const today = new Date();
+  if (today === date) {
+    return 0;
+  }
+
+  if (date > today) {
+    const diffTime = Math.abs(date - today);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  }
+
+  return -1;
+};
+
 export const GetNextOccurence = (date, reoccurType) => {
   const today = new Date();
 
