@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Card, CheckBox, Icon } from "react-native-elements";
 import { connect } from "react-redux";
 import { DefaultTheme, Everyone } from "../utils/constants";
+import { getNextOccurence, formatDate } from "../utils/utils";
 
 const OverviewCard = (props) => {
   const [checked, setChecked] = useState(false);
@@ -20,6 +21,17 @@ const OverviewCard = (props) => {
     : contactsCount > 1
     ? `${allContacts[props.event.contacts[0]].firstName} + ${contactsCount - 1}`
     : "None";
+
+  const eventDate = new Date(
+    props.event.year,
+    props.event.month,
+    props.event.day
+  );
+  const nextOccur = formatDate(
+    getNextOccurence(eventDate, props.event.reoccurence, new Date())
+  );
+
+  console.log(nextOccur);
 
   const leftBorderColor = props.event.color;
   return (
@@ -53,14 +65,14 @@ const OverviewCard = (props) => {
         <View>
           <Icon
             name="moon"
-            type="feather"
+            type={"feather"}
             color={
               props.darkMode
                 ? DefaultTheme.darkMode.text
                 : DefaultTheme.normalMode.text
             }
           />
-          <Text>{"Feb-15"}</Text>
+          <Text>{nextOccur}</Text>
         </View>
         <View>
           <Icon
