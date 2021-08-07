@@ -58,8 +58,8 @@ const OverviewCard = (props) => {
     props.event.day,
     props.event.type
   );
-  console.log(helpText);
   const leftBorderColor = props.event.color;
+
   return (
     <Card
       containerStyle={
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     color: DefaultTheme.darkMode.kindaWhite,
   },
   items: {
-    marginTop: 30,
+    marginTop: 50,
     display: "flex",
     flexDirection: "column",
   },
