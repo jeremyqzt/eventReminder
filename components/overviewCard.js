@@ -9,6 +9,7 @@ import {
   getEqualGregorianDate,
   getEqualLunarDate,
   getDifferenceFromToday,
+  buildEventAdditionalMessage,
 } from "../utils/utils";
 
 const OverviewCard = (props) => {
@@ -52,6 +53,12 @@ const OverviewCard = (props) => {
 
   const daysUntil = getDifferenceFromToday(nextOccurTyped);
 
+  const helpText = buildEventAdditionalMessage(
+    props.event.month,
+    props.event.day,
+    props.event.type
+  );
+  console.log(helpText);
   const leftBorderColor = props.event.color;
   return (
     <Card
@@ -107,34 +114,21 @@ const OverviewCard = (props) => {
         </View>
       </View>
       <View style={styles.items}>
-        <View style={styles.subItemReminders}>
-          <CheckBox
-            containerStyle={styles.checkbox}
-            checked={checked}
-            onPress={() => setChecked(!checked)}
-          />
-          <Text
-            style={
-              props.darkMode ? styles.reminderText : styles.reminderTextDark
-            }
-          >
-            {"Buy A Birthday Cake"}
-          </Text>
-        </View>
-        <View style={styles.subItemReminders}>
-          <CheckBox
-            containerStyle={styles.checkbox}
-            checked={checked}
-            onPress={() => setChecked(!checked)}
-          />
-          <Text
-            style={
-              props.darkMode ? styles.reminderText : styles.reminderTextDark
-            }
-          >
-            {"Send Best Wishes"}
-          </Text>
-        </View>
+        {helpText ? (
+          <View style={styles.subItemReminders}>
+            <Icon
+              name={"info"}
+              type={"feather"}
+              size={14}
+              color={
+                props.darkMode
+                  ? DefaultTheme.darkMode.text
+                  : DefaultTheme.normalMode.text
+              }
+            />
+            <Text>{` ${helpText}`}</Text>
+          </View>
+        ) : null}
       </View>
     </Card>
   );

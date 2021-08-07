@@ -1,4 +1,9 @@
-import { AvailableReoccurences } from "./constants";
+import {
+  AvailableReoccurences,
+  EventType,
+  lunarHolidays,
+  gregorianHolidays,
+} from "./constants";
 
 import moment from "moment";
 import "moment-lunar";
@@ -107,4 +112,18 @@ export const getDifferenceFromToday = (date) => {
   }
 
   return -1;
+};
+
+export const buildEventAdditionalMessage = (month, day, type) => {
+  const dictLookup =
+    type === EventType[0].value ? lunarHolidays : gregorianHolidays;
+
+  const monthText = Number(month) + 1;
+  const key = `${monthText}-${day}`;
+
+  if (dictLookup.hasOwnProperty(key)) {
+    return dictLookup[key];
+  }
+
+  return null;
 };
