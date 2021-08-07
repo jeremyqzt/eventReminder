@@ -62,9 +62,7 @@ const OverviewCard = (props) => {
         </View>
         <View>
           <Icon
-            name={
-              props.event.reoccurence === EventType[0].value ? "moon" : "sun"
-            }
+            name={props.event.type === EventType[0].value ? "moon" : "sun"}
             type={"feather"}
             color={
               props.darkMode
