@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Card, CheckBox, Icon } from "react-native-elements";
 import { connect } from "react-redux";
-import { DefaultTheme, Everyone } from "../utils/constants";
+import { DefaultTheme, Everyone, EventType } from "../utils/constants";
 import { getNextOccurence, formatDate } from "../utils/utils";
 
 const OverviewCard = (props) => {
@@ -64,7 +64,9 @@ const OverviewCard = (props) => {
         </View>
         <View>
           <Icon
-            name="moon"
+            name={
+              props.event.reoccurence === EventType[0].value ? "moon" : "sun"
+            }
             type={"feather"}
             color={
               props.darkMode
