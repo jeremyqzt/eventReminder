@@ -3,7 +3,13 @@ import { StyleSheet, Text, View } from "react-native";
 import { Card, CheckBox, Icon } from "react-native-elements";
 import { connect } from "react-redux";
 import { DefaultTheme, Everyone, EventType } from "../utils/constants";
-import { getNextOccurence, formatDate } from "../utils/utils";
+import {
+  getNextOccurence,
+  formatDate,
+  getEqualGregorianDate,
+  getEqualLunarDate,
+  getDifferenceFromToday,
+} from "../utils/utils";
 
 const OverviewCard = (props) => {
   const [checked, setChecked] = useState(false);
@@ -27,9 +33,24 @@ const OverviewCard = (props) => {
     props.event.month,
     props.event.day
   );
-  const nextOccur = formatDate(
-    getNextOccurence(eventDate, props.event.reoccurence, new Date())
+
+  const today = new Date();
+  const todayTyped =
+    props.event.type === EventType[0].value ? getEqualLunarDate(today) : today;
+
+  const nextOccurenceDate = getNextOccurence(
+    eventDate,
+    props.event.reoccurence,
+    todayTyped
   );
+
+  const nextOccur = formatDate(nextOccurenceDate);
+  const nextOccurTyped =
+    props.event.type === EventType[0].value
+      ? getEqualGregorianDate(nextOccurenceDate)
+      : nextOccurenceDate;
+
+  const daysUntil = getDifferenceFromToday(nextOccurTyped);
 
   const leftBorderColor = props.event.color;
   return (
@@ -82,7 +103,7 @@ const OverviewCard = (props) => {
                 : DefaultTheme.normalMode.text
             }
           />
-          <Text>{"T-5 Days"}</Text>
+          <Text>{`T-${daysUntil} Days`}</Text>
         </View>
       </View>
       <View style={styles.items}>
