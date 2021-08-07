@@ -3,9 +3,7 @@ import { combineReducers } from "redux";
 import { defaultEvent } from "../utils/constants";
 
 const initial = {
-  event: {
-    ...defaultEvent,
-  },
+  event: {},
 };
 
 const initialIds = [];

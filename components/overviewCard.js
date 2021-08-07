@@ -31,8 +31,6 @@ const OverviewCard = (props) => {
     getNextOccurence(eventDate, props.event.reoccurence, new Date())
   );
 
-  console.log(nextOccur);
-
   const leftBorderColor = props.event.color;
   return (
     <Card
