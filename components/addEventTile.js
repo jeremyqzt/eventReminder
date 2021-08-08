@@ -210,6 +210,7 @@ const AddEventTile = (props) => {
       year: date.getFullYear(),
       month: date.getMonth(),
       day: date.getDate(),
+      acknolwdged: props.event.acknolwdged || false,
     };
     props.updateEvent(updateEvent);
     setExpanded(false);

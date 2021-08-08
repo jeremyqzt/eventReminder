@@ -241,6 +241,7 @@ export const defaultEvent = Object.freeze({
   year: "2020",
   month: "0",
   day: "1",
+  acknolwdged: false,
 });
 
 export const gregorianHolidays = Object.freeze({
