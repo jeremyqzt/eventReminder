@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Card, CheckBox, Icon } from "react-native-elements";
+import { Card, Icon } from "react-native-elements";
 import { connect } from "react-redux";
 import { DefaultTheme, Everyone, EventType } from "../utils/constants";
 import {
@@ -13,7 +13,6 @@ import {
 } from "../utils/utils";
 
 const OverviewCard = (props) => {
-  const [checked, setChecked] = useState(false);
   const allContacts = props.contacts;
   const contactsCount = props.event.contacts.length || 0;
 
