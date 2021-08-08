@@ -184,6 +184,7 @@ const AddEventTile = (props) => {
   );
 
   const onChange = (_, selectedDate) => {
+    console.log(selectedDate);
     const currentDate = selectedDate || date;
     setDate(currentDate);
   };
@@ -206,9 +207,9 @@ const AddEventTile = (props) => {
       reoccurence: valueRecurr,
       notes: text,
       type: valueDateType,
-      year: eventDate.getFullYear(),
-      month: eventDate.getMonth(),
-      day: eventDate.getDate(),
+      year: date.getFullYear(),
+      month: date.getMonth(),
+      day: date.getDate(),
     };
     props.updateEvent(updateEvent);
     setExpanded(false);
@@ -249,12 +250,9 @@ const AddEventTile = (props) => {
           </ListItem.Title>
           <ListItem.Subtitle
             style={{ fontWeight: "normal", fontSize: 14 }}
-          >{`${moment()
-            .year(date.getFullYear())
-            .month(date.getMonth())
-            .date(date.getDate())
-            .lunar()
-            .format("MMM, DD YYYY")}`}</ListItem.Subtitle>
+          >{`${formatDate(date)} ${
+            valueDateType === EventType[0].value ? "(Lunar)" : ""
+          }`}</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron
           name={!expaneded ? "chevron-down" : "chevron-up"}
