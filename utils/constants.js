@@ -244,11 +244,11 @@ export const defaultEvent = Object.freeze({
 });
 
 export const gregorianHolidays = Object.freeze({
-  "2-14": "February 14 is also ❤️ Valentine's Day",
-  "1-1": "January 1 is also 🎆 New Year's Day",
-  "12-25": "December 25 is also 🎁 New Year's Day",
+  "2-14": "February 14 is also ❤️ Valentine's Day!",
+  "1-1": "January 1 is also 🎆 New Year's Day!",
+  "12-25": "December 25 is also 🎁 New Year's Day!",
 });
 
 export const lunarHolidays = Object.freeze({
-  "1-1": "January 1 is also 🎆 Lunar New Year's Day",
+  "1-1": "January 1 is also 🎆 Lunar New Year's Day!",
 });
