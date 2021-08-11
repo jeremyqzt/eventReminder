@@ -196,16 +196,44 @@ export const AvailableColors = [
     value: "#000000",
   },
   {
+    label: "Xandu",
+    value: "#667761",
+  },
+  {
+    label: "Ruby Brown",
+    value: "#b79492",
+  },
+  {
     label: "Lilac",
-    value: "#EA80FC",
+    value: "#ea80fc",
+  },
+  {
+    label: "Maximum Blue Purple",
+    value: "#B8B8FF",
+  },
+  {
+    label: "Lapis Lazuli",
+    value: "#1C5D99",
   },
   {
     label: "Sky Blue",
     value: "#6495ed",
   },
   {
+    label: "Blue Sapphire",
+    value: "#086788",
+  },
+  {
     label: "Tangerine",
     value: "#ff7f50",
+  },
+  {
+    label: "Melon",
+    value: "#f7af9d",
+  },
+  {
+    label: "Nyanza",
+    value: "#E5FFDE",
   },
   {
     label: "Cyan",
@@ -216,12 +244,20 @@ export const AvailableColors = [
     value: "#8fbc8f",
   },
   {
+    label: "Silver Sand",
+    value: "#bbcbcb",
+  },
+  {
+    label: "Independence",
+    value: "#4b4a67",
+  },
+  {
     label: "Gold",
     value: "#ffd700",
   },
   {
-    label: "Red",
-    value: "red",
+    label: "Brick Red",
+    value: "#C14953",
   },
 ];
 
