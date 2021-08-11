@@ -184,7 +184,6 @@ const AddEventTile = (props) => {
   );
 
   const onChange = (_, selectedDate) => {
-    console.log(selectedDate);
     const currentDate = selectedDate || date;
     setDate(currentDate);
   };
