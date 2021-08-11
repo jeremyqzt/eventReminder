@@ -14,7 +14,6 @@ import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
 import { deleteEvent, updateEvent } from "../actions/actions";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import moment from "moment";
 import "moment-lunar";
 
 import {
