@@ -339,6 +339,7 @@ const AddEventTile = (props) => {
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
                     listMode="MODAL"
+                    searchable
                     placeholder={"Icon"}
                     onOpen={onIconOpen}
                     style={{ height: 40 }}
@@ -418,6 +419,7 @@ const AddEventTile = (props) => {
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
                     listMode="MODAL"
+                    searchable
                     placeholder={"Color"}
                     onOpen={onColorOpen}
                     style={{ height: 40 }}
