@@ -21,13 +21,25 @@ const SettingsToggle = (props) => {
         >
           {props.text}
         </Text>
+        <Text
+          style={[
+            styles.subText,
+            {
+              color: props.darkMode
+                ? DefaultTheme.darkMode.text
+                : DefaultTheme.normalMode.text,
+            },
+          ]}
+        >
+          {props.subText ? props.subText : ""}
+        </Text>
       </View>
       <View style={styles.textAndSwitch}>
         <Switch
           style={{ transform: [{ scaleX: 0.75 }, { scaleY: 0.75 }] }}
           trackColor={{
             false: DefaultTheme.normalMode.text,
-            true: DefaultTheme.darkMode.text,
+            true: DefaultTheme.darkMode.kindaWhite,
           }}
           thumbColor={
             props.value
@@ -50,6 +62,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-between",
     paddingHorizontal: 20,
+    paddingVertical: 10,
     alignItems: "center",
   },
   textAndSwitch: {
@@ -57,9 +70,13 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlignVertical: "center",
-    textAlign: "center",
-    fontSize: 18,
+    fontSize: 19,
     fontWeight: "600",
+  },
+  subText: {
+    textAlignVertical: "center",
+    fontSize: 14,
+    fontWeight: "400",
   },
 });
 

@@ -9,10 +9,16 @@ import SettingsToggle from "./toggle";
 
 const SettingsList = (props) => {
   const [darkMode, setDarkMode] = useState(props.darkMode);
+  const [notifs, setNotifs] = useState(props.notifs);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     props.setDarkMode(!darkMode);
+  };
+
+  const toggleNotifs = () => {
+    setNotifs(!notifs);
+    //props.setDarkMode(!darkMode);
   };
 
   return (
@@ -21,9 +27,16 @@ const SettingsList = (props) => {
     >
       <SafeAreaView>
         <SettingsToggle
-          text={"Toggle Dark Mode"}
+          text={"Dark Mode"}
+          subText={"Toggle between dark and light mode."}
           value={darkMode}
           callback={toggleDarkMode}
+        />
+        <SettingsToggle
+          text={"Notify Me"}
+          subText={"Create a notification on the day of the event."}
+          value={notifs}
+          callback={toggleNotifs}
         />
       </SafeAreaView>
     </View>
