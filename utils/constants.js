@@ -135,8 +135,8 @@ export const AvailableIcons = [
     value: "plane",
   },
   {
-    label: "Therometer",
-    value: "therometer",
+    label: "Microchip",
+    value: "microchip",
   },
   {
     label: "Moon",
@@ -145,6 +145,82 @@ export const AvailableIcons = [
   {
     label: "Diamond",
     value: "diamond",
+  },
+  {
+    label: "Bath",
+    value: "bath",
+  },
+  {
+    label: "Building",
+    value: "bank",
+  },
+  {
+    label: "Battery",
+    value: "battery-4",
+  },
+  {
+    label: "Bell",
+    value: "bell",
+  },
+  {
+    label: "Bookmark",
+    value: "bookmark",
+  },
+  {
+    label: "Lightning",
+    value: "bolt",
+  },
+  {
+    label: "Cutlery",
+    value: "cutlery",
+  },
+  {
+    label: "Road",
+    value: "road",
+  },
+  {
+    label: "Lock",
+    value: "unlock",
+  },
+  {
+    label: "Wrench",
+    value: "wrench",
+  },
+  {
+    label: "Spinner",
+    value: "spinner",
+  },
+  {
+    label: "Magnet",
+    value: "magnet",
+  },
+  {
+    label: "Refresh",
+    value: "refresh",
+  },
+  {
+    label: "Star",
+    value: "star",
+  },
+  {
+    label: "Bitcoin",
+    value: "bitcoin",
+  },
+  {
+    label: "Unlink",
+    value: "unlink",
+  },
+  {
+    label: "Random",
+    value: "random",
+  },
+  {
+    label: "Penguin",
+    value: "linux",
+  },
+  {
+    label: "Boxes",
+    value: "th",
   },
 ];
 
