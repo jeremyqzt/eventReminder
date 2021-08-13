@@ -1,30 +1,52 @@
 import React from "react";
 import { View, Image, StyleSheet, Text } from "react-native";
-import pixaBay from "../assets/pixabay.png";
-import tree from "../assets/tree.png";
+import emptyLight from "../assets/empty.png";
+import emptyDark from "../assets/empty-dark.png";
+
+import treeLight from "../assets/tree.png";
+import treeDark from "../assets/tree-dark.png";
+import { DefaultTheme } from "../utils/constants";
 
 const SuchEmptyWow = (props) => {
-  const type = props.useTree ? tree : pixaBay;
+  const tree = props.darkMode ? treeDark : treeLight;
+  const empty = props.darkMode ? emptyDark : emptyLight;
+
+  const type = props.useTree ? tree : empty;
   const h = props.useTree ? 250 : 200;
   const w = props.useTree ? 250 : 300;
+
+  const textColor = props.darkMode
+    ? DefaultTheme.darkMode.text
+    : DefaultTheme.normalMode.text;
 
   const instructText = props.useTree
     ? "Add an contact or event to get started!"
     : "Add an entry to get started!";
 
+  const styleBackground = props.darkMode ? styles.PageDark : styles.PageNormal;
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Nothing To See Here...</Text>
+    <View style={[styles.container, styleBackground]}>
+      <Text style={[styles.text, { color: textColor }]}>
+        Nothing To See Here...
+      </Text>
       <Image
         source={type}
         style={{ width: w, height: h, marginVertical: 15 }}
       />
-      <Text style={styles.textSmall}>{instructText}</Text>
+      <Text style={[styles.textSmall, { color: textColor }]}>
+        {instructText}
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  PageNormal: {
+    backgroundColor: DefaultTheme.normalMode.main,
+  },
+  PageDark: {
+    backgroundColor: DefaultTheme.darkMode.main,
+  },
   container: {
     paddingVertical: 135,
     flex: 1,

@@ -10,7 +10,7 @@ const ContactsList = (props) => {
   const allContactByIds = props.contacts.byId || {};
 
   if (allContactIds.length === 0) {
-    return <SuchEmptyWow />;
+    return <SuchEmptyWow darkMode={props.darkMode} />;
   }
 
   return (

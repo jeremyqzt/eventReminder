@@ -13,7 +13,7 @@ const EventsList = (props) => {
   if (allEventIds.length === 0) {
     return (
       <ScrollView>
-        <SuchEmptyWow />
+        <SuchEmptyWow darkMode={props.darkMode} />
       </ScrollView>
     );
   }

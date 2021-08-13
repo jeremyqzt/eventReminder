@@ -22,7 +22,7 @@ const EventsList = (props) => {
   if (allEventIds.length === 0) {
     return (
       <ScrollView>
-        <SuchEmptyWow useTree />
+        <SuchEmptyWow useTree darkMode={props.darkMode} />
       </ScrollView>
     );
   }
