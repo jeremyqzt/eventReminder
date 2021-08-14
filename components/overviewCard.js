@@ -58,7 +58,9 @@ const OverviewCard = (props) => {
     props.event.type
   );
   const leftBorderColor = props.event.color;
-
+  const iconColor = props.darkMode
+    ? DefaultTheme.darkMode.text
+    : DefaultTheme.normalMode.text;
   return (
     <Card
       containerStyle={
@@ -76,28 +78,16 @@ const OverviewCard = (props) => {
       <Card.Divider />
       <View style={styles.infoContainer}>
         <View>
-          <Icon
-            name="user"
-            type="feather"
-            color={
-              props.darkMode
-                ? DefaultTheme.darkMode.text
-                : DefaultTheme.normalMode.text
-            }
-          />
-          <Text>{contactsText}</Text>
+          <Icon name="user" type="feather" color={iconColor} />
+          <Text style={{ color: iconColor }}>{contactsText}</Text>
         </View>
         <View>
           <Icon
             name={props.event.type === EventType[0].value ? "moon" : "sun"}
             type={"feather"}
-            color={
-              props.darkMode
-                ? DefaultTheme.darkMode.text
-                : DefaultTheme.normalMode.text
-            }
+            color={iconColor}
           />
-          <Text>{nextOccur}</Text>
+          <Text style={{ color: iconColor }}>{nextOccur}</Text>
         </View>
         <View>
           <Icon
@@ -109,12 +99,12 @@ const OverviewCard = (props) => {
                 : DefaultTheme.normalMode.text
             }
           />
-          <Text>{`T-${daysUntil} Days`}</Text>
+          <Text style={{ color: iconColor }}>{`T-${daysUntil} Days`}</Text>
         </View>
       </View>
       <View style={styles.items}>
         {helpText ? (
-          <View style={styles.subItemReminders}>
+          <View style={{ ...styles.subItemReminders, color: iconColor }}>
             <Icon
               name={"info"}
               type={"feather"}
@@ -125,7 +115,7 @@ const OverviewCard = (props) => {
                   : DefaultTheme.normalMode.text
               }
             />
-            <Text>{` ${helpText}`}</Text>
+            <Text style={{ color: iconColor }}>{` ${helpText}`}</Text>
           </View>
         ) : null}
       </View>

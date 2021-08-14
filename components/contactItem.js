@@ -33,7 +33,6 @@ const ContactItem = (props) => {
       id: props.contact.id,
     };
     props.updateContact(updatedContact);
-    setExpanded(false);
   };
 
   return (
@@ -41,7 +40,10 @@ const ContactItem = (props) => {
       <ListItem
         key={1}
         bottomDivider
-        onPress={() => setExpanded(!expaneded)}
+        onPress={() => {
+          saveContact();
+          setExpanded(!expaneded);
+        }}
         containerStyle={{ backgroundColor: backGroundColor }}
         rightContent={
           <Button
@@ -177,7 +179,10 @@ const ContactItem = (props) => {
                 title="Save"
                 type="outline"
                 raised
-                onPress={saveContact}
+                onPress={() => {
+                  saveContact();
+                  setExpanded(false);
+                }}
                 buttonStyle={styles.button}
                 titleStyle={styles.buttonText}
                 containerStyle={styles.buttonContainer}
