@@ -79,7 +79,11 @@ const ContactItem = (props) => {
         ></ListItem.Chevron>
       </ListItem>
       {expaneded ? (
-        <ListItem key={2} bottomDivider>
+        <ListItem
+          containerStyle={{ backgroundColor: backGroundColor }}
+          key={2}
+          bottomDivider
+        >
           <ListItem.Content>
             <View style={styles.form}>
               <Input
@@ -88,7 +92,7 @@ const ContactItem = (props) => {
                 leftIconContainerStyle={styles.inputIconStyle}
                 placeholder={firstName ? firstName : "First Name"}
                 spellCheck={false}
-                inputStyle={styles.inputStyle}
+                inputStyle={{ ...styles.inputStyle, color: iconColor }}
                 autoCorrect={false}
                 onChangeText={(value) => {
                   setFirstName(value);
@@ -105,7 +109,7 @@ const ContactItem = (props) => {
               <Input
                 containerStyle={styles.input}
                 inputContainerStyle={styles.inputContainer}
-                inputStyle={styles.inputStyle}
+                inputStyle={{ ...styles.inputStyle, color: iconColor }}
                 onChangeText={(value) => {
                   setLastName(value);
                 }}
@@ -131,7 +135,7 @@ const ContactItem = (props) => {
                 placeholder={
                   description ? description : "Describe this person!"
                 }
-                inputStyle={styles.inputStyle}
+                inputStyle={{ ...styles.inputStyle, color: iconColor }}
                 onChangeText={(value) => {
                   setDescription(value);
                 }}
@@ -152,11 +156,16 @@ const ContactItem = (props) => {
                 raised
                 icon={{
                   name: "trash",
-                  color: styles.deleteButtonIcon.backgroundColor,
+                  color: !props.darkMode ? DefaultTheme.delete : "white",
                   type: "font-awesome",
                 }}
                 onPress={deleteContact}
-                buttonStyle={styles.deleteButton}
+                buttonStyle={{
+                  ...styles.deleteButton,
+                  backgroundColor: props.darkMode
+                    ? DefaultTheme.delete
+                    : "white",
+                }}
                 containerStyle={styles.buttonContainer}
               />
               <Button

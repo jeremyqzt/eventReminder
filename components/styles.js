@@ -15,10 +15,6 @@ export const styles = StyleSheet.create({
   deleteButtonIcon: {
     backgroundColor: DefaultTheme.delete,
   },
-  deleteButton: {
-    borderRadius: 30,
-    borderColor: DefaultTheme.delete,
-  },
   saveButtonIcon: {
     backgroundColor: DefaultTheme.offBlack,
   },
