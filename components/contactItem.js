@@ -17,6 +17,10 @@ const ContactItem = (props) => {
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
 
+  const backGroundColor = props.darkMode
+    ? DefaultTheme.darkMode.background
+    : DefaultTheme.normalMode.background;
+
   const deleteContact = () => {
     props.deleteContact(props.contact.id);
   };
@@ -33,8 +37,20 @@ const ContactItem = (props) => {
   };
 
   return (
-    <View>
-      <ListItem key={1} bottomDivider onPress={() => setExpanded(!expaneded)}>
+    <View style={{ backgroundColor: backGroundColor }}>
+      <ListItem
+        key={1}
+        bottomDivider
+        onPress={() => setExpanded(!expaneded)}
+        containerStyle={{ backgroundColor: backGroundColor }}
+        rightContent={
+          <Button
+            title="Delete"
+            icon={{ name: "delete", color: "white" }}
+            buttonStyle={{ minHeight: "100%", backgroundColor: "red" }}
+          />
+        }
+      >
         <Avatar
           size={"medium"}
           icon={{
@@ -42,17 +58,19 @@ const ContactItem = (props) => {
             color: iconColor,
             type: "font-awesome",
           }}
-          overlayContainerStyle={{ backgroundColor: "white" }}
+          overlayContainerStyle={{ backgroundColor: backGroundColor }}
           onPress={() => setExpanded(!expaneded)}
           activeOpacity={0.7}
         />
         <ListItem.Content>
-          <ListItem.Title style={{ fontWeight: "bold", fontSize: 20 }}>
+          <ListItem.Title
+            style={{ fontWeight: "bold", fontSize: 20, color: iconColor }}
+          >
             {firstName ? `${firstName} ${lastName || ""}` : "Enter a Name"}
           </ListItem.Title>
-          <ListItem.Subtitle style={{ fontWeight: "normal", fontSize: 14 }}>{`${
-            description || "Enter a description"
-          }`}</ListItem.Subtitle>
+          <ListItem.Subtitle
+            style={{ fontWeight: "normal", fontSize: 14, color: iconColor }}
+          >{`${description || "Enter a description"}`}</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron
           name={!expaneded ? "chevron-down" : "chevron-up"}
