@@ -7,6 +7,10 @@ import { connect } from "react-redux";
 import { settingsDarkMode } from "../actions/actions";
 import SettingsToggle from "./toggle";
 
+import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
+import * as Constants from "expo-constants";
+
 const SettingsList = (props) => {
   const [darkMode, setDarkMode] = useState(props.darkMode);
   const [notifs, setNotifs] = useState(props.notifs);
@@ -16,8 +20,12 @@ const SettingsList = (props) => {
     props.setDarkMode(!darkMode);
   };
 
-  const toggleNotifs = () => {
-    setNotifs(!notifs);
+  const toggleNotifs = async () => {
+    let result = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+
+    if (Constants.default.isDevice && result.status === "granted") {
+      setNotifs(!notifs);
+    }
     //props.setDarkMode(!darkMode);
   };
 
