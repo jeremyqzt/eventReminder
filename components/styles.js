@@ -79,7 +79,8 @@ export const styles = StyleSheet.create({
   },
   bulkInput: {
     width: "98%",
-    paddingHorizontal: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
     height: 60,
     borderWidth: 1,
     borderRadius: 10,

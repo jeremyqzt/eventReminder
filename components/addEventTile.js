@@ -10,7 +10,6 @@ import {
 import { View, TextInput } from "react-native";
 
 import { styles } from "./styles";
-import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
 import { deleteEvent, updateEvent } from "../actions/actions";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -23,6 +22,7 @@ import {
   formatDate,
 } from "../utils/utils";
 import {
+  DefaultTheme,
   AvailableIcons,
   AvailableReoccurences,
   AvailableColors,
@@ -33,6 +33,10 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 
 const AddEventTile = (props) => {
+  const backGroundColor = props.darkMode
+    ? DefaultTheme.darkMode.background
+    : DefaultTheme.normalMode.background;
+
   const [text, setText] = useState(props.event.notes);
 
   const onChangeText = (newText) => {
@@ -94,28 +98,6 @@ const AddEventTile = (props) => {
     setItemContacts([Everyone, ...availableContacts]);
   }, [props.contacts.allIds]);
 
-  // Icons
-  const [openIcon, setOpenIcon] = useState(false);
-  const [valueIcon, setValueIcon] = useState(props.event.icon);
-  const availIcons = AvailableIcons.map((item) => {
-    return {
-      ...item,
-      icon: () => (
-        <Avatar
-          size={"small"}
-          icon={{
-            name: item.value,
-            color: `${AvailableColors[0].value}`,
-            type: "font-awesome",
-          }}
-          overlayContainerStyle={{ backgroundColor: "white" }}
-          activeOpacity={0.7}
-        />
-      ),
-    };
-  });
-  const [itemsIcon, setItemsIcon] = useState(availIcons);
-
   // Colors
   const [openColor, setOpenColor] = useState(false);
   const [valueColor, setValueColor] = useState(props.event.color);
@@ -137,6 +119,27 @@ const AddEventTile = (props) => {
   const [expaneded, setExpanded] = useState(false);
 
   const [eventName, setEventName] = useState(props.event.eventName);
+  // Icons
+  const [openIcon, setOpenIcon] = useState(false);
+  const [valueIcon, setValueIcon] = useState(props.event.icon);
+  const availIcons = AvailableIcons.map((item) => {
+    return {
+      ...item,
+      icon: () => (
+        <Avatar
+          size={"small"}
+          icon={{
+            name: item.value,
+            color: `black`,
+            type: "font-awesome",
+          }}
+          overlayContainerStyle={{ backgroundColor: "white" }}
+          activeOpacity={0.7}
+        />
+      ),
+    };
+  });
+  const [itemsIcon, setItemsIcon] = useState(availIcons);
 
   const onEventTypeOpen = useCallback(() => {
     setOpenIcon(false);
@@ -219,10 +222,11 @@ const AddEventTile = (props) => {
   };
 
   return (
-    <View>
+    <View style={{ backgroundColor: backGroundColor }}>
       <ListItem
         id={props.event.id}
         bottomDivider
+        containerStyle={{ backgroundColor: backGroundColor }}
         onPress={() => {
           saveEvent();
           setExpanded(!expaneded);
@@ -239,16 +243,26 @@ const AddEventTile = (props) => {
             color: `${valueColor ? valueColor : AvailableColors[0].value}`,
             type: "font-awesome",
           }}
-          overlayContainerStyle={{ backgroundColor: "white" }}
+          overlayContainerStyle={{ backgroundColor: backGroundColor }}
           onPress={() => setExpanded(!expaneded)}
           activeOpacity={0.7}
         />
         <ListItem.Content>
-          <ListItem.Title style={{ fontWeight: "bold", fontSize: 20 }}>
+          <ListItem.Title
+            style={{
+              fontWeight: "bold",
+              fontSize: 20,
+              color: iconColor,
+            }}
+          >
             {eventName || ""}
           </ListItem.Title>
           <ListItem.Subtitle
-            style={{ fontWeight: "normal", fontSize: 14 }}
+            style={{
+              fontWeight: "normal",
+              fontSize: 14,
+              color: iconColor,
+            }}
           >{`${formatDate(date)} ${
             valueDateType === EventType[0].value ? "(Lunar)" : ""
           }`}</ListItem.Subtitle>
@@ -260,7 +274,11 @@ const AddEventTile = (props) => {
         ></ListItem.Chevron>
       </ListItem>
       {expaneded ? (
-        <ListItem id={props.event.id + "2"} bottomDivider>
+        <ListItem
+          id={props.event.id + "2"}
+          bottomDivider
+          containerStyle={{ backgroundColor: backGroundColor }}
+        >
           <ListItem.Content>
             <View style={styles.form}>
               <Input
@@ -268,7 +286,7 @@ const AddEventTile = (props) => {
                 leftIconContainerStyle={styles.inputIconStyle}
                 placeholder={eventName || "Event Name (E.g. 🥮 Moon Festival)"}
                 spellCheck={false}
-                inputStyle={styles.titleStyle}
+                inputStyle={{ ...styles.titleStyle, color: iconColor }}
                 autoCorrect={false}
                 style={{
                   fontWeight: "bold",
@@ -288,7 +306,9 @@ const AddEventTile = (props) => {
               />
             </View>
             <View style={styles.datePicker}>
-              <Text style={styles.tileHeader}>Select Original Event Date:</Text>
+              <Text style={{ ...styles.tileHeader, color: iconColor }}>
+                Select Original Event Date:
+              </Text>
               <View style={styles.iOsPickerContainer}>
                 <DateTimePicker
                   testID="dateTimePicker"
@@ -311,7 +331,7 @@ const AddEventTile = (props) => {
                   size={12}
                   color={iconColor}
                 />
-                <Text>
+                <Text style={{ color: iconColor }}>
                   {" "}
                   {valueDateType === EventType[1].value
                     ? "Equivalent Lunar Event:         " + `${otherDate}`
@@ -325,7 +345,10 @@ const AddEventTile = (props) => {
                   size={12}
                   color={iconColor}
                 />
-                <Text> {`Next Event Occurence:          ${nextOccur}`}</Text>
+                <Text style={{ color: iconColor }}>
+                  {" "}
+                  {`Next Event Occurence:          ${nextOccur}`}
+                </Text>
               </View>
             </View>
             <View
@@ -335,10 +358,15 @@ const AddEventTile = (props) => {
               ]}
             >
               <View style={[styles.eventOptline]}>
-                <Text style={{ width: "45%" }}>Select Event Icon:</Text>
+                <Text style={{ width: "45%", color: iconColor }}>
+                  Select Event Icon:
+                </Text>
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
-                    listMode="MODAL"
+                    listMode="SCROLLVIEW"
+                    scrollViewProps={{
+                      nestedScrollEnabled: true,
+                    }}
                     searchable
                     placeholder={"Icon"}
                     onOpen={onIconOpen}
@@ -362,10 +390,15 @@ const AddEventTile = (props) => {
               ]}
             >
               <View style={[styles.eventOptline]}>
-                <Text style={{ width: "45%" }}>Select Event Type:</Text>
+                <Text style={{ width: "45%", color: iconColor }}>
+                  Select Event Type:
+                </Text>
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
-                    listMode="MODAL"
+                    listMode="SCROLLVIEW"
+                    scrollViewProps={{
+                      nestedScrollEnabled: true,
+                    }}
                     placeholder={"Type"}
                     onOpen={onEventTypeOpen}
                     style={{ height: 40 }}
@@ -389,10 +422,15 @@ const AddEventTile = (props) => {
               ]}
             >
               <View style={[styles.eventOptline]}>
-                <Text style={{ width: "45%" }}>Select Event Reoccurence:</Text>
+                <Text style={{ width: "45%", color: iconColor }}>
+                  Select Event Reoccurence:
+                </Text>
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
-                    listMode="MODAL"
+                    listMode="SCROLLVIEW"
+                    scrollViewProps={{
+                      nestedScrollEnabled: true,
+                    }}
                     placeholder={"Reoccurence"}
                     onOpen={onRecurrOpen}
                     style={{ height: 40 }}
@@ -415,14 +453,21 @@ const AddEventTile = (props) => {
               ]}
             >
               <View style={[styles.eventOptline]}>
-                <Text style={{ width: "45%" }}>Select Event Color:</Text>
+                <Text style={{ width: "45%", color: iconColor }}>
+                  Select Event Color:
+                </Text>
                 <View style={{ width: "50%", paddingRight: 5 }}>
                   <DropDownPicker
-                    listMode="MODAL"
+                    listMode="SCROLLVIEW"
+                    scrollViewProps={{
+                      nestedScrollEnabled: true,
+                    }}
                     searchable
                     placeholder={"Color"}
                     onOpen={onColorOpen}
-                    style={{ height: 40 }}
+                    style={{
+                      height: 40,
+                    }}
                     zIndex={1000}
                     zIndexInverse={3000}
                     open={openColor}
@@ -436,13 +481,18 @@ const AddEventTile = (props) => {
               </View>
             </View>
             <View style={[styles.contactsContainer]}>
-              <Text style={{ width: "100%", marginBottom: 5 }}>
+              <Text
+                style={{ width: "100%", marginBottom: 5, color: iconColor }}
+              >
                 Apply Event To:
               </Text>
               <DropDownPicker
                 placeholder={"Pick some contacts..."}
                 onOpen={onColorOpen}
-                style={{ height: 40, width: "100%" }}
+                style={{
+                  height: 40,
+                  width: "100%",
+                }}
                 searchable
                 listMode="MODAL"
                 mode="BADGE"
@@ -460,11 +510,16 @@ const AddEventTile = (props) => {
               />
             </View>
             <View style={[styles.extraNotesContainer]}>
-              <Text style={{ width: "100%", marginBottom: 5 }}>
+              <Text
+                style={{ width: "100%", marginBottom: 5, color: iconColor }}
+              >
                 Additional Notes:
               </Text>
               <TextInput
-                style={styles.bulkInput}
+                style={{
+                  ...styles.bulkInput,
+                  backgroundColor: "white",
+                }}
                 onChangeText={onChangeText}
                 value={text}
                 multiline
@@ -477,11 +532,16 @@ const AddEventTile = (props) => {
                 raised
                 icon={{
                   name: "ban",
-                  color: styles.deleteButtonIcon.backgroundColor,
+                  color: !props.darkMode ? DefaultTheme.delete : "white",
                   type: "font-awesome",
                 }}
                 onPress={deleteEvent}
-                buttonStyle={styles.deleteButton}
+                buttonStyle={{
+                  ...styles.deleteButton,
+                  backgroundColor: props.darkMode
+                    ? DefaultTheme.delete
+                    : "white",
+                }}
                 containerStyle={styles.buttonContainer}
               />
               <Button
