@@ -8,6 +8,8 @@ import { settingsDarkMode } from "../actions/actions";
 import SettingsToggle from "./toggle";
 
 import { Notifications } from "expo";
+import Toast from "react-native-root-toast";
+
 import * as Permissions from "expo-permissions";
 import * as Constants from "expo-constants";
 
@@ -22,11 +24,23 @@ const SettingsList = (props) => {
 
   const toggleNotifs = async () => {
     let result = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-
+    let text = "Notifications could not be enabled!";
+    const currentNotifs = notifs;
     if (Constants.default.isDevice && result.status === "granted") {
       setNotifs(!notifs);
+      text = "Notifications eanbled!";
     }
-    //props.setDarkMode(!darkMode);
+
+    if (!currentNotifs) {
+      Toast.show(text, {
+        duration: Toast.durations.SHORT,
+        position: -100,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+    }
   };
 
   return (
