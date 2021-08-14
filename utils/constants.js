@@ -268,8 +268,8 @@ export const EventType = [
 
 export const AvailableColors = [
   {
-    label: "Dark",
-    value: "#000000",
+    label: "Grey",
+    value: "#D3D3D3",
   },
   {
     label: "Xandu",
