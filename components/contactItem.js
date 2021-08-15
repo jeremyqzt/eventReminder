@@ -5,6 +5,7 @@ import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
 import { deleteContact, updateContact } from "../actions/actions";
+import Toast from "react-native-root-toast";
 
 const ContactItem = (props) => {
   const [expaneded, setExpanded] = useState(false);
@@ -33,6 +34,14 @@ const ContactItem = (props) => {
       id: props.contact.id,
     };
     props.updateContact(updatedContact);
+    Toast.show(`Contact: ${firstName} Saved!`, {
+      duration: Toast.durations.SHORT,
+      position: -100,
+      shadow: true,
+      animation: true,
+      hideOnPress: true,
+      delay: 0,
+    });
   };
 
   return (
@@ -41,7 +50,10 @@ const ContactItem = (props) => {
         key={1}
         bottomDivider
         onPress={() => {
-          saveContact();
+          if (expaneded) {
+            saveContact();
+          }
+
           setExpanded(!expaneded);
         }}
         containerStyle={{ backgroundColor: backGroundColor }}
@@ -61,7 +73,6 @@ const ContactItem = (props) => {
             type: "font-awesome",
           }}
           overlayContainerStyle={{ backgroundColor: backGroundColor }}
-          onPress={() => setExpanded(!expaneded)}
           activeOpacity={0.7}
         />
         <ListItem.Content>
