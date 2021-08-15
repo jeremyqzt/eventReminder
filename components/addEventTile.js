@@ -31,6 +31,7 @@ import {
 } from "../utils/constants";
 
 import DropDownPicker from "react-native-dropdown-picker";
+import Toast from "react-native-root-toast";
 
 const AddEventTile = (props) => {
   const backGroundColor = props.darkMode
@@ -215,6 +216,14 @@ const AddEventTile = (props) => {
     };
     props.updateEvent(updateEvent);
     setExpanded(false);
+    Toast.show(`${eventName} Saved!`, {
+      duration: Toast.durations.SHORT,
+      position: -100,
+      shadow: true,
+      animation: true,
+      hideOnPress: true,
+      delay: 0,
+    });
   };
 
   const onSave = () => {
@@ -228,7 +237,9 @@ const AddEventTile = (props) => {
         bottomDivider
         containerStyle={{ backgroundColor: backGroundColor }}
         onPress={() => {
-          saveEvent();
+          if (expaneded) {
+            saveEvent();
+          }
           setExpanded(!expaneded);
         }}
         style={{
