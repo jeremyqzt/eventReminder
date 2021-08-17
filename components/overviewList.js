@@ -13,7 +13,7 @@ import {
   getDifferenceFromToday,
 } from "../utils/utils";
 
-const EventsList = (props) => {
+const OverviewList = (props) => {
   const allEventIds = props.events.allIds || [];
   const allContactsById = props.contacts.byId || {};
 
@@ -81,4 +81,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(EventsList);
+export default connect(mapStateToProps, null)(OverviewList);
