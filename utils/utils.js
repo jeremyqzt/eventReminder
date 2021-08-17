@@ -8,6 +8,14 @@ import {
 import moment from "moment";
 import "moment-lunar";
 
+Date.prototype.isSameDateAs = function (pDate) {
+  return (
+    this.getFullYear() === pDate.getFullYear() &&
+    this.getMonth() === pDate.getMonth() &&
+    this.getDate() === pDate.getDate()
+  );
+};
+
 export const getEqualGregorianDate = (lunarDate) => {
   return moment()
     .year(lunarDate.getFullYear())
@@ -101,7 +109,7 @@ export const getNextOccurence = (date, reoccurType, today) => {
 
 export const getDifferenceFromToday = (date) => {
   const today = new Date();
-  if (today === date) {
+  if (date.isSameDateAs(today)) {
     return 0;
   }
 

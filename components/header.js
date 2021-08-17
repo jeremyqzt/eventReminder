@@ -55,12 +55,15 @@ const HeadingGreet = (props) => {
 
 const HeadingImage = (props) => {
   const textColor = props.darkMode ? styles.textDark : styles.textNormal;
-
+  const countText =
+    props.count === 0
+      ? `No Events Today`
+      : `You Have ${props.count} Event(s) Today!`;
   return (
     <View style={tailwind("items-center rounded px-1 py-1")}>
-      <Text
-        style={[tailwind("font-bold text-xs"), textColor]}
-      >{`No Events Today`}</Text>
+      <Text style={[tailwind("font-bold text-xs"), textColor]}>
+        {countText}
+      </Text>
     </View>
   );
 };
@@ -75,7 +78,10 @@ const Heading = (props) => {
         ]}
       >
         <HeadingGreet darkMode={props.darkMode} />
-        <HeadingImage darkMode={props.darkMode} />
+        <HeadingImage
+          darkMode={props.darkMode}
+          count={props.eventsToday || 0}
+        />
       </View>
       <Divider />
     </View>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { View, FlatList, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import OverviewCard from "./overviewCard";
@@ -27,6 +27,8 @@ const OverviewList = (props) => {
     );
   }
 
+  let eventCount = 0;
+
   const allEventsArr = allEventIds.map((key) => {
     const eventDate = new Date(
       allEventById[key].year,
@@ -50,12 +52,22 @@ const OverviewList = (props) => {
         : nextOccurenceDate;
 
     const daysUntil = getDifferenceFromToday(nextOccurTyped);
+    console.log(daysUntil);
+    if (daysUntil === 365) {
+      eventCount++;
+    }
 
     return {
       ...allEventById[key],
       daysUntil: daysUntil,
     };
   });
+
+  useEffect(() => {
+    if (eventCount > 0) {
+      props.setCount(eventCount);
+    }
+  }, [eventCount]);
 
   const allEventsSorted = allEventsArr.sort(
     (a, b) => parseFloat(a.daysUntil) - parseFloat(b.daysUntil)
