@@ -102,8 +102,8 @@ const OverviewCard = (props) => {
           <Text style={{ color: iconColor }}>{`T-${daysUntil} Days`}</Text>
         </View>
       </View>
-      <View style={styles.items}>
-        {helpText ? (
+      {helpText ? (
+        <View style={styles.items}>
           <View style={{ ...styles.subItemReminders, color: iconColor }}>
             <Icon
               name={"info"}
@@ -117,8 +117,8 @@ const OverviewCard = (props) => {
             />
             <Text style={{ color: iconColor }}>{` ${helpText}`}</Text>
           </View>
-        ) : null}
-      </View>
+        </View>
+      ) : null}
     </Card>
   );
 };

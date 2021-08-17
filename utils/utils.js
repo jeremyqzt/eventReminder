@@ -70,7 +70,7 @@ const getNextYearOccurence = (date, today) => {
     date.getDate()
   );
 
-  if (wouldBeThisYear === today) {
+  if (wouldBeThisYear.isSameDateAs(today)) {
     return today;
   }
 
@@ -109,6 +109,8 @@ export const getNextOccurence = (date, reoccurType, today) => {
 
 export const getDifferenceFromToday = (date) => {
   const today = new Date();
+  today.setHours(today.getHours() - 4);
+
   if (date.isSameDateAs(today)) {
     return 0;
   }
