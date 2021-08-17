@@ -52,8 +52,7 @@ const OverviewList = (props) => {
         : nextOccurenceDate;
 
     const daysUntil = getDifferenceFromToday(nextOccurTyped);
-    console.log(daysUntil);
-    if (daysUntil === 365) {
+    if (daysUntil === 0) {
       eventCount++;
     }
 
