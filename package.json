@@ -40,7 +40,8 @@
     "tailwind-rn": "^1.1.0",
     "tslib": "^2.0.3",
     "uuid": "^8.3.2",
-    "expo-constants": "~9.3.3"
+    "expo-constants": "~9.3.3",
+    "expo-contacts": "~8.6.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
