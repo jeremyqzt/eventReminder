@@ -61,6 +61,8 @@ const OverviewCard = (props) => {
   const iconColor = props.darkMode
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
+
+  const dateText = daysUntil === 0 ? "Today!" : `T-${daysUntil} Days`;
   return (
     <Card
       containerStyle={
@@ -99,7 +101,7 @@ const OverviewCard = (props) => {
                 : DefaultTheme.normalMode.text
             }
           />
-          <Text style={{ color: iconColor }}>{`T-${daysUntil} Days`}</Text>
+          <Text style={{ color: iconColor }}>{dateText}</Text>
         </View>
       </View>
       {helpText ? (

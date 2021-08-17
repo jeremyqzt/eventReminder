@@ -50,7 +50,7 @@ const getNextMonthOccurence = (date, today) => {
     date.getDate()
   );
 
-  if (wouldBeThisMonth === today) {
+  if (wouldBeThisMonth.isSameDateAs(today)) {
     return today;
   }
 
