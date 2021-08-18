@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 import { DefaultTheme } from "../utils/constants";
 import { SafeAreaView } from "react-native";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { connect } from "react-redux";
 import { settingsDarkMode } from "../actions/actions";
+import SettingsActionHeader from "./settingsActionHeader";
 import SettingsToggle from "./toggle";
-
-import { Notifications } from "expo";
+import SettingsButton from "./settingsButton";
 import Toast from "react-native-root-toast";
 
 import * as Permissions from "expo-permissions";
@@ -43,6 +43,58 @@ const SettingsList = (props) => {
     }
   };
 
+  const importContacts = async () => {
+    let result = await Permissions.askAsync(Permissions.CONTACTS);
+    if (!(Constants.default.isDevice && result.status === "granted")) {
+      return;
+    }
+
+    Alert.alert(
+      "Import Contacts",
+      "Import all contacts from this phone.",
+      [
+        {
+          text: "Never Mind!",
+          onPress: () => {},
+          style: "cancel",
+        },
+        { text: "Import", onPress: () => console.log("OK Pressed") },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  const deleteAllContacts = async () => {
+    Alert.alert(
+      "Delete Contacts",
+      "Delete all contacts from this app.",
+      [
+        {
+          text: "Never Mind!",
+          onPress: () => {},
+          style: "cancel",
+        },
+        { text: "Delete", onPress: () => console.log("OK Pressed") },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  const deleteAllEvents = async () => {
+    Alert.alert(
+      "Remove Events",
+      "Remove all events from this app.",
+      [
+        {
+          text: "Never Mind!",
+          onPress: () => {},
+          style: "cancel",
+        },
+        { text: "Remove", onPress: () => console.log("OK Pressed") },
+      ],
+      { cancelable: true }
+    );
+  };
   return (
     <View
       style={darkMode ? styles.settingsPageDark : styles.settingsPageNormal}
@@ -59,6 +111,25 @@ const SettingsList = (props) => {
           subText={"Create a notification on the day of the event."}
           value={notifs}
           callback={toggleNotifs}
+        />
+        <SettingsActionHeader />
+        <SettingsButton
+          text={"Import Contacts"}
+          title={"Import"}
+          subText={"Import contacts from your phone."}
+          callback={importContacts}
+        />
+        <SettingsButton
+          text={"Remove Events"}
+          title={"Remove"}
+          subText={"Permanently remove all events."}
+          callback={deleteAllEvents}
+        />
+        <SettingsButton
+          text={"Remove Contacts"}
+          title={"Delete"}
+          subText={"Permanently deletes all contacts."}
+          callback={deleteAllContacts}
         />
       </SafeAreaView>
     </View>
