@@ -70,12 +70,12 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlignVertical: "center",
-    fontSize: 19,
+    fontSize: 18,
     fontWeight: "600",
   },
   subText: {
     textAlignVertical: "center",
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: "400",
   },
 });
