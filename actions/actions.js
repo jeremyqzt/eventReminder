@@ -40,3 +40,11 @@ export const updateEvent = (event) => ({
   type: "UPDATE_EVENT",
   event: event,
 });
+
+export const deleteAllEvents = () => ({
+  type: "DELETE_ALL_EVENT",
+});
+
+export const deleteAllContacts = () => ({
+  type: "DELETE_ALL_CONTACTS",
+});
