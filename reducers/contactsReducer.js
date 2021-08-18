@@ -70,6 +70,9 @@ const allIds = (state = initialIds, action) => {
     case "DELETE_CONTACT": {
       return state.filter((item) => item !== action.toRemove);
     }
+    case "DELETE_ALL_CONTACTS": {
+      return [];
+    }
     default: {
       return state;
     }
@@ -86,6 +89,9 @@ const byId = (state = initial, action) => {
     }
     case "DELETE_CONTACT": {
       return removeContactEntry(state, action);
+    }
+    case "DELETE_ALL_CONTACTS": {
+      return {};
     }
     default: {
       return state;

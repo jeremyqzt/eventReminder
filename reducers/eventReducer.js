@@ -1,6 +1,5 @@
 import "react-native-get-random-values";
 import { combineReducers } from "redux";
-import { defaultEvent } from "../utils/constants";
 
 const initial = {
   event: {},
@@ -67,6 +66,9 @@ const allIds = (state = initialIds, action) => {
     case "DELETE_EVENT": {
       return state.filter((item) => item !== action.toRemove);
     }
+    case "DELETE_ALL_EVENTS": {
+      return [];
+    }
     default: {
       return state;
     }
@@ -83,6 +85,9 @@ const byId = (state = initial, action) => {
     }
     case "DELETE_EVENT": {
       return removeEventEntry(state, action);
+    }
+    case "DELETE_ALL_EVENTS": {
+      return {};
     }
     default: {
       return state;
