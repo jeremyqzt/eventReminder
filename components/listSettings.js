@@ -4,7 +4,13 @@ import { DefaultTheme } from "../utils/constants";
 import { SafeAreaView } from "react-native";
 import { View, StyleSheet, Alert } from "react-native";
 import { connect } from "react-redux";
-import { settingsDarkMode } from "../actions/actions";
+import {
+  settingsDarkMode,
+  deleteAllContacts,
+  deleteAllEvents,
+  addContactNoUUID,
+} from "../actions/actions";
+
 import SettingsActionHeader from "./settingsActionHeader";
 import SettingsToggle from "./toggle";
 import SettingsButton from "./settingsButton";
@@ -12,6 +18,7 @@ import Toast from "react-native-root-toast";
 
 import * as Permissions from "expo-permissions";
 import * as Constants from "expo-constants";
+import * as Contacts from "expo-contacts";
 
 const SettingsList = (props) => {
   const [darkMode, setDarkMode] = useState(props.darkMode);
@@ -58,7 +65,40 @@ const SettingsList = (props) => {
           onPress: () => {},
           style: "cancel",
         },
-        { text: "Import", onPress: () => console.log("OK Pressed") },
+        {
+          text: "Import",
+          onPress: async () => {
+            const { data } = await Contacts.getContactsAsync({
+              fields: [
+                Contacts.Fields.FirstName,
+                Contacts.Fields.LastName,
+                Contacts.Fields.Company,
+              ],
+            });
+
+            const today = new Date().toISOString().slice(0, 10);
+            data.forEach((contact) => {
+              const newContact = {
+                firstName: contact.firstName,
+                lastName: contact.lastName || "",
+                description: `This contact was imported ${today}.`,
+                id: contact.id,
+              };
+
+              if (!(contact.id in props.contacts.byId)) {
+                props.addContact(newContact);
+              }
+            });
+            Toast.show("All Contacts Imported!", {
+              duration: Toast.durations.SHORT,
+              position: -100,
+              shadow: true,
+              animation: true,
+              hideOnPress: true,
+              delay: 0,
+            });
+          },
+        },
       ],
       { cancelable: true }
     );
@@ -74,7 +114,20 @@ const SettingsList = (props) => {
           onPress: () => {},
           style: "cancel",
         },
-        { text: "Delete", onPress: () => console.log("OK Pressed") },
+        {
+          text: "Delete",
+          onPress: () => {
+            props.deleteAllContacts();
+            Toast.show("All Contacts Deleted!", {
+              duration: Toast.durations.SHORT,
+              position: -100,
+              shadow: true,
+              animation: true,
+              hideOnPress: true,
+              delay: 0,
+            });
+          },
+        },
       ],
       { cancelable: true }
     );
@@ -90,7 +143,20 @@ const SettingsList = (props) => {
           onPress: () => {},
           style: "cancel",
         },
-        { text: "Remove", onPress: () => console.log("OK Pressed") },
+        {
+          text: "Remove",
+          onPress: () => {
+            props.deleteAllEvents();
+            Toast.show("All Events Removed!", {
+              duration: Toast.durations.SHORT,
+              position: -100,
+              shadow: true,
+              animation: true,
+              hideOnPress: true,
+              delay: 0,
+            });
+          },
+        },
       ],
       { cancelable: true }
     );
@@ -153,12 +219,16 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = (dispatch) => {
   return {
     setDarkMode: (darkMode) => dispatch(settingsDarkMode(darkMode)),
+    deleteAllEvents: () => dispatch(deleteAllEvents()),
+    deleteAllContacts: () => dispatch(deleteAllContacts()),
+    addContact: (contact) => dispatch(addContactNoUUID(contact)),
   };
 };
 
 const mapStateToProps = (state) => {
   return {
     darkMode: state.settingsReducer.darkMode,
+    contacts: state.contactsReducer,
   };
 };
 

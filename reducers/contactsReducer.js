@@ -1,17 +1,9 @@
 import "react-native-get-random-values";
 import { combineReducers } from "redux";
 
-const initial = {
-  contact1: {
-    id: "contact1",
-    firstName: "",
-    lastName: "",
-    description: "",
-    notes: [],
-  },
-};
+const initial = {};
 
-const initialIds = ["contact1"];
+const initialIds = [];
 
 const addContactEntry = (state, action) => {
   const { contact } = action;
