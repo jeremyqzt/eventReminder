@@ -13,6 +13,13 @@ export const addContact = (contact) => ({
   },
 });
 
+export const addContactNoUUID = (contact) => ({
+  type: "ADD_CONTACT",
+  contact: {
+    ...contact,
+  },
+});
+
 export const updateContact = (contact) => ({
   type: "UPDATE_CONTACT",
   contact: contact,
