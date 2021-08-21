@@ -366,3 +366,5 @@ export const gregorianHolidays = Object.freeze({
 export const lunarHolidays = Object.freeze({
   "1-1": "January 1 is also 🎆 Lunar New Year's Day!",
 });
+
+export const birthdayEmojis = ["🎂", "🕯️", "🍰", "🧁", "🎉"];
