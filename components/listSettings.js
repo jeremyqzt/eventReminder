@@ -9,12 +9,22 @@ import {
   deleteAllContacts,
   deleteAllEvents,
   addContactNoUUID,
+  addEvent,
 } from "../actions/actions";
 
 import SettingsActionHeader from "./settingsActionHeader";
+import SettingsResetHeader from "./settingsResetHeader";
+
 import SettingsToggle from "./toggle";
 import SettingsButton from "./settingsButton";
 import Toast from "react-native-root-toast";
+import {
+  AvailableColors,
+  birthdayEmojis,
+  AvailableReoccurences,
+  EventType,
+  AvailableIcons,
+} from "../utils/constants.js";
 
 import * as Permissions from "expo-permissions";
 import * as Constants from "expo-constants";
@@ -90,6 +100,87 @@ const SettingsList = (props) => {
               }
             });
             Toast.show("All Contacts Imported!", {
+              duration: Toast.durations.SHORT,
+              position: -100,
+              shadow: true,
+              animation: true,
+              hideOnPress: true,
+              delay: 0,
+            });
+          },
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  const importEvents = async () => {
+    let result = await Permissions.askAsync(Permissions.CONTACTS);
+    if (!(Constants.default.isDevice && result.status === "granted")) {
+      return;
+    }
+
+    Alert.alert(
+      "Import Birthdays",
+      "Import all birthdays based on contacts from this phone.",
+      [
+        {
+          text: "Never Mind!",
+          onPress: () => {},
+          style: "cancel",
+        },
+        {
+          text: "Import",
+          onPress: async () => {
+            const { data } = await Contacts.getContactsAsync({
+              fields: [
+                Contacts.Fields.FirstName,
+                Contacts.Fields.LastName,
+                Contacts.Fields.Birthday,
+              ],
+            });
+            const validData = data.filter(
+              (item) => item.birthday !== undefined
+            );
+            console.log(validData);
+            const today = new Date().toISOString().slice(0, 10);
+            validData.forEach((contact) => {
+              const newContact = {
+                firstName: contact.firstName,
+                lastName: contact.lastName || "",
+                description: `This contact was imported ${today}.`,
+                id: contact.id,
+              };
+
+              const newEvent = {
+                eventName: `${
+                  birthdayEmojis[
+                    Math.floor(Math.random() * birthdayEmojis.length)
+                  ]
+                } ${contact.firstName}'s Birthday`,
+                color:
+                  AvailableColors[
+                    Math.floor(Math.random() * AvailableColors.length)
+                  ].value,
+                icon: AvailableIcons[3].value,
+                contacts: [contact.id],
+                reoccurence: AvailableReoccurences[2].value,
+                notes: `This event was imported ${today}.`,
+                type: EventType[1].value,
+                year: contact.birthday.year || 2000,
+                month: contact.birthday.month || 0,
+                day: contact.birthday.day || 1,
+                acknolwdged: false,
+                imported: true,
+              };
+
+              if (!(contact.id in props.contacts.byId)) {
+                props.addContact(newContact);
+              }
+
+              props.addEvent(newEvent);
+            });
+            Toast.show("All Birthdays Imported!", {
               duration: Toast.durations.SHORT,
               position: -100,
               shadow: true,
@@ -186,6 +277,19 @@ const SettingsList = (props) => {
           callback={importContacts}
         />
         <SettingsButton
+          text={"Import Birthdays"}
+          title={"Import"}
+          subText={"Import birthdays from contacts."}
+          callback={importEvents}
+        />
+        <SettingsButton
+          text={"Sync Events"}
+          title={"Sync"}
+          subText={"Sync from this app to your calendar."}
+          callback={importContacts}
+        />
+        <SettingsResetHeader />
+        <SettingsButton
           text={"Remove Events"}
           title={"Remove"}
           subText={"Permanently remove all events."}
@@ -222,6 +326,7 @@ const mapDispatchToProps = (dispatch) => {
     deleteAllEvents: () => dispatch(deleteAllEvents()),
     deleteAllContacts: () => dispatch(deleteAllContacts()),
     addContact: (contact) => dispatch(addContactNoUUID(contact)),
+    addEvent: (event) => dispatch(addEvent(event)),
   };
 };
 
