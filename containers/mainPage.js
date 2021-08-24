@@ -8,16 +8,18 @@ import { DefaultTheme } from "../utils/constants";
 
 import { SafeAreaView } from "react-native";
 import { View, StyleSheet } from "react-native";
+import Calendar from "../components/calendar";
 
 const MainPage = (props) => {
   const [eventsToday, setEventsToday] = useState(0);
   const setEventsCount = (count) => setEventsToday(count);
+  // <OverviewList setCount={setEventsCount} />
 
   return (
     <View style={props.darkMode ? styles.mainPageDark : styles.mainPageNormal}>
       <SafeAreaView>
         <Heading eventsToday={eventsToday} />
-        <OverviewList setCount={setEventsCount} />
+        <Calendar />
       </SafeAreaView>
     </View>
   );
