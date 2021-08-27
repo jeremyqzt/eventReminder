@@ -124,7 +124,7 @@ const Caldendar = (props) => {
         }}
         showClosingKnob={true}
         selected={"2020-09-01"}
-        pastScrollRange={1}
+        pastScrollRange={0}
         futureScrollRange={1}
         //renderEmptyData={renderEmptyItem}
         //renderEmptyDate={renderEmptyDate}

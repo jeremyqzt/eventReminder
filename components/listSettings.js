@@ -264,6 +264,12 @@ const SettingsList = (props) => {
           callback={toggleDarkMode}
         />
         <SettingsToggle
+          text={"Use Calendar"}
+          subText={"Use calendar view on home page."}
+          value={darkMode}
+          callback={toggleDarkMode}
+        />
+        <SettingsToggle
           text={"Notify Me"}
           subText={"Create a notification on the day of the event."}
           value={notifs}
