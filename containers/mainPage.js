@@ -13,13 +13,17 @@ import Calendar from "../components/calendar";
 const MainPage = (props) => {
   const [eventsToday, setEventsToday] = useState(0);
   const setEventsCount = (count) => setEventsToday(count);
-  // <OverviewList setCount={setEventsCount} />
+  const calendarMode = props.calendarMode;
 
   return (
     <View style={props.darkMode ? styles.mainPageDark : styles.mainPageNormal}>
       <SafeAreaView>
         <Heading eventsToday={eventsToday} />
-        <Calendar />
+        {calendarMode ? (
+          <Calendar />
+        ) : (
+          <OverviewList setCount={setEventsCount} />
+        )}
       </SafeAreaView>
     </View>
   );
@@ -39,6 +43,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     darkMode: state.settingsReducer.darkMode,
+    calendarMode: state.settingsReducer.useCalendar,
   };
 };
 
