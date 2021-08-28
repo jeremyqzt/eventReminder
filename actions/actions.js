@@ -5,6 +5,11 @@ export const settingsDarkMode = (darkMode) => ({
   darkMode: darkMode,
 });
 
+export const settingsCalendar = (cal) => ({
+  type: "USE_CAL",
+  useCalendar: cal,
+});
+
 export const addContact = (contact) => ({
   type: "ADD_CONTACT",
   contact: {

@@ -10,6 +10,7 @@ import {
   deleteAllEvents,
   addContactNoUUID,
   addEvent,
+  settingsCalendar,
 } from "../actions/actions";
 
 import SettingsActionHeader from "./settingsActionHeader";
@@ -32,11 +33,18 @@ import * as Contacts from "expo-contacts";
 
 const SettingsList = (props) => {
   const [darkMode, setDarkMode] = useState(props.darkMode);
+  const [useCal, setUseCal] = useState(props.useCal);
+
   const [notifs, setNotifs] = useState(props.notifs);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     props.setDarkMode(!darkMode);
+  };
+
+  const toggleUseCal = () => {
+    setUseCal(!useCal);
+    props.setCalendar(!useCal);
   };
 
   const toggleNotifs = async () => {
@@ -267,7 +275,7 @@ const SettingsList = (props) => {
           text={"Use Calendar"}
           subText={"Use calendar view on home page."}
           value={darkMode}
-          callback={toggleDarkMode}
+          callback={toggleUseCal}
         />
         <SettingsToggle
           text={"Notify Me"}
@@ -333,12 +341,14 @@ const mapDispatchToProps = (dispatch) => {
     deleteAllContacts: () => dispatch(deleteAllContacts()),
     addContact: (contact) => dispatch(addContactNoUUID(contact)),
     addEvent: (event) => dispatch(addEvent(event)),
+    setCalendar: (cal) => dispatch(settingsCalendar(cal)),
   };
 };
 
 const mapStateToProps = (state) => {
   return {
     darkMode: state.settingsReducer.darkMode,
+    useCal: state.settingsReducer.useCalendar,
     contacts: state.contactsReducer,
   };
 };

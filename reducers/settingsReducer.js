@@ -1,5 +1,6 @@
 const initialState = {
   darkMode: false,
+  useCalendar: false,
 };
 
 const settingsReducer = (state = initialState, action) => {
@@ -8,6 +9,12 @@ const settingsReducer = (state = initialState, action) => {
       return {
         ...state,
         darkMode: action.darkMode,
+      };
+    }
+    case "USE_CAL": {
+      return {
+        ...state,
+        useCalendar: action.useCalendar,
       };
     }
     default: {
