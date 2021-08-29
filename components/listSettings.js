@@ -274,7 +274,7 @@ const SettingsList = (props) => {
         <SettingsToggle
           text={"Use Calendar"}
           subText={"Use calendar view on home page."}
-          value={darkMode}
+          value={useCal}
           callback={toggleUseCal}
         />
         <SettingsToggle
