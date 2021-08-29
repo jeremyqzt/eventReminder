@@ -7,13 +7,11 @@ import {
   ScrollView,
 } from "react-native";
 import tailwind from "tailwind-rn";
-import { Divider } from "react-native-elements";
+import { Divider, Card, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Button } from "react-native-elements";
 import moment from "moment";
 import "moment-lunar";
 import SuchEmptyWow from "./suchEmpty";
-
 import { DefaultTheme, defaultEvent } from "../utils/constants";
 import { addEvent } from "../actions/actions";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
@@ -27,6 +25,77 @@ import {
   getEqualLunarDate,
   getDifferenceFromToday,
 } from "../utils/utils";
+
+const DayCard = (props) => {
+  const iconColor = "black";
+  const leftBorderColor = "black";
+  const contactsText = "Test";
+  const nextOccur = "tmr";
+  const eventType = EventType[0].value;
+  const dateText = "Jun-13";
+  const helpText = "HELP WTFD";
+
+  return (
+    <Card
+      containerStyle={
+        props.darkMode
+          ? { ...styles.cardDark, borderLeftColor: leftBorderColor }
+          : { ...styles.cardNormal, borderLeftColor: leftBorderColor }
+      }
+      style={styles.cardTitle}
+    >
+      <View style={styles.cardTitle}>
+        <Text style={props.darkMode ? styles.titleTextDark : styles.titleText}>
+          Test
+        </Text>
+      </View>
+      <Card.Divider />
+      <View style={styles.infoContainer}>
+        <View>
+          <Icon name="user" type="feather" color={iconColor} />
+          <Text style={{ color: iconColor }}>{contactsText}</Text>
+        </View>
+        <View>
+          <Icon
+            name={eventType === EventType[0].value ? "moon" : "sun"}
+            type={"font-awesome-5"}
+            color={iconColor}
+          />
+          <Text style={{ color: iconColor }}>{nextOccur}</Text>
+        </View>
+        <View>
+          <Icon
+            name="calendar"
+            type="feather"
+            color={
+              props.darkMode
+                ? DefaultTheme.darkMode.text
+                : DefaultTheme.normalMode.text
+            }
+          />
+          <Text style={{ color: iconColor }}>{dateText}</Text>
+        </View>
+      </View>
+      {helpText ? (
+        <View style={styles.items}>
+          <View style={{ ...styles.subItemReminders, color: iconColor }}>
+            <Icon
+              name={"info"}
+              type={"feather"}
+              size={14}
+              color={
+                props.darkMode
+                  ? DefaultTheme.darkMode.text
+                  : DefaultTheme.normalMode.text
+              }
+            />
+            <Text style={{ color: iconColor }}>{` ${helpText}`}</Text>
+          </View>
+        </View>
+      ) : null}
+    </Card>
+  );
+};
 
 const Caldendar = (props) => {
   const allEventIds = props.events.allIds || [];
@@ -101,14 +170,9 @@ const Caldendar = (props) => {
   };
   const monthData = getMonthData();
   const renderItem = (item) => {
-    return (
-      <>
-        <View style={styles.card}>
-          <Text>{item.name}</Text>
-        </View>
-      </>
-    );
+    return <DayCard darkMode={props.darkMode} toRender={item} />;
   };
+
   return (
     <View style={{ height: 600 }}>
       <Agenda
@@ -124,11 +188,12 @@ const Caldendar = (props) => {
         }}
         showClosingKnob={true}
         selected={"2020-09-01"}
-        pastScrollRange={0}
-        futureScrollRange={1}
+        pastScrollRange={1}
+        futureScrollRange={11}
         //renderEmptyData={renderEmptyItem}
         //renderEmptyDate={renderEmptyDate}
-        //theme={calendarTheme}
+        theme={{}}
+        style={{ height: "100%" }}
       />
     </View>
   );
@@ -137,9 +202,13 @@ const Caldendar = (props) => {
 const styles = StyleSheet.create({
   card: {
     height: 75,
+    width: "93%",
+    left: "3%",
     borderColor: "black",
+    borderWidth: 1,
     textAlignVertical: "center",
     padding: 10,
+    marginVertical: 5,
   },
   buttonNormal: {
     backgroundColor: DefaultTheme.darkMode.background,
@@ -162,6 +231,71 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingBottom: 10,
+  },
+  infoContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  cardNormal: {
+    borderRadius: 15,
+    borderLeftWidth: 7,
+    borderLeftColor: "red",
+  },
+  cardDark: {
+    borderRadius: 15,
+    borderLeftWidth: 7,
+    borderLeftColor: "red",
+    borderColor: DefaultTheme.darkMode.kindaBlack,
+    backgroundColor: DefaultTheme.darkMode.kindaBlack,
+  },
+  card: {
+    borderRadius: 15,
+    borderLeftWidth: 7,
+    borderLeftColor: "red",
+    borderColor: "#263238",
+    backgroundColor: "#263238",
+  },
+  cardTitle: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    marginBottom: 7,
+  },
+  titleText: {
+    fontSize: 25,
+    fontWeight: "800",
+    color: DefaultTheme.normalMode.text,
+  },
+  titleTextDark: {
+    fontSize: 25,
+    fontWeight: "800",
+    color: DefaultTheme.darkMode.kindaWhite,
+  },
+  items: {
+    marginTop: 50,
+    display: "flex",
+    flexDirection: "column",
+  },
+  subItemReminders: {
+    marginTop: -30,
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    marginVertical: "auto",
+  },
+  reminderText: {
+    fontSize: 18,
+    color: DefaultTheme.darkMode.kindaWhite,
+  },
+  reminderTextDark: {
+    fontSize: 18,
+    color: DefaultTheme.normalMode.text,
+  },
+  checkbox: {
+    marginHorizontal: 1,
+    paddingHorizontal: 1,
   },
 });
 
