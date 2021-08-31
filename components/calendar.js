@@ -24,6 +24,7 @@ import {
   getEqualGregorianDate,
   getEqualLunarDate,
   getDifferenceFromToday,
+  formatAgendaDate,
 } from "../utils/utils";
 
 const DayCard = (props) => {
@@ -173,8 +174,10 @@ const Caldendar = (props) => {
     return <DayCard darkMode={props.darkMode} toRender={item} />;
   };
 
+  const today = formatAgendaDate(new Date());
+
   return (
-    <View style={{ height: 600 }}>
+    <View style={{ height: "85%" }}>
       <Agenda
         items={monthData}
         renderItem={(item) => {
