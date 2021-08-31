@@ -25,6 +25,7 @@ import {
   getEqualLunarDate,
   getDifferenceFromToday,
   formatAgendaDate,
+  getDaysInMonth,
 } from "../utils/utils";
 
 const DayCard = (props) => {
@@ -190,9 +191,14 @@ const Caldendar = (props) => {
           return <View />;
         }}
         showClosingKnob={true}
-        selected={"2020-09-01"}
+        selected={today}
         pastScrollRange={1}
         futureScrollRange={11}
+        loadItemsForMonth={(month) => {
+          console.log(month);
+          const days = getDaysInMonth(month.month, month.year);
+          console.log(days);
+        }}
         //renderEmptyData={renderEmptyItem}
         //renderEmptyDate={renderEmptyDate}
         theme={{}}

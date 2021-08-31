@@ -149,3 +149,7 @@ export const formatAgendaDate = (date) => {
 
   return [year, month, day].join("-");
 };
+
+export const getDaysInMonth = (month, year) => {
+  return new Date(year, month, 0).getDate();
+};
