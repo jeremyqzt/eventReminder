@@ -27,6 +27,7 @@ import {
   formatAgendaDate,
   getDaysInMonth,
   buildMonthDict,
+  buildAgenda,
 } from "../utils/utils";
 
 const DayCard = (props) => {
@@ -159,21 +160,9 @@ const Caldendar = (props) => {
     (a, b) => parseFloat(a.daysUntil) - parseFloat(b.daysUntil)
   );
 
-  const getMonthData = () => {
-    let dataToReturn = {
-      "2021-09-01": [{ name: "item 1 - any js object", height: 55 }],
-      "2021-09-02": [{ name: "item 1 - any js object", height: 55 }],
-      "2021-09-03": [{ name: "item 2 - any js object", height: 55 }],
-      "2021-09-06": [
-        { name: "item 3 - any js object", height: 55 },
-        { name: "any js object", height: 55 },
-      ],
-    };
-    return dataToReturn;
-  };
-  const monthData = getMonthData();
+  const monthData = buildAgenda(new Date());
 
-  const [renderData, setRenderData] = useState(monthData);
+  const [renderData, _] = useState(monthData);
 
   const renderItem = (item) => {
     return <DayCard darkMode={props.darkMode} toRender={item} />;
@@ -181,7 +170,6 @@ const Caldendar = (props) => {
 
   const today = formatAgendaDate(new Date());
 
-  console.log(renderData);
   return (
     <View style={{ height: "85%" }}>
       <Agenda
@@ -198,12 +186,7 @@ const Caldendar = (props) => {
         showClosingKnob={true}
         selected={today}
         pastScrollRange={1}
-        futureScrollRange={11}
-        loadItemsForMonth={(month) => {
-          const days = getDaysInMonth(month.month, month.year);
-          const dict = buildMonthDict(month.month, month.year, days);
-          setRenderData({ ...dict, ...renderData });
-        }}
+        futureScrollRange={5}
         //renderEmptyData={renderEmptyItem}
         //renderEmptyDate={renderEmptyDate}
         theme={{}}

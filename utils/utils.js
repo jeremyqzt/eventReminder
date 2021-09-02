@@ -154,13 +154,40 @@ export const getDaysInMonth = (month, year) => {
   return new Date(year, month, 0).getDate();
 };
 
-export const buildMonthDict = (month, year, days) => {
+export const buildMonthDict = (monthStr, year, days) => {
   let ret = {};
+
+  const month = Number(monthStr) < 10 ? `0${monthStr}` : monthStr;
   for (let i = 0; i <= days; i++) {
-    ret[`${year}-${month}-${i}`] = [
-      { name: "item 1 - any js object", height: 55 },
+    const dayStr = Number(i) < 10 ? `0${i}` : i;
+
+    ret[`${year}-${month}-${dayStr}`] = [
+      { name: `${year}-${month}-${dayStr}`, height: 55 },
     ];
   }
 
   return ret;
+};
+
+export const buildAgenda = (today) => {
+  let dateDict = {};
+
+  const month = today.getMonth() + 12;
+  for (let i = month - 1; i <= month + 6; i++) {
+    const dateToBuild = new Date(today.getFullYear(), i - 12, 0);
+    const days = getDaysInMonth(
+      dateToBuild.getMonth(),
+      dateToBuild.getFullYear()
+    );
+    dateDict = {
+      ...dateDict,
+      ...buildMonthDict(
+        dateToBuild.getMonth() + 1,
+        dateToBuild.getFullYear(),
+        days
+      ),
+    };
+  }
+
+  return dateDict;
 };
