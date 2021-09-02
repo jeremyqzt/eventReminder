@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -26,6 +26,7 @@ import {
   getDifferenceFromToday,
   formatAgendaDate,
   getDaysInMonth,
+  buildMonthDict,
 } from "../utils/utils";
 
 const DayCard = (props) => {
@@ -160,10 +161,10 @@ const Caldendar = (props) => {
 
   const getMonthData = () => {
     let dataToReturn = {
-      "2020-09-01": [{ name: "item 1 - any js object", height: 55 }],
-      "2020-09-02": [{ name: "item 1 - any js object", height: 55 }],
-      "2020-09-03": [{ name: "item 2 - any js object", height: 55 }],
-      "2020-09-06": [
+      "2021-09-01": [{ name: "item 1 - any js object", height: 55 }],
+      "2021-09-02": [{ name: "item 1 - any js object", height: 55 }],
+      "2021-09-03": [{ name: "item 2 - any js object", height: 55 }],
+      "2021-09-06": [
         { name: "item 3 - any js object", height: 55 },
         { name: "any js object", height: 55 },
       ],
@@ -171,16 +172,20 @@ const Caldendar = (props) => {
     return dataToReturn;
   };
   const monthData = getMonthData();
+
+  const [renderData, setRenderData] = useState(monthData);
+
   const renderItem = (item) => {
     return <DayCard darkMode={props.darkMode} toRender={item} />;
   };
 
   const today = formatAgendaDate(new Date());
 
+  console.log(renderData);
   return (
     <View style={{ height: "85%" }}>
       <Agenda
-        items={monthData}
+        items={renderData}
         renderItem={(item) => {
           return renderItem(item);
         }}
@@ -195,9 +200,9 @@ const Caldendar = (props) => {
         pastScrollRange={1}
         futureScrollRange={11}
         loadItemsForMonth={(month) => {
-          console.log(month);
           const days = getDaysInMonth(month.month, month.year);
-          console.log(days);
+          const dict = buildMonthDict(month.month, month.year, days);
+          setRenderData({ ...dict, ...renderData });
         }}
         //renderEmptyData={renderEmptyItem}
         //renderEmptyDate={renderEmptyDate}

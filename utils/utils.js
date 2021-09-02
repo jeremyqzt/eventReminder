@@ -153,3 +153,14 @@ export const formatAgendaDate = (date) => {
 export const getDaysInMonth = (month, year) => {
   return new Date(year, month, 0).getDate();
 };
+
+export const buildMonthDict = (month, year, days) => {
+  let ret = {};
+  for (let i = 0; i <= days; i++) {
+    ret[`${year}-${month}-${i}`] = [
+      { name: "item 1 - any js object", height: 55 },
+    ];
+  }
+
+  return ret;
+};
