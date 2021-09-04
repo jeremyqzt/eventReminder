@@ -107,6 +107,36 @@ export const getNextOccurence = (date, reoccurType, today) => {
   return ret;
 };
 
+export const getNextXOccurence = (date, reoccurType, today, X = 6) => {
+  let ret = null;
+
+  switch (reoccurType) {
+    // Case 1, Does not reoccur
+    case AvailableReoccurences[0].value: {
+      ret = [date];
+      break;
+    }
+    // Case 2, Monthly
+    case AvailableReoccurences[1].value: {
+      ret = [];
+      const nextCtr = today;
+      for (let i = 0; i < X; i++) {
+        const nextOccur = getNextMonthOccurence(date, nextCtr);
+        ret.push(nextOccur);
+        nextCtr = nextOccur;
+      }
+      break;
+    }
+    // Case 3, Yearly
+    case AvailableReoccurences[2].value: {
+      ret = [getNextYearOccurence(date, today)];
+      break;
+    }
+  }
+
+  return ret;
+};
+
 export const getDifferenceFromToday = (date) => {
   const today = new Date();
   today.setHours(today.getHours() - 4);
