@@ -122,6 +122,8 @@ export const getNextOccurence = (date, reoccurType, today) => {
 export const getNextXOccurence = (date, reoccurType, today, X = 6) => {
   let ret = null;
 
+  const yearsToProject = X <= 12 ? 1 : Math.ceil(X / 12);
+
   switch (reoccurType) {
     // Case 1, Does not reoccur
     case AvailableReoccurences[0].value: {
@@ -141,7 +143,13 @@ export const getNextXOccurence = (date, reoccurType, today, X = 6) => {
     }
     // Case 3, Yearly
     case AvailableReoccurences[2].value: {
-      ret = [getNextYearOccurence(date, today)];
+      ret = [];
+      const nextCtr = today;
+      for (let i = 0; i < yearsToProject; i++) {
+        const nextOccur = getNextYearOccurence(date, nextCtr);
+        ret.push(nextOccur);
+        nextCtr = nextOccur;
+      }
       break;
     }
   }
