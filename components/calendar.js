@@ -9,14 +9,12 @@ import {
 import tailwind from "tailwind-rn";
 import { Divider, Card, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import moment from "moment";
 import "moment-lunar";
 import SuchEmptyWow from "./suchEmpty";
 import { DefaultTheme, defaultEvent } from "../utils/constants";
 import { addEvent } from "../actions/actions";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { connect } from "react-redux";
-import OverviewCard from "./overviewCard";
 import { EventType } from "../utils/constants";
 
 import {
@@ -28,6 +26,7 @@ import {
   getDaysInMonth,
   buildMonthDict,
   buildAgenda,
+  getNextXOccurence,
 } from "../utils/utils";
 
 const DayCard = (props) => {
@@ -117,7 +116,9 @@ const Caldendar = (props) => {
 
   let eventCount = 0;
 
-  const allEventsArr = allEventIds.map((key) => {
+  let allEventsArr = [];
+
+  allEventIds.forEach((key) => {
     const eventDate = new Date(
       allEventById[key].year,
       allEventById[key].month,
@@ -129,25 +130,28 @@ const Caldendar = (props) => {
         ? getEqualLunarDate(today)
         : today;
 
-    const nextOccurenceDate = getNextOccurence(
+    const allNextOccurenceDate = getNextXOccurence(
       eventDate,
       allEventById[key].reoccurence,
       todayTyped
     );
-    const nextOccurTyped =
-      allEventById[key].type === EventType[0].value
-        ? getEqualGregorianDate(nextOccurenceDate)
-        : nextOccurenceDate;
 
-    const daysUntil = getDifferenceFromToday(nextOccurTyped);
-    if (daysUntil === 0) {
-      eventCount++;
-    }
+    allNextOccurenceDate.forEach((nextOccurenceDate) => {
+      const nextOccurTyped =
+        allEventById[key].type === EventType[0].value
+          ? getEqualGregorianDate(nextOccurenceDate)
+          : nextOccurenceDate;
 
-    return {
-      ...allEventById[key],
-      daysUntil: daysUntil,
-    };
+      const daysUntil = getDifferenceFromToday(nextOccurTyped);
+      if (daysUntil === 0) {
+        eventCount++;
+      }
+
+      allEventsArr.push({
+        ...allEventById[key],
+        daysUntil: daysUntil,
+      });
+    });
   });
 
   useEffect(() => {

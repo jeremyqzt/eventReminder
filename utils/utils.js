@@ -133,7 +133,7 @@ export const getNextXOccurence = (date, reoccurType, today, X = 6) => {
     // Case 2, Monthly
     case AvailableReoccurences[1].value: {
       ret = [];
-      const nextCtr = today;
+      let nextCtr = today;
       for (let i = 0; i < X; i++) {
         const nextOccur = getNextMonthOccurence(date, nextCtr);
         ret.push(nextOccur);
@@ -144,7 +144,7 @@ export const getNextXOccurence = (date, reoccurType, today, X = 6) => {
     // Case 3, Yearly
     case AvailableReoccurences[2].value: {
       ret = [];
-      const nextCtr = today;
+      let nextCtr = today;
       for (let i = 0; i < yearsToProject; i++) {
         const nextOccur = getNextYearOccurence(date, nextCtr);
         ret.push(nextOccur);
