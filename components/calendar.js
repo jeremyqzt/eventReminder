@@ -26,6 +26,7 @@ import {
   getDaysInMonth,
   buildMonthDict,
   buildAgenda,
+  createDateKey,
   getNextXOccurence,
 } from "../utils/utils";
 
@@ -150,6 +151,7 @@ const Caldendar = (props) => {
       allEventsArr.push({
         ...allEventById[key],
         daysUntil: daysUntil,
+        dateKey: createDateKey(nextOccurTyped),
       });
     });
   });
