@@ -119,7 +119,7 @@ export const getNextOccurence = (date, reoccurType, today) => {
   return ret;
 };
 
-export const getNextXOccurence = (date, reoccurType, today, X = 6) => {
+export const getNextXOccurence = (date, reoccurType, today, X = 3) => {
   let ret = null;
 
   const yearsToProject = X <= 12 ? 1 : Math.ceil(X / 12);
@@ -137,7 +137,11 @@ export const getNextXOccurence = (date, reoccurType, today, X = 6) => {
       for (let i = 0; i < X; i++) {
         const nextOccur = getNextMonthOccurence(date, nextCtr);
         ret.push(nextOccur);
-        nextCtr = nextOccur;
+        nextCtr = new Date(
+          nextOccur.getFullYear(),
+          nextOccur.getMonth(),
+          nextOccur.getDate() + 1
+        );
       }
       break;
     }
@@ -148,7 +152,11 @@ export const getNextXOccurence = (date, reoccurType, today, X = 6) => {
       for (let i = 0; i < yearsToProject; i++) {
         const nextOccur = getNextYearOccurence(date, nextCtr);
         ret.push(nextOccur);
-        nextCtr = nextOccur;
+        nextCtr = new Date(
+          nextOccur.getFullYear(),
+          nextOccur.getMonth(),
+          nextOccur.getDate() + 1
+        );
       }
       break;
     }
@@ -211,9 +219,7 @@ export const buildMonthDict = (monthStr, year, days) => {
   for (let i = 0; i <= days; i++) {
     const dayStr = Number(i) < 10 ? `0${i}` : i;
 
-    ret[`${year}-${month}-${dayStr}`] = [
-      { name: `${year}-${month}-${dayStr}`, height: 55 },
-    ];
+    ret[`${year}-${month}-${dayStr}`] = [];
   }
 
   return ret;

@@ -162,13 +162,15 @@ const Caldendar = (props) => {
     }
   }, [eventCount]);
 
-  const allEventsSorted = allEventsArr.sort(
-    (a, b) => parseFloat(a.daysUntil) - parseFloat(b.daysUntil)
-  );
-
   const monthData = buildAgenda(new Date());
 
-  const [renderData, _] = useState(monthData);
+  allEventsArr.forEach((event) => {
+    monthData[event.dateKey]
+      ? monthData[event.dateKey].push({ ...event })
+      : undefined;
+  });
+
+  console.log(allEventsArr);
 
   const renderItem = (item) => {
     return <DayCard darkMode={props.darkMode} toRender={item} />;
@@ -179,7 +181,7 @@ const Caldendar = (props) => {
   return (
     <View style={{ height: "85%" }}>
       <Agenda
-        items={renderData}
+        items={monthData}
         renderItem={(item) => {
           return renderItem(item);
         }}
@@ -192,7 +194,7 @@ const Caldendar = (props) => {
         showClosingKnob={true}
         selected={today}
         pastScrollRange={1}
-        futureScrollRange={5}
+        futureScrollRange={3}
         //renderEmptyData={renderEmptyItem}
         //renderEmptyDate={renderEmptyDate}
         theme={{}}
