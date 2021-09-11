@@ -64,7 +64,7 @@ const AddEventTile = (props) => {
 
   // Event DateType
   const [openDateType, setopenDateType] = useState(false);
-  const [valueDateType, setValueDateType] = useState(EventType[1].value);
+  const [valueDateType, setValueDateType] = useState(props.event.type);
   const availEventTypes = EventType.map((item, idx) => {
     return {
       ...item,
@@ -358,7 +358,9 @@ const AddEventTile = (props) => {
                 />
                 <Text style={{ color: iconColor }}>
                   {" "}
-                  {`Next Event Occurence:          ${nextOccur}`}
+                  {`Next Event Occurence:          ${nextOccur} ${
+                    valueDateType === EventType[0].value ? "(Lunar)" : ""
+                  }`}
                 </Text>
               </View>
             </View>
