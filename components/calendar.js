@@ -170,8 +170,6 @@ const Caldendar = (props) => {
       : undefined;
   });
 
-  console.log(allEventsArr);
-
   const renderItem = (item) => {
     return <DayCard darkMode={props.darkMode} toRender={item} />;
   };
@@ -243,19 +241,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   cardNormal: {
-    borderRadius: 15,
     borderLeftWidth: 7,
     borderLeftColor: "red",
   },
   cardDark: {
-    borderRadius: 15,
     borderLeftWidth: 7,
     borderLeftColor: "red",
     borderColor: DefaultTheme.darkMode.kindaBlack,
     backgroundColor: DefaultTheme.darkMode.kindaBlack,
   },
   card: {
-    borderRadius: 15,
     borderLeftWidth: 7,
     borderLeftColor: "red",
     borderColor: "#263238",
