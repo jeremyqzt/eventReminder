@@ -6,14 +6,13 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import tailwind from "tailwind-rn";
-import { Divider, Card, Button } from "react-native-elements";
+import { Card } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import "moment-lunar";
 import SuchEmptyWow from "./suchEmpty";
 import { DefaultTheme, defaultEvent } from "../utils/constants";
 import { addEvent } from "../actions/actions";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { Agenda } from "react-native-calendars";
 import { connect } from "react-redux";
 import { EventType } from "../utils/constants";
 
@@ -31,8 +30,9 @@ import {
 } from "../utils/utils";
 
 const DayCard = (props) => {
+  console.log(props);
   const iconColor = "black";
-  const leftBorderColor = "black";
+  const leftBorderColor = props.toRender.color;
   const contactsText = "Test";
   const nextOccur = "tmr";
   const eventType = EventType[0].value;
@@ -50,7 +50,7 @@ const DayCard = (props) => {
     >
       <View style={styles.cardTitle}>
         <Text style={props.darkMode ? styles.titleTextDark : styles.titleText}>
-          Test
+          {props.toRender.eventName}
         </Text>
       </View>
       <Card.Divider />
@@ -273,12 +273,11 @@ const styles = StyleSheet.create({
     color: DefaultTheme.darkMode.kindaWhite,
   },
   items: {
-    marginTop: 50,
+    marginTop: 7,
     display: "flex",
     flexDirection: "column",
   },
   subItemReminders: {
-    marginTop: -30,
     display: "flex",
     alignItems: "center",
     flexDirection: "row",
