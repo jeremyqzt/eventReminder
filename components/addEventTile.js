@@ -96,8 +96,17 @@ const AddEventTile = (props) => {
   ]);
 
   useEffect(() => {
-    setItemContacts([Everyone, ...availableContacts]);
-  }, [props.contacts.allIds]);
+    const newContacts = (props.contacts.allIds || []).map((item) => {
+      console.log(item);
+      console.log(props.contacts.byId[item]);
+
+      return {
+        label: props.contacts.byId[item].firstName || "Skipped2",
+        value: item,
+      };
+    });
+    setItemContacts([Everyone, ...newContacts]);
+  }, [props.contacts.allIds, props.contacts.byId]);
 
   // Colors
   const [openColor, setOpenColor] = useState(false);
