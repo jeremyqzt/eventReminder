@@ -97,9 +97,6 @@ const AddEventTile = (props) => {
 
   useEffect(() => {
     const newContacts = (props.contacts.allIds || []).map((item) => {
-      console.log(item);
-      console.log(props.contacts.byId[item]);
-
       return {
         label: props.contacts.byId[item].firstName || "Skipped2",
         value: item,
