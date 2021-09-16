@@ -6,8 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { Card } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { Card, Icon } from "react-native-elements";
 import "moment-lunar";
 import SuchEmptyWow from "./suchEmpty";
 import { DefaultTheme, defaultEvent } from "../utils/constants";
@@ -34,7 +33,7 @@ const DayCard = (props) => {
   const iconColor = "black";
   const leftBorderColor = props.toRender.color;
   const contactsText = "Test";
-  const nextOccur = "tmr";
+  const nextOccur = props.toRender.dateKey;
   const eventType = EventType[0].value;
   const dateText = "Jun-13";
   const helpText = "HELP WTFD";
@@ -62,7 +61,7 @@ const DayCard = (props) => {
         <View style={styles.inlineContainer}>
           <Icon
             name={eventType === EventType[0].value ? "moon" : "sun"}
-            type={"font-awesome-5"}
+            type={"feather"}
             color={iconColor}
           />
           <Text style={{ color: iconColor }}>{nextOccur}</Text>
