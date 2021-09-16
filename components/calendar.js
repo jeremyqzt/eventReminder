@@ -55,11 +55,11 @@ const DayCard = (props) => {
       </View>
       <Card.Divider />
       <View style={styles.infoContainer}>
-        <View>
+        <View style={styles.inlineContainer}>
           <Icon name="user" type="feather" color={iconColor} />
           <Text style={{ color: iconColor }}>{contactsText}</Text>
         </View>
-        <View>
+        <View style={styles.inlineContainer}>
           <Icon
             name={eventType === EventType[0].value ? "moon" : "sun"}
             type={"font-awesome-5"}
@@ -67,7 +67,7 @@ const DayCard = (props) => {
           />
           <Text style={{ color: iconColor }}>{nextOccur}</Text>
         </View>
-        <View>
+        <View style={styles.inlineContainer}>
           <Icon
             name="calendar"
             type="feather"
@@ -295,6 +295,11 @@ const styles = StyleSheet.create({
   checkbox: {
     marginHorizontal: 1,
     paddingHorizontal: 1,
+  },
+  inlineContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
 });
 
