@@ -13,7 +13,7 @@ import { DefaultTheme, defaultEvent } from "../utils/constants";
 import { addEvent } from "../actions/actions";
 import { Agenda } from "react-native-calendars";
 import { connect } from "react-redux";
-import { EventType } from "../utils/constants";
+import { EventType, Everyone } from "../utils/constants";
 
 import {
   getNextOccurence,
@@ -29,9 +29,25 @@ import {
 } from "../utils/utils";
 
 const DayCard = (props) => {
+  const contactsCount = props.toRender.contacts.length || 0;
+  const allContacts = props.contacts || {};
+
+  const isEveryone = props.toRender.contacts.some(
+    (event) => event === Everyone.value
+  );
+
+  const contactsText = isEveryone
+    ? "Everyone"
+    : contactsCount === 1
+    ? allContacts[props.toRender.contacts[0]].firstName
+    : contactsCount > 1
+    ? `${allContacts[props.toRender.contacts[0]].firstName} + ${
+        contactsCount - 1
+      }`
+    : "None";
+
   const iconColor = "black";
   const leftBorderColor = props.toRender.color;
-  const contactsText = "Test";
   const nextOccur = props.toRender.dateKey;
   const eventType = EventType[0].value;
   const dateText = `T-${props.toRender.daysUntil} Days`;
@@ -169,7 +185,14 @@ const Caldendar = (props) => {
   });
 
   const renderItem = (item) => {
-    return <DayCard darkMode={props.darkMode} toRender={item} />;
+    return (
+      <DayCard
+        darkMode={props.darkMode}
+        contactIds={allEventIds}
+        contacts={allContactsById}
+        toRender={item}
+      />
+    );
   };
 
   const today = formatAgendaDate(new Date());
