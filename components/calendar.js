@@ -13,10 +13,11 @@ import { DefaultTheme, defaultEvent } from "../utils/constants";
 import { addEvent } from "../actions/actions";
 import { Agenda } from "react-native-calendars";
 import { connect } from "react-redux";
-import { EventType, Everyone } from "../utils/constants";
+import { EventType, Everyone, EventTypes } from "../utils/constants";
 
 import {
   getNextOccurence,
+  formatDate,
   getEqualGregorianDate,
   getEqualLunarDate,
   getDifferenceFromToday,
@@ -48,10 +49,17 @@ const DayCard = (props) => {
 
   const iconColor = "black";
   const leftBorderColor = props.toRender.color;
-  const nextOccur = props.toRender.dateKey;
+  const nextOccur = formatDate(
+    getNextOccurence(
+      new Date(props.toRender.year, props.toRender.month, props.toRender.day),
+      props.toRender.reoccurence,
+      props.toRender.type === EventTypes.lunar
+        ? getEqualLunarDate(new Date())
+        : new Date()
+    )
+  );
   const eventType = EventType[0].value;
   const dateText = `T-${props.toRender.daysUntil} Days`;
-  const helpText = "HELP WTFD";
 
   return (
     <Card
@@ -94,7 +102,7 @@ const DayCard = (props) => {
           <Text style={{ color: iconColor }}>{dateText}</Text>
         </View>
       </View>
-      {helpText ? (
+      {undefined ? (
         <View style={styles.items}>
           <View style={{ ...styles.subItemReminders, color: iconColor }}>
             <Icon
