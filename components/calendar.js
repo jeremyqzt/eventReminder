@@ -29,13 +29,12 @@ import {
 } from "../utils/utils";
 
 const DayCard = (props) => {
-  console.log(props);
   const iconColor = "black";
   const leftBorderColor = props.toRender.color;
   const contactsText = "Test";
   const nextOccur = props.toRender.dateKey;
   const eventType = EventType[0].value;
-  const dateText = "Jun-13";
+  const dateText = `T-${props.toRender.daysUntil} Days`;
   const helpText = "HELP WTFD";
 
   return (
