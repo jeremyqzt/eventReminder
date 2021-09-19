@@ -32,6 +32,7 @@ import {
 const DayCard = (props) => {
   const contactsCount = props.toRender.contacts.length || 0;
   const allContacts = props.contacts || {};
+  const eventType = props.toRender.type;
 
   const isEveryone = props.toRender.contacts.some(
     (event) => event === Everyone.value
@@ -53,12 +54,11 @@ const DayCard = (props) => {
     getNextOccurence(
       new Date(props.toRender.year, props.toRender.month, props.toRender.day),
       props.toRender.reoccurence,
-      props.toRender.type === EventTypes.lunar
+      eventType === EventTypes.lunar
         ? getEqualLunarDate(new Date())
         : new Date()
     )
   );
-  const eventType = EventType[0].value;
   const dateText = `T-${props.toRender.daysUntil} Days`;
 
   return (
