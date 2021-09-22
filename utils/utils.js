@@ -247,3 +247,19 @@ export const buildAgenda = (today) => {
 
   return dateDict;
 };
+
+import * as Notifications from "expo-notifications";
+
+export const schedulePushNotification = async (content) => {
+  //   content: {
+  //   title: "You've got mail! 📬",
+  //   body: "Here is the notification body",
+  //   data: { data: "goes here" },
+  // },
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      ...content,
+    },
+    trigger: { seconds: 2 },
+  });
+};
