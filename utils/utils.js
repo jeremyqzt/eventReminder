@@ -256,10 +256,16 @@ export const schedulePushNotification = async (content) => {
   //   body: "Here is the notification body",
   //   data: { data: "goes here" },
   // },
-  await Notifications.scheduleNotificationAsync({
+  const nid = await Notifications.scheduleNotificationAsync({
     content: {
       ...content,
     },
     trigger: { seconds: 2 },
   });
+
+  return nid;
+};
+
+export const cancelNotif = async (nid) => {
+  return Notifications.cancelScheduledNotificationAsync(nid);
 };

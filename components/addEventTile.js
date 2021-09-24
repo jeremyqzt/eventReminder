@@ -219,6 +219,7 @@ const AddEventTile = (props) => {
       month: date.getMonth(),
       day: date.getDate(),
       acknolwdged: props.event.acknolwdged || false,
+      notifs: [],
     };
     props.updateEvent(updateEvent);
     setExpanded(false);

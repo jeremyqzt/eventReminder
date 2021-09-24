@@ -21,6 +21,7 @@ const addOrEditEventEntry = (state, action) => {
     year,
     month,
     day,
+    notifs,
   } = event;
 
   const newEvent = {
@@ -35,6 +36,7 @@ const addOrEditEventEntry = (state, action) => {
     year,
     month,
     day,
+    notifs,
   };
 
   return {
