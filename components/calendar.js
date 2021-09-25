@@ -206,7 +206,7 @@ const Caldendar = (props) => {
   const today = formatAgendaDate(new Date());
 
   return (
-    <View style={{ height: "85%" }}>
+    <View style={{ height: "90%" }}>
       <Agenda
         items={monthData}
         renderItem={(item) => {
@@ -225,7 +225,7 @@ const Caldendar = (props) => {
         //renderEmptyData={renderEmptyItem}
         //renderEmptyDate={renderEmptyDate}
         theme={{}}
-        style={{ height: "100%" }}
+        style={{ height: "100%", backgroundColor: "white" }}
       />
     </View>
   );
