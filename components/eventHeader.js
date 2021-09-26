@@ -49,7 +49,7 @@ const HeadingImage = (props) => {
   };
 
   return (
-    <View style={tailwind("items-center rounded px-1 py-1")}>
+    <View style={{ overflow: "hidden" }}>
       <Button
         icon={<Icon name="calendar-plus-o" size={15} color={iconColor} />}
         buttonStyle={props.darkMode ? styles.buttonDark : styles.buttonNormal}
