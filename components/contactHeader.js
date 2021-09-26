@@ -35,7 +35,7 @@ const HeadingImage = (props) => {
   };
 
   return (
-    <View style={tailwind("items-center rounded px-1 py-1")}>
+    <View style={[{ overflow: "hidden" }]}>
       <Button
         icon={<Icon name="user-plus" size={15} color={iconColor} />}
         buttonStyle={props.darkMode ? styles.buttonDark : styles.buttonNormal}
@@ -67,6 +67,7 @@ const HeadingContact = (props) => {
 
 const styles = StyleSheet.create({
   buttonNormal: {
+    backgroundColor: DefaultTheme.darkMode.background,
     backgroundColor: DefaultTheme.darkMode.background,
     borderRadius: 15,
     paddingHorizontal: 10,
