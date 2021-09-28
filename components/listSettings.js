@@ -48,10 +48,10 @@ const SettingsList = (props) => {
   };
 
   const toggleNotifs = async () => {
-    let result = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    const { status } = await Notifications.requestPermissionsAsync();
     let text = "Notifications could not be enabled!";
     const currentNotifs = notifs;
-    if (Constants.default.isDevice && result.status === "granted") {
+    if (Constants.default.isDevice && status === "granted") {
       setNotifs(!notifs);
       text = "Notifications eanbled!";
     }
@@ -69,8 +69,8 @@ const SettingsList = (props) => {
   };
 
   const importContacts = async () => {
-    let result = await Permissions.askAsync(Permissions.CONTACTS);
-    if (!(Constants.default.isDevice && result.status === "granted")) {
+    const { status } = await Contacts.requestPermissionsAsync();
+    if (!(Constants.default.isDevice && status === "granted")) {
       return;
     }
 
@@ -123,8 +123,8 @@ const SettingsList = (props) => {
   };
 
   const importEvents = async () => {
-    let result = await Permissions.askAsync(Permissions.CONTACTS);
-    if (!(Constants.default.isDevice && result.status === "granted")) {
+    const { status } = await Contacts.requestPermissionsAsync();
+    if (!(Constants.default.isDevice && status === "granted")) {
       return;
     }
 
