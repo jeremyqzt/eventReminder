@@ -38,7 +38,7 @@ const TabsPage = (props) => {
             activeTintColor: darkMode ? "black" : "white",
             inactiveTintColor: darkMode ? "black" : "white",
           }}
-          appearence={{
+          appearance={{
             floating: true,
             tabBarBackground: darkMode
               ? DefaultTheme.offBlack
