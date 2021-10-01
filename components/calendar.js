@@ -48,7 +48,9 @@ const DayCard = (props) => {
       }`
     : "None";
 
-  const iconColor = "black";
+  const iconColor = props.darkMode
+    ? DefaultTheme.darkMode.text
+    : DefaultTheme.normalMode.text;
   const leftBorderColor = props.toRender.color;
   const nextOccur = formatDate(
     getNextOccurence(
@@ -90,15 +92,7 @@ const DayCard = (props) => {
           <Text style={{ color: iconColor }}>{nextOccur}</Text>
         </View>
         <View style={styles.inlineContainer}>
-          <Icon
-            name="calendar"
-            type="feather"
-            color={
-              props.darkMode
-                ? DefaultTheme.darkMode.text
-                : DefaultTheme.normalMode.text
-            }
-          />
+          <Icon name="calendar" type="feather" color={iconColor} />
           <Text style={{ color: iconColor }}>{dateText}</Text>
         </View>
       </View>
