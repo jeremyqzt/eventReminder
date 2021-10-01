@@ -27,9 +27,9 @@ import {
   AvailableIcons,
 } from "../utils/constants.js";
 
-import * as Permissions from "expo-permissions";
 import * as Constants from "expo-constants";
 import * as Contacts from "expo-contacts";
+import * as Notifications from "expo-notifications";
 
 const SettingsList = (props) => {
   const [darkMode, setDarkMode] = useState(props.darkMode);
@@ -65,6 +65,8 @@ const SettingsList = (props) => {
         hideOnPress: true,
         delay: 0,
       });
+    } else {
+      Notifications.cancelAllScheduledNotificationsAsync();
     }
   };
 
@@ -203,6 +205,18 @@ const SettingsList = (props) => {
     );
   };
 
+  const testNotif = async () => {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "You've got mail! 📬",
+        body: "Here is the notification body",
+        data: { data: "goes here" },
+      },
+      trigger: { seconds: 2 },
+    });
+    Notifications.cancelAllScheduledNotificationsAsync();
+  };
+
   const deleteAllContacts = async () => {
     Alert.alert(
       "Delete Contacts",
@@ -314,6 +328,12 @@ const SettingsList = (props) => {
           title={"Delete"}
           subText={"Permanently deletes all contacts."}
           callback={deleteAllContacts}
+        />
+        <SettingsButton
+          text={"Test Notifications"}
+          title={"Test"}
+          subText={"Press Me To Test."}
+          callback={testNotif}
         />
       </SafeAreaView>
     </View>
