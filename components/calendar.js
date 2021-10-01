@@ -206,8 +206,9 @@ const Caldendar = (props) => {
   const today = formatAgendaDate(new Date());
 
   return (
-    <View style={{ height: "90%" }}>
+    <View style={{ height: "85%" }}>
       <Agenda
+        key={props.darkMode}
         items={monthData}
         renderItem={(item) => {
           return renderItem(item);
@@ -224,8 +225,11 @@ const Caldendar = (props) => {
         futureScrollRange={3}
         //renderEmptyData={renderEmptyItem}
         //renderEmptyDate={renderEmptyDate}
-        theme={{}}
-        style={{ height: "100%", backgroundColor: "white" }}
+        theme={{
+          calendarBackground: props.darkMode ? "black" : "white",
+          backgroundColor: props.darkMode ? "black" : "white",
+        }}
+        style={{ height: "100%" }}
       />
     </View>
   );

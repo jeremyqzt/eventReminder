@@ -8,6 +8,15 @@ import { RootSiblingParent } from "react-native-root-siblings";
 import Tabs from "./Tabs";
 // Imports: Redux Persist Persister
 import { store, persistor } from "./store/store";
+import * as Notifications from "expo-notifications";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 // React Native: App
 export default function App() {
