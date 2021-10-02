@@ -229,6 +229,7 @@ export const OccurenceTypes = Object.freeze({
   never: 0,
   monthly: 1,
   yearly: 2,
+  offset: 3,
 });
 
 export const EventTypes = Object.freeze({
@@ -251,6 +252,11 @@ export const AvailableReoccurences = [
     label: "Yearly",
     value: OccurenceTypes.yearly,
     indicator: "🔄",
+  },
+  {
+    label: "Offset Mode",
+    value: OccurenceTypes.offset,
+    indicator: "⤵️",
   },
 ];
 
@@ -343,6 +349,8 @@ export const Everyone = {
   value: "0-0-0-0",
 };
 
+const today = new Date();
+
 export const defaultEvent = Object.freeze({
   eventName: "🥮 Event Name",
   color: AvailableColors[0].value,
@@ -351,9 +359,9 @@ export const defaultEvent = Object.freeze({
   reoccurence: AvailableReoccurences[2].value,
   notes: "",
   type: EventType[1].value,
-  year: "2020",
-  month: "0",
-  day: "1",
+  year: today.getFullYear(),
+  month: today.getMonth(),
+  day: today.getDate(),
   acknolwdged: false,
 });
 
