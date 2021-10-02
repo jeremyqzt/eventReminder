@@ -352,7 +352,7 @@ export const Everyone = {
 const today = new Date();
 
 export const defaultEvent = Object.freeze({
-  eventName: "🥮 Event Name",
+  eventName: "✨ New Event",
   color: AvailableColors[0].value,
   icon: AvailableIcons[0].value,
   contacts: [Everyone.value],
@@ -363,6 +363,10 @@ export const defaultEvent = Object.freeze({
   month: today.getMonth(),
   day: today.getDate(),
   acknolwdged: false,
+  notifications: [],
+  offsetYear: 0,
+  offsetMonth: 0,
+  offsetDay: 0,
 });
 
 export const gregorianHolidays = Object.freeze({
