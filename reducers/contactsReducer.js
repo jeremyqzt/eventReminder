@@ -54,7 +54,7 @@ const removeContactEntry = (state, action) => {
 const allIds = (state = initialIds, action) => {
   switch (action.type) {
     case "ADD_CONTACT": {
-      return state.concat(action.contact.id);
+      return [action.contact.id, ...state];
     }
     case "UPDATE_CONTACT": {
       return state;

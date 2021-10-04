@@ -60,7 +60,7 @@ const removeEventEntry = (state, action) => {
 const allIds = (state = initialIds, action) => {
   switch (action.type) {
     case "ADD_EVENT": {
-      return state.concat(action.event.id);
+      return [action.event.id, ...state];
     }
     case "UPDATE_EVENT": {
       return state;
