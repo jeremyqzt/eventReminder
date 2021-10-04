@@ -95,7 +95,15 @@ const getNextYearOccurence = (date, today) => {
   }
 };
 
-export const getNextOccurence = (date, reoccurType, today) => {
+export const getOffsetOccurence = (date, x = { year: 0, month: 0, day: 1 }) => {
+  return new Date(
+    date.getFullYear() + x.year || 0,
+    date.getMonth() + x.month || 0,
+    date.getDate() + x.day || 0
+  );
+};
+
+export const getNextOccurence = (date, reoccurType, today, x) => {
   let ret = null;
 
   switch (reoccurType) {
@@ -114,12 +122,23 @@ export const getNextOccurence = (date, reoccurType, today) => {
       ret = getNextYearOccurence(date, today);
       break;
     }
+    // Case 4, Offset Mode, just add
+    case AvailableReoccurences[3].value: {
+      ret = getOffsetOccurence(date, x);
+      break;
+    }
   }
 
   return ret;
 };
 
-export const getNextXOccurence = (date, reoccurType, today, X = 3) => {
+export const getNextXOccurence = (
+  date,
+  reoccurType,
+  today,
+  X = 3,
+  offset = 0
+) => {
   let ret = null;
 
   const yearsToProject = X <= 12 ? 1 : Math.ceil(X / 12);
@@ -158,6 +177,12 @@ export const getNextXOccurence = (date, reoccurType, today, X = 3) => {
           nextOccur.getDate() + 1
         );
       }
+      break;
+    }
+    // Case 4, Offset
+    case AvailableReoccurences[3].value: {
+      const nextOccur = getOffsetOccurence(date, offset);
+      ret = [nextOccur];
       break;
     }
   }
