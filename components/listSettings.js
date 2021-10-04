@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { DefaultTheme } from "../utils/constants";
 import { SafeAreaView } from "react-native";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import {
   settingsDarkMode,
@@ -275,68 +275,70 @@ const SettingsList = (props) => {
     );
   };
   return (
-    <View
-      style={darkMode ? styles.settingsPageDark : styles.settingsPageNormal}
-    >
-      <SafeAreaView>
-        <SettingsToggle
-          text={"Dark Mode"}
-          subText={"Toggle between dark and light mode."}
-          value={darkMode}
-          callback={toggleDarkMode}
-        />
-        <SettingsToggle
-          text={"Use Calendar"}
-          subText={"Use calendar view on home page."}
-          value={useCal}
-          callback={toggleUseCal}
-        />
-        <SettingsToggle
-          text={"Notify Me"}
-          subText={"Create a notification on the day of the event."}
-          value={notifs}
-          callback={toggleNotifs}
-        />
-        <SettingsActionHeader />
-        <SettingsButton
-          text={"Import Contacts"}
-          title={"Import"}
-          subText={"Import contacts from your phone."}
-          callback={importContacts}
-        />
-        <SettingsButton
-          text={"Import Birthdays"}
-          title={"Import"}
-          subText={"Import birthdays from contacts."}
-          callback={importEvents}
-        />
-        <SettingsButton
-          text={"Sync Events"}
-          title={"Sync"}
-          subText={"Sync from this app to your calendar."}
-          callback={importContacts}
-        />
-        <SettingsResetHeader />
-        <SettingsButton
-          text={"Remove Events"}
-          title={"Remove"}
-          subText={"Permanently remove all events."}
-          callback={deleteAllEvents}
-        />
-        <SettingsButton
-          text={"Remove Contacts"}
-          title={"Delete"}
-          subText={"Permanently deletes all contacts."}
-          callback={deleteAllContacts}
-        />
-        <SettingsButton
-          text={"Test Notifications"}
-          title={"Test"}
-          subText={"Press Me To Test."}
-          callback={testNotif}
-        />
-      </SafeAreaView>
-    </View>
+    <ScrollView>
+      <View
+        style={darkMode ? styles.settingsPageDark : styles.settingsPageNormal}
+      >
+        <SafeAreaView>
+          <SettingsToggle
+            text={"Dark Mode"}
+            subText={"Toggle between dark and light mode."}
+            value={darkMode}
+            callback={toggleDarkMode}
+          />
+          <SettingsToggle
+            text={"Use Calendar"}
+            subText={"Use calendar view on home page."}
+            value={useCal}
+            callback={toggleUseCal}
+          />
+          <SettingsToggle
+            text={"Notify Me"}
+            subText={"Create a notification on the day of the event."}
+            value={notifs}
+            callback={toggleNotifs}
+          />
+          <SettingsActionHeader />
+          <SettingsButton
+            text={"Import Contacts"}
+            title={"Import"}
+            subText={"Import contacts from your phone."}
+            callback={importContacts}
+          />
+          <SettingsButton
+            text={"Import Birthdays"}
+            title={"Import"}
+            subText={"Import birthdays from contacts."}
+            callback={importEvents}
+          />
+          <SettingsButton
+            text={"Sync Events"}
+            title={"Sync"}
+            subText={"Sync from this app to your calendar."}
+            callback={importContacts}
+          />
+          <SettingsResetHeader />
+          <SettingsButton
+            text={"Remove Events"}
+            title={"Remove"}
+            subText={"Permanently remove all events."}
+            callback={deleteAllEvents}
+          />
+          <SettingsButton
+            text={"Remove Contacts"}
+            title={"Delete"}
+            subText={"Permanently deletes all contacts."}
+            callback={deleteAllContacts}
+          />
+          <SettingsButton
+            text={"Test Notifications"}
+            title={"Test"}
+            subText={"Press Me To Test."}
+            callback={testNotif}
+          />
+        </SafeAreaView>
+      </View>
+    </ScrollView>
   );
 };
 
