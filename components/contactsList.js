@@ -1,7 +1,7 @@
 import * as React from "react";
-import { View } from "react-native";
 import { connect } from "react-redux";
 import ContactItem from "./contactItem";
+import { ScrollView, StyleSheet, View, FlatList } from "react-native";
 
 import SuchEmptyWow from "./suchEmpty";
 
@@ -14,11 +14,24 @@ const ContactsList = (props) => {
   }
 
   return (
-    <View>
-      {allContactIds.map((contact, index) => {
-        return <ContactItem contact={allContactByIds[contact]} key={index} />;
-      })}
-    </View>
+    <FlatList
+      ItemSeparatorComponent={
+        Platform.OS !== "android" &&
+        (({ highlighted }) => (
+          <View style={[styles.separator, highlighted && { marginLeft: 0 }]} />
+        ))
+      }
+      data={allContactIds}
+      keyExtractor={(item, index) => `${item.id}-${index}`}
+      renderItem={({ item, index }) => (
+        <>
+          <ContactItem contact={allContactByIds[item]} key={index} />
+          {index + 1 === allContactIds.length ? (
+            <View style={styles.flat}></View>
+          ) : null}
+        </>
+      )}
+    />
   );
 };
 
@@ -28,5 +41,11 @@ const mapStateToProps = (state) => {
     contacts: state.contactsReducer,
   };
 };
+
+const styles = StyleSheet.create({
+  flat: {
+    height: 250,
+  },
+});
 
 export default connect(mapStateToProps, null)(ContactsList);

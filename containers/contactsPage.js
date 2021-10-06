@@ -5,7 +5,7 @@ import HeadingContact from "../components/contactHeader";
 import { connect } from "react-redux";
 import { DefaultTheme } from "../utils/constants";
 
-import { SafeAreaView, ScrollView } from "react-native";
+import { SafeAreaView } from "react-native";
 import { View, StyleSheet } from "react-native";
 import ContactsList from "../components/contactsList";
 
@@ -14,10 +14,7 @@ const ContactsPage = (props) => {
     <View style={props.darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>
         <HeadingContact />
-        <ScrollView>
-          <ContactsList />
-          <View style={styles.flat} />
-        </ScrollView>
+        <ContactsList />
       </SafeAreaView>
     </View>
   );
@@ -31,9 +28,6 @@ const styles = StyleSheet.create({
   PageDark: {
     backgroundColor: DefaultTheme.darkMode.main,
     height: "100%",
-  },
-  flat: {
-    height: 125,
   },
 });
 

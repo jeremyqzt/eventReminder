@@ -19,11 +19,9 @@ export const styles = StyleSheet.create({
     backgroundColor: DefaultTheme.offBlack,
   },
   deleteButton: {
-    borderRadius: 30,
     borderColor: DefaultTheme.offBlack,
   },
   button: {
-    borderRadius: 25,
     borderColor: DefaultTheme.offBlack,
   },
   buttonText: {
@@ -128,10 +126,12 @@ export const styles = StyleSheet.create({
   iOsPicker: {
     flex: 1,
     height: 30,
+    width: "100%",
   },
   iOsPickerContainer: {
     flex: 1,
-    height: 30,
+    backgroundColor: "white",
+    color: "red",
   },
   dateInformation: {
     width: "100%",
