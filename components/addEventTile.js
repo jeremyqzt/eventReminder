@@ -205,7 +205,7 @@ const AddEventTile = (props) => {
     props.deleteEvent(props.event.id);
   };
 
-  const saveEvent = () => {
+  const saveEvent = (showNotif) => {
     const updateEvent = {
       id: props.event.id,
       eventName,
@@ -223,6 +223,8 @@ const AddEventTile = (props) => {
     };
     props.updateEvent(updateEvent);
     setExpanded(false);
+
+    if (!showNotif) return;
     Toast.show(`${eventName} Saved!`, {
       duration: Toast.durations.SHORT,
       position: -100,
@@ -245,7 +247,7 @@ const AddEventTile = (props) => {
         containerStyle={{ backgroundColor: backGroundColor }}
         onPress={() => {
           if (expaneded) {
-            saveEvent();
+            saveEvent(true);
           }
           setExpanded(!expaneded);
         }}
@@ -329,10 +331,8 @@ const AddEventTile = (props) => {
               </Text>
               <View style={styles.iOsPickerContainer}>
                 <DateTimePicker
-                  testID="dateTimePicker"
                   value={date}
                   mode={"date"}
-                  is24Hour={true}
                   display="calendar"
                   style={styles.iOsPicker}
                   onChange={onChange}
