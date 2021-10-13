@@ -212,8 +212,11 @@ const SettingsList = (props) => {
         body: "Here is the notification body",
         data: { data: "goes here" },
       },
-      trigger: { seconds: 2 },
+      trigger: { seconds: 1 },
     });
+  };
+
+  const cancelAllNotif = async () => {
     Notifications.cancelAllScheduledNotificationsAsync();
   };
 
@@ -336,6 +339,12 @@ const SettingsList = (props) => {
             subText={"Press Me To Test."}
             callback={testNotif}
           />
+          <SettingsButton
+            text={"Cancel All Notifications"}
+            title={"Cancel"}
+            subText={"Press Me To Test."}
+            callback={cancelAllNotif}
+          />
         </SafeAreaView>
       </View>
     </ScrollView>
@@ -346,10 +355,12 @@ const styles = StyleSheet.create({
   settingsPageNormal: {
     backgroundColor: DefaultTheme.normalMode.main,
     height: "100%",
+    paddingBottom: 200,
   },
   settingsPageDark: {
     backgroundColor: DefaultTheme.darkMode.main,
     height: "100%",
+    paddingBottom: 200,
   },
   setting: {
     width: "100%",
