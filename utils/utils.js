@@ -4,6 +4,7 @@ import {
   lunarHolidays,
   gregorianHolidays,
 } from "./constants";
+import * as Notifications from "expo-notifications";
 
 import moment from "moment";
 import "moment-lunar";
@@ -273,9 +274,65 @@ export const buildAgenda = (today) => {
   return dateDict;
 };
 
-import * as Notifications from "expo-notifications";
+export const schedulePeriodicNotification = async (
+  content,
+  date,
+  reoccurType,
+  today,
+  X = 3,
+  offset = 0
+) => {
+  const ret = [];
+  const yearsToProject = X <= 12 ? 1 : Math.ceil(X / 12);
 
-export const schedulePushNotification = async (content) => {
+  switch (reoccurType) {
+    // Case 1, Does not reoccur
+    case AvailableReoccurences[0].value: {
+      ret = [date];
+      break;
+    }
+    // Case 2, Monthly
+    case AvailableReoccurences[1].value: {
+      ret = [];
+      let nextCtr = today;
+      for (let i = 0; i < X; i++) {
+        const nextOccur = getNextMonthOccurence(date, nextCtr);
+        ret.push(nextOccur);
+        nextCtr = new Date(
+          nextOccur.getFullYear(),
+          nextOccur.getMonth(),
+          nextOccur.getDate() + 1
+        );
+      }
+      break;
+    }
+    // Case 3, Yearly
+    case AvailableReoccurences[2].value: {
+      ret = [];
+      let nextCtr = today;
+      for (let i = 0; i < yearsToProject; i++) {
+        const nextOccur = getNextYearOccurence(date, nextCtr);
+        ret.push(nextOccur);
+        nextCtr = new Date(
+          nextOccur.getFullYear(),
+          nextOccur.getMonth(),
+          nextOccur.getDate() + 1
+        );
+      }
+      break;
+    }
+    // Case 4, Offset
+    case AvailableReoccurences[3].value: {
+      const nextOccur = getOffsetOccurence(date, offset);
+      ret = [nextOccur];
+      break;
+    }
+  }
+
+  ret.forEach((event) => schedulePushNotification(content, event - today));
+};
+
+export const schedulePushNotification = async (content, time) => {
   //   content: {
   //   title: "You've got mail! 📬",
   //   body: "Here is the notification body",
@@ -285,7 +342,7 @@ export const schedulePushNotification = async (content) => {
     content: {
       ...content,
     },
-    trigger: { seconds: 2 },
+    trigger: { seconds: time },
   });
 
   return nid;
