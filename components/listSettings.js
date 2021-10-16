@@ -30,6 +30,32 @@ import {
 import * as Constants from "expo-constants";
 import * as Contacts from "expo-contacts";
 import * as Notifications from "expo-notifications";
+import * as TaskManager from "expo-task-manager";
+import * as BackgroundFetch from "expo-background-fetch";
+
+const SETTINGS_TEST_TASK = "background-task-test";
+
+const initBackground = async (interval = 5) => {
+  try {
+    console.log("Starting");
+    await BackgroundFetch.registerTaskAsync(SETTINGS_TEST_TASK, {
+      minimumInterval: interval, // in seconds
+    });
+  } catch (err) {
+    console.log("registerTaskAsync() failed:", err);
+  }
+};
+
+TaskManager.defineTask(SETTINGS_TEST_TASK, async () => {
+  const now = Date.now();
+
+  console.log(
+    `Got background fetch call at date: ${new Date(now).toISOString()}`
+  );
+
+  // Be sure to return the successful result type!
+  return BackgroundFetch.Result.NewData;
+});
 
 const SettingsList = (props) => {
   const [darkMode, setDarkMode] = useState(props.darkMode);
@@ -45,6 +71,10 @@ const SettingsList = (props) => {
   const toggleUseCal = () => {
     setUseCal(!useCal);
     props.setCalendar(!useCal);
+  };
+
+  const endBackground = async () => {
+    await BackgroundFetch.unregisterTaskAsync(SETTINGS_TEST_TASK);
   };
 
   const toggleNotifs = async () => {
@@ -206,13 +236,19 @@ const SettingsList = (props) => {
   };
 
   const testNotif = async () => {
+    const schedule = new Date();
+    schedule.setSeconds(schedule.getSeconds() + 3);
+    console.log("Scheduling");
+
     await Notifications.scheduleNotificationAsync({
       content: {
         title: "You've got mail! 📬",
         body: "Here is the notification body",
         data: { data: "goes here" },
       },
-      trigger: { seconds: 1 },
+      trigger: {
+        date: schedule,
+      },
     });
   };
 
@@ -344,6 +380,18 @@ const SettingsList = (props) => {
             title={"Cancel"}
             subText={"Press Me To Test."}
             callback={cancelAllNotif}
+          />
+          <SettingsButton
+            text={"Start Background"}
+            title={"Start"}
+            subText={"Press Me To Test."}
+            callback={() => initBackground(5)}
+          />
+          <SettingsButton
+            text={"End All Background"}
+            title={"Cancel"}
+            subText={"Press Me To Test."}
+            callback={() => endBackground()}
           />
         </SafeAreaView>
       </View>
