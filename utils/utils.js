@@ -288,7 +288,9 @@ export const schedulePeriodicNotification = async (
   switch (reoccurType) {
     // Case 1, Does not reoccur
     case AvailableReoccurences[0].value: {
-      ret = [date];
+      ret = [
+        new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0),
+      ];
       break;
     }
     // Case 2, Monthly
@@ -301,7 +303,9 @@ export const schedulePeriodicNotification = async (
         nextCtr = new Date(
           nextOccur.getFullYear(),
           nextOccur.getMonth(),
-          nextOccur.getDate() + 1
+          nextOccur.getDate() + 1,
+          8,
+          0
         );
       }
       break;
@@ -316,23 +320,32 @@ export const schedulePeriodicNotification = async (
         nextCtr = new Date(
           nextOccur.getFullYear(),
           nextOccur.getMonth(),
-          nextOccur.getDate() + 1
+          nextOccur.getDate() + 1,
+          8,
+          0
         );
       }
       break;
     }
     // Case 4, Offset
     case AvailableReoccurences[3].value: {
-      const nextOccur = getOffsetOccurence(date, offset);
+      const nextOccurDate = getOffsetOccurence(date, offset);
+      const nextOccur = new Date(
+        nextOccurDate.getFullYear(),
+        nextOccurDate.getMonth(),
+        nextOccurDate.getDate(),
+        8,
+        0
+      );
       ret = [nextOccur];
       break;
     }
   }
 
-  ret.forEach((event) => schedulePushNotification(content, event - today));
+  ret.forEach((event) => schedulePushNotification(content, event));
 };
 
-export const schedulePushNotification = async (content, time) => {
+export const schedulePushNotification = async (content, date) => {
   //   content: {
   //   title: "You've got mail! 📬",
   //   body: "Here is the notification body",
@@ -342,7 +355,7 @@ export const schedulePushNotification = async (content, time) => {
     content: {
       ...content,
     },
-    trigger: { seconds: time },
+    trigger: { date },
   });
 
   return nid;
@@ -350,4 +363,8 @@ export const schedulePushNotification = async (content, time) => {
 
 export const cancelNotif = async (nid) => {
   return Notifications.cancelScheduledNotificationAsync(nid);
+};
+
+export const cancelAllNotif = async (nid) => {
+  return Notifications.cancelAllScheduledNotificationsAsync();
 };
