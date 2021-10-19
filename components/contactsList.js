@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import ContactItem from "./contactItem";
-import { ScrollView, StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 
 import SuchEmptyWow from "./suchEmpty";
 
