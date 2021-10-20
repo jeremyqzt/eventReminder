@@ -182,7 +182,6 @@ const SettingsList = (props) => {
             const validData = data.filter(
               (item) => item.birthday !== undefined
             );
-            console.log(validData);
             const today = new Date().toISOString().slice(0, 10);
             validData.forEach((contact) => {
               const newContact = {
