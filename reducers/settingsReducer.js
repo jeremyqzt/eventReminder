@@ -1,6 +1,7 @@
 const initialState = {
   darkMode: false,
   useCalendar: false,
+  notifs: false,
 };
 
 const settingsReducer = (state = initialState, action) => {
@@ -15,6 +16,12 @@ const settingsReducer = (state = initialState, action) => {
       return {
         ...state,
         useCalendar: action.useCalendar,
+      };
+    }
+    case "NOFITICATIONS": {
+      return {
+        ...state,
+        notifs: action.notifs,
       };
     }
     default: {

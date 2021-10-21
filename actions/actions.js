@@ -10,6 +10,11 @@ export const settingsCalendar = (cal) => ({
   useCalendar: cal,
 });
 
+export const settingsNotifs = (toggle) => ({
+  type: "NOFITICATIONS",
+  notifs: toggle,
+});
+
 export const addContact = (contact) => ({
   type: "ADD_CONTACT",
   contact: {
