@@ -33,6 +33,7 @@ const EventsList = (props) => {
 const mapStateToProps = (state) => {
   return {
     darkMode: state.settingsReducer.darkMode,
+    notifs: state.settingsReducer.notifs,
     events: state.eventsReducer,
   };
 };
