@@ -11,6 +11,7 @@ import {
   addContactNoUUID,
   addEvent,
   settingsCalendar,
+  settingsNotifs,
 } from "../actions/actions";
 
 import SettingsActionHeader from "./settingsActionHeader";
@@ -30,32 +31,9 @@ import {
 import * as Constants from "expo-constants";
 import * as Contacts from "expo-contacts";
 import * as Notifications from "expo-notifications";
-import * as TaskManager from "expo-task-manager";
 import * as BackgroundFetch from "expo-background-fetch";
 
 const SETTINGS_TEST_TASK = "background-task-test";
-
-const initBackground = async (interval = 5) => {
-  try {
-    console.log("Starting");
-    await BackgroundFetch.registerTaskAsync(SETTINGS_TEST_TASK, {
-      minimumInterval: interval, // in seconds
-    });
-  } catch (err) {
-    console.log("registerTaskAsync() failed:", err);
-  }
-};
-
-TaskManager.defineTask(SETTINGS_TEST_TASK, async () => {
-  const now = Date.now();
-
-  console.log(
-    `Got background fetch call at date: ${new Date(now).toISOString()}`
-  );
-
-  // Be sure to return the successful result type!
-  return BackgroundFetch.Result.NewData;
-});
 
 const SettingsList = (props) => {
   const [darkMode, setDarkMode] = useState(props.darkMode);
@@ -83,7 +61,7 @@ const SettingsList = (props) => {
     const currentNotifs = notifs;
     if (Constants.default.isDevice && status === "granted") {
       setNotifs(!notifs);
-      text = "Notifications eanbled!";
+      text = "Notifications enabled!";
     }
 
     if (!currentNotifs) {
@@ -95,8 +73,10 @@ const SettingsList = (props) => {
         hideOnPress: true,
         delay: 0,
       });
+      props.toggleNotifs(true);
     } else {
       Notifications.cancelAllScheduledNotificationsAsync();
+      props.toggleNotifs(false);
     }
   };
 
@@ -421,12 +401,14 @@ const mapDispatchToProps = (dispatch) => {
     deleteAllContacts: () => dispatch(deleteAllContacts()),
     addContact: (contact) => dispatch(addContactNoUUID(contact)),
     addEvent: (event) => dispatch(addEvent(event)),
+    toggleNotifs: (notif) => dispatch(settingsNotifs(notif)),
     setCalendar: (cal) => dispatch(settingsCalendar(cal)),
   };
 };
 
 const mapStateToProps = (state) => {
   return {
+    notifs: state.settingsReducer.notifs,
     darkMode: state.settingsReducer.darkMode,
     useCal: state.settingsReducer.useCalendar,
     contacts: state.contactsReducer,
