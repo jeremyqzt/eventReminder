@@ -9,6 +9,14 @@ import SuchEmptyWow from "./suchEmpty";
 const EventsList = (props) => {
   const allEventIds = props.events.allIds || [];
   const allEventById = props.events.byId || {};
+  const notifs = props.notifs || false;
+
+  React.useEffect(() => {
+    if (!notifs) return;
+    // Use this to schedule all notifications
+
+    console.log("This is it");
+  }, [allEventById, allEventIds, notifs]);
 
   if (allEventIds.length === 0) {
     return (
