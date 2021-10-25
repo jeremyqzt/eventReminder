@@ -15,7 +15,32 @@ const EventsList = (props) => {
     if (!notifs) return;
     // Use this to schedule all notifications
 
-    console.log("This is it");
+    allEventIds.forEach((key) => {
+      const eventDate = new Date(
+        allEventById[key].year,
+        allEventById[key].month,
+        allEventById[key].day
+      );
+      const today = new Date();
+      const todayTyped =
+        allEventById[key].type === EventType[0].value
+          ? getEqualLunarDate(today)
+          : today;
+
+      const allNextOccurenceDate = getNextXOccurence(
+        eventDate,
+        allEventById[key].reoccurence,
+        todayTyped
+      );
+
+      allNextOccurenceDate.forEach((nextOccurenceDate) => {
+        const nextOccurTyped =
+          allEventById[key].type === EventType[0].value
+            ? getEqualGregorianDate(nextOccurenceDate)
+            : nextOccurenceDate;
+        console.log(nextOccurTyped);
+      });
+    });
   }, [allEventById, allEventIds, notifs]);
 
   if (allEventIds.length === 0) {
