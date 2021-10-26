@@ -3,6 +3,7 @@ import { View, FlatList, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import AddEventTile from "./addEventTile";
 import { styles } from "./styles";
+import { schedulePushNotification } from "../utils/utils";
 
 import SuchEmptyWow from "./suchEmpty";
 
