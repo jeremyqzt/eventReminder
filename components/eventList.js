@@ -34,11 +34,17 @@ const EventsList = (props) => {
       );
 
       allNextOccurenceDate.forEach((nextOccurenceDate) => {
-        const nextOccurTyped =
+        const nextOccurUntyped =
           allEventById[key].type === EventType[0].value
             ? getEqualGregorianDate(nextOccurenceDate)
             : nextOccurenceDate;
-        console.log(nextOccurTyped);
+
+        const content = {
+          title: "You've got mail! 📬",
+          body: "Here is the notification body",
+          data: { data: "goes here" },
+        };
+        schedulePushNotification(content, nextOccurUntyped);
       });
     });
   }, [allEventById, allEventIds, notifs]);
