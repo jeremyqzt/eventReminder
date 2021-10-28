@@ -22,8 +22,6 @@ import {
   getEqualLunarDate,
   getDifferenceFromToday,
   formatAgendaDate,
-  getDaysInMonth,
-  buildMonthDict,
   buildAgenda,
   createDateKey,
   getNextXOccurence,
