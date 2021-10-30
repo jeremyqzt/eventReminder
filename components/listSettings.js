@@ -51,10 +51,6 @@ const SettingsList = (props) => {
     props.setCalendar(!useCal);
   };
 
-  const endBackground = async () => {
-    await BackgroundFetch.unregisterTaskAsync(SETTINGS_TEST_TASK);
-  };
-
   const toggleNotifs = async () => {
     const { status } = await Notifications.requestPermissionsAsync();
     let text = "Notifications could not be enabled!";
@@ -359,18 +355,6 @@ const SettingsList = (props) => {
             title={"Cancel"}
             subText={"Press Me To Test."}
             callback={cancelAllNotif}
-          />
-          <SettingsButton
-            text={"Start Background"}
-            title={"Start"}
-            subText={"Press Me To Test."}
-            callback={() => initBackground(5)}
-          />
-          <SettingsButton
-            text={"End All Background"}
-            title={"Cancel"}
-            subText={"Press Me To Test."}
-            callback={() => endBackground()}
           />
         </SafeAreaView>
       </View>
