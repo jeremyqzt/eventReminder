@@ -274,91 +274,50 @@ export const buildAgenda = (today) => {
   return dateDict;
 };
 
-export const schedulePeriodicNotification = async (
-  content,
-  date,
-  reoccurType,
-  today,
-  X = 3,
-  offset = 0
-) => {
-  const ret = [];
-  const yearsToProject = X <= 12 ? 1 : Math.ceil(X / 12);
-
-  switch (reoccurType) {
-    // Case 1, Does not reoccur
-    case AvailableReoccurences[0].value: {
-      ret = [
-        new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0),
-      ];
-      break;
-    }
-    // Case 2, Monthly
-    case AvailableReoccurences[1].value: {
-      ret = [];
-      let nextCtr = today;
-      for (let i = 0; i < X; i++) {
-        const nextOccur = getNextMonthOccurence(date, nextCtr);
-        ret.push(nextOccur);
-        nextCtr = new Date(
-          nextOccur.getFullYear(),
-          nextOccur.getMonth(),
-          nextOccur.getDate() + 1,
-          8,
-          0
-        );
-      }
-      break;
-    }
-    // Case 3, Yearly
-    case AvailableReoccurences[2].value: {
-      ret = [];
-      let nextCtr = today;
-      for (let i = 0; i < yearsToProject; i++) {
-        const nextOccur = getNextYearOccurence(date, nextCtr);
-        ret.push(nextOccur);
-        nextCtr = new Date(
-          nextOccur.getFullYear(),
-          nextOccur.getMonth(),
-          nextOccur.getDate() + 1,
-          8,
-          0
-        );
-      }
-      break;
-    }
-    // Case 4, Offset
-    case AvailableReoccurences[3].value: {
-      const nextOccurDate = getOffsetOccurence(date, offset);
-      const nextOccur = new Date(
-        nextOccurDate.getFullYear(),
-        nextOccurDate.getMonth(),
-        nextOccurDate.getDate(),
-        8,
-        0
-      );
-      ret = [nextOccur];
-      break;
-    }
-  }
-
-  ret.forEach((event) => schedulePushNotification(content, event));
-};
-
 export const schedulePushNotification = async (content, date) => {
-  //   content: {
-  //   title: "You've got mail! 📬",
-  //   body: "Here is the notification body",
-  //   data: { data: "goes here" },
-  // },
-  const nid = await Notifications.scheduleNotificationAsync({
+  return Notifications.scheduleNotificationAsync({
     content: {
       ...content,
     },
-    trigger: { date },
+    trigger: {
+      date: date,
+    },
   });
+};
 
-  return nid;
+export const scheduleNext10Years = async (inDate, dateType, reoccurence) => {
+  const eventDate = new Date(inDate.year, inDate.month, inDate.day);
+  const today = new Date();
+  const todayTyped =
+    dateType === EventType[0].value ? getEqualLunarDate(today) : today;
+
+  const ret = [];
+
+  const allNextOccurenceDate = getNextXOccurence(
+    eventDate,
+    reoccurence,
+    todayTyped,
+    3 * 12
+  );
+
+  for (let i = 0; i < allNextOccurenceDate.length; i++) {
+    const nextOccurenceDate = allNextOccurenceDate[i];
+    const nextOccurUntyped =
+      dateType === EventType[0].value
+        ? getEqualGregorianDate(nextOccurenceDate)
+        : nextOccurenceDate;
+
+    const content = {
+      title: "You've got mail! 📬",
+      body: `${nextOccurUntyped}`,
+      data: { data: "goes here" },
+    };
+
+    const nid = await schedulePushNotification(content, nextOccurUntyped);
+    ret.push(nid);
+  }
+
+  return ret;
 };
 
 export const cancelNotif = async (nid) => {
