@@ -212,13 +212,13 @@ const SettingsList = (props) => {
 
   const testNotif = async () => {
     const schedule = new Date();
-    schedule.setSeconds(schedule.getSeconds() + 3);
+    schedule.setSeconds(schedule.getSeconds() + 10);
     console.log("Scheduling");
 
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: "You've got mail! 📬",
-        body: "Here is the notification body",
+        title: "📬 This is a test",
+        body: "Testing is being done here",
         data: { data: "goes here" },
       },
       trigger: {
@@ -231,6 +231,17 @@ const SettingsList = (props) => {
     Notifications.cancelAllScheduledNotificationsAsync();
   };
 
+  const showAllNotifs = async () => {
+    console.log("Finding notifs");
+    Notifications.getAllScheduledNotificationsAsync().then((notifs) => {
+      const normalNotifs = notifs.map((notif) => {
+        return {
+          content: notif.content.body,
+        };
+      });
+      console.log(normalNotifs);
+    });
+  };
   const deleteAllContacts = async () => {
     Alert.alert(
       "Delete Contacts",
@@ -355,6 +366,12 @@ const SettingsList = (props) => {
             title={"Cancel"}
             subText={"Press Me To Test."}
             callback={cancelAllNotif}
+          />
+          <SettingsButton
+            text={"Show Notifications"}
+            title={"Show"}
+            subText={"Press Me To console log notif."}
+            callback={showAllNotifs}
           />
         </SafeAreaView>
       </View>
