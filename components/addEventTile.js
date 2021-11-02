@@ -207,6 +207,9 @@ const AddEventTile = (props) => {
   };
 
   const saveEvent = async (showNotif) => {
+    console.log(props.notifs);
+    await cancelNotifs(props.notifs || []);
+
     const scheduleNotifs = await scheduleNext10Years(
       {
         year: date.getFullYear(),

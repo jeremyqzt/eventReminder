@@ -297,7 +297,7 @@ export const scheduleNext10Years = async (inDate, dateType, reoccurence) => {
     eventDate,
     reoccurence,
     todayTyped,
-    3 * 12
+    10 * 12
   );
 
   for (let i = 0; i < allNextOccurenceDate.length; i++) {
@@ -318,6 +318,10 @@ export const scheduleNext10Years = async (inDate, dateType, reoccurence) => {
   }
 
   return ret;
+};
+
+export const cancelNotifs = async (nids) => {
+  nids.forEach(nid => Notifications.cancelScheduledNotificationAsync(nid));
 };
 
 export const cancelNotif = async (nid) => {
