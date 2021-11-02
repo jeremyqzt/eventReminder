@@ -20,6 +20,7 @@ import {
   getEqualGregorianDate,
   getEqualLunarDate,
   formatDate,
+  scheduleNext10Years,
 } from "../utils/utils";
 import {
   DefaultTheme,
@@ -205,7 +206,19 @@ const AddEventTile = (props) => {
     props.deleteEvent(props.event.id);
   };
 
-  const saveEvent = (showNotif) => {
+  const saveEvent = async (showNotif) => {
+    const scheduleNotifs = await scheduleNext10Years(
+      {
+        year: date.getFullYear(),
+        month: date.getMonth(),
+        day: date.getDate(),
+      },
+      valueDateType,
+      valueRecurr
+    );
+
+    console.log(scheduleNotifs);
+
     const updateEvent = {
       id: props.event.id,
       eventName,
@@ -219,7 +232,7 @@ const AddEventTile = (props) => {
       month: date.getMonth(),
       day: date.getDate(),
       acknolwdged: props.event.acknolwdged || false,
-      notifs: [],
+      notifs: [...scheduleNotifs],
     };
     props.updateEvent(updateEvent);
     setExpanded(false);
@@ -597,6 +610,7 @@ const mapStateToProps = (state) => {
   return {
     darkMode: state.settingsReducer.darkMode,
     contacts: state.contactsReducer,
+    notifs: state.settingsReducer.notifs,
   };
 };
 

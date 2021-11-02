@@ -3,58 +3,12 @@ import { View, FlatList, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import AddEventTile from "./addEventTile";
 import { styles } from "./styles";
-import {
-  getEqualGregorianDate,
-  getEqualLunarDate,
-  getNextXOccurence,
-  schedulePushNotification,
-} from "../utils/utils";
-import { EventType } from "../utils/constants";
 
 import SuchEmptyWow from "./suchEmpty";
 
 const EventsList = (props) => {
   const allEventIds = props.events.allIds || [];
   const allEventById = props.events.byId || {};
-  const notifs = props.notifs || false;
-
-  React.useEffect(() => {
-    if (!notifs) return;
-    // Use this to schedule all notifications
-
-    allEventIds.forEach((key) => {
-      const eventDate = new Date(
-        allEventById[key].year,
-        allEventById[key].month,
-        allEventById[key].day
-      );
-      const today = new Date();
-      const todayTyped =
-        allEventById[key].type === EventType[0].value
-          ? getEqualLunarDate(today)
-          : today;
-
-      const allNextOccurenceDate = getNextXOccurence(
-        eventDate,
-        allEventById[key].reoccurence,
-        todayTyped
-      );
-
-      allNextOccurenceDate.forEach((nextOccurenceDate) => {
-        const nextOccurUntyped =
-          allEventById[key].type === EventType[0].value
-            ? getEqualGregorianDate(nextOccurenceDate)
-            : nextOccurenceDate;
-
-        const content = {
-          title: "You've got mail! 📬",
-          body: "Here is the notification body",
-          data: { data: "goes here" },
-        };
-        schedulePushNotification(content, nextOccurUntyped);
-      });
-    });
-  }, [allEventById, allEventIds, notifs]);
 
   if (allEventIds.length === 0) {
     return (
