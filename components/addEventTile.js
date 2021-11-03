@@ -21,6 +21,7 @@ import {
   getEqualLunarDate,
   formatDate,
   scheduleNext10Years,
+  cancelNotifs,
 } from "../utils/utils";
 import {
   DefaultTheme,
@@ -207,8 +208,8 @@ const AddEventTile = (props) => {
   };
 
   const saveEvent = async (showNotif) => {
-    console.log(props.notifs);
-    await cancelNotifs(props.notifs || []);
+    console.log(props.event.notifs);
+    await cancelNotifs(props.event.notifs || []);
 
     const scheduleNotifs = await scheduleNext10Years(
       {

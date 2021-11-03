@@ -28,12 +28,10 @@ import {
   AvailableIcons,
 } from "../utils/constants.js";
 
+import { scheduleAllEventNotifs10Years } from "../utils/utils";
 import * as Constants from "expo-constants";
 import * as Contacts from "expo-contacts";
 import * as Notifications from "expo-notifications";
-import * as BackgroundFetch from "expo-background-fetch";
-
-const SETTINGS_TEST_TASK = "background-task-test";
 
 const SettingsList = (props) => {
   const [darkMode, setDarkMode] = useState(props.darkMode);
@@ -69,6 +67,9 @@ const SettingsList = (props) => {
         hideOnPress: true,
         delay: 0,
       });
+      await Notifications.cancelAllScheduledNotificationsAsync();
+      const allEventById = props.events.byId || {};
+      await scheduleAllEventNotifs10Years(allEventById);
       props.toggleNotifs(true);
     } else {
       Notifications.cancelAllScheduledNotificationsAsync();
@@ -413,6 +414,7 @@ const mapStateToProps = (state) => {
     darkMode: state.settingsReducer.darkMode,
     useCal: state.settingsReducer.useCalendar,
     contacts: state.contactsReducer,
+    events: state.eventsReducer,
   };
 };
 

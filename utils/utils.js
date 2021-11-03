@@ -285,6 +285,8 @@ export const schedulePushNotification = async (content, date) => {
   });
 };
 
+export const scheduleAllEventNotifs10Years = async (allEvents) => {};
+
 export const scheduleNext10Years = async (inDate, dateType, reoccurence) => {
   const eventDate = new Date(inDate.year, inDate.month, inDate.day);
   const today = new Date();
@@ -321,7 +323,7 @@ export const scheduleNext10Years = async (inDate, dateType, reoccurence) => {
 };
 
 export const cancelNotifs = async (nids) => {
-  nids.forEach(nid => Notifications.cancelScheduledNotificationAsync(nid));
+  nids.forEach((nid) => Notifications.cancelScheduledNotificationAsync(nid));
 };
 
 export const cancelNotif = async (nid) => {
