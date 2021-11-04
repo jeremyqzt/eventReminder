@@ -24,7 +24,9 @@ const EventsList = (props) => {
       renderItem={({ item }) => {
         return <AddEventTile event={allEventById[item]} />;
       }}
-      keyExtractor={(_, index) => index.toString()}
+      keyExtractor={(item, _) => {
+        return item;
+      }}
       ListFooterComponent={<View style={styles.flat} />}
     />
   );

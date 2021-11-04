@@ -204,25 +204,24 @@ const AddEventTile = (props) => {
     : DefaultTheme.normalMode.text;
 
   const deleteEvent = async () => {
-    await cancelNotifs(props.event.notifs || []);
+    if (props.notifs) await cancelNotifs(props.event.notifs || []);
     props.deleteEvent(props.event.id);
   };
 
   const saveEvent = async (showNotif) => {
-    console.log(props.event.notifs);
-    await cancelNotifs(props.event.notifs || []);
-
-    const scheduleNotifs = await scheduleNext10Years(
-      {
-        year: date.getFullYear(),
-        month: date.getMonth(),
-        day: date.getDate(),
-      },
-      valueDateType,
-      valueRecurr
-    );
-
-    console.log(scheduleNotifs);
+    let scheduleNotifs = [];
+    if (props.notifs) {
+      await cancelNotifs(props.event.notifs || []);
+      scheduleNotifs = await scheduleNext10Years(
+        {
+          year: date.getFullYear(),
+          month: date.getMonth(),
+          day: date.getDate(),
+        },
+        valueDateType,
+        valueRecurr
+      );
+    }
 
     const updateEvent = {
       id: props.event.id,
