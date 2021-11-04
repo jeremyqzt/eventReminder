@@ -8,6 +8,7 @@
     "@react-navigation/bottom-tabs": "^5.11.2",
     "@react-navigation/native": "^5.8.10",
     "expo": "^42.0.4",
+    "expo-background-fetch": "~9.2.2",
     "expo-constants": "~11.0.1",
     "expo-contacts": "~9.2.5",
     "expo-image-picker": "~10.2.2",
@@ -35,6 +36,7 @@
     "react-native-progress-circle": "^2.1.0",
     "react-native-root-toast": "^3.2.1",
     "react-native-screens": "~3.4.0",
+    "react-native-swipeout": "^2.3.6",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.3",
@@ -43,8 +45,7 @@
     "redux-persist": "^6.0.0",
     "tailwind-rn": "^1.1.0",
     "tslib": "^2.0.3",
-    "uuid": "^8.3.2",
-    "expo-background-fetch": "~9.2.2"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
