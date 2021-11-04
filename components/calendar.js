@@ -9,7 +9,7 @@ import {
 import { Card, Icon } from "react-native-elements";
 import "moment-lunar";
 import SuchEmptyWow from "./suchEmpty";
-import { DefaultTheme, defaultEvent } from "../utils/constants";
+import { DefaultTheme, DELETED_CONTACT } from "../utils/constants";
 import { addEvent } from "../actions/actions";
 import { Agenda } from "react-native-calendars";
 import { connect } from "react-redux";
@@ -32,18 +32,26 @@ const DayCard = (props) => {
   const allContacts = props.contacts || {};
   const eventType = props.toRender.type;
 
-  const isEveryone = props.toRender.contacts.some(
+  const isEveryone = (props.toRender.contacts || []).some(
     (event) => event === Everyone.value
   );
+
+  const thisContact =
+    Object.keys(allContacts) !== 0 && contactsCount !== 0
+      ? props.toRender.contacts[0]
+      : undefined;
+
+  const contactCtx =
+    thisContact && allContacts[thisContact]
+      ? allContacts[props.toRender.contacts[0]]
+      : DELETED_CONTACT;
 
   const contactsText = isEveryone
     ? "Everyone"
     : contactsCount === 1
-    ? allContacts[props.toRender.contacts[0]].firstName
+    ? contactCtx.firstName
     : contactsCount > 1
-    ? `${allContacts[props.toRender.contacts[0]].firstName} + ${
-        contactsCount - 1
-      }`
+    ? `${contactCtx.firstName} + ${contactsCount - 1}`
     : "None";
 
   const iconColor = props.darkMode
@@ -59,7 +67,10 @@ const DayCard = (props) => {
         : new Date()
     )
   );
-  const dateText = `T-${props.toRender.daysUntil} Days`;
+  const dateText =
+    props.toRender.daysUntil !== 0
+      ? `T-${props.toRender.daysUntil} Days`
+      : "Today!";
 
   return (
     <Card
@@ -172,7 +183,7 @@ const Caldendar = (props) => {
 
   useEffect(() => {
     if (eventCount > 0) {
-      //props.setCount(eventCount);
+      props.setCount(eventCount);
     }
   }, [eventCount]);
 
@@ -213,8 +224,8 @@ const Caldendar = (props) => {
         }}
         showClosingKnob={true}
         selected={today}
-        pastScrollRange={1}
-        futureScrollRange={3}
+        pastScrollRange={0}
+        futureScrollRange={5}
         //renderEmptyData={renderEmptyItem}
         //renderEmptyDate={renderEmptyDate}
         theme={{

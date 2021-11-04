@@ -17,6 +17,7 @@ import {
 
 import SettingsActionHeader from "./settingsActionHeader";
 import SettingsResetHeader from "./settingsResetHeader";
+import SettingsTestingHeader from "./settingsTestingHeader";
 
 import SettingsToggle from "./toggle";
 import SettingsButton from "./settingsButton";
@@ -27,6 +28,7 @@ import {
   AvailableReoccurences,
   EventType,
   AvailableIcons,
+  TESTING,
 } from "../utils/constants.js";
 
 import { scheduleAllEventNotifs10Years } from "../utils/utils";
@@ -357,24 +359,29 @@ const SettingsList = (props) => {
             subText={"Permanently deletes all contacts."}
             callback={deleteAllContacts}
           />
-          <SettingsButton
-            text={"Test Notifications"}
-            title={"Test"}
-            subText={"Press Me To Test."}
-            callback={testNotif}
-          />
-          <SettingsButton
-            text={"Cancel All Notifications"}
-            title={"Cancel"}
-            subText={"Press Me To Test."}
-            callback={cancelAllNotif}
-          />
-          <SettingsButton
-            text={"Show Notifications"}
-            title={"Show"}
-            subText={"Press Me To console log notif."}
-            callback={showAllNotifs}
-          />
+          {TESTING ? (
+            <View>
+              <SettingsTestingHeader />
+              <SettingsButton
+                text={"Test Notifications"}
+                title={"Test"}
+                subText={"Press Me To Test."}
+                callback={testNotif}
+              />
+              <SettingsButton
+                text={"Cancel All Notifications"}
+                title={"Cancel"}
+                subText={"Press Me To Test."}
+                callback={cancelAllNotif}
+              />
+              <SettingsButton
+                text={"Show Notifications"}
+                title={"Show"}
+                subText={"Press Me To console log notif."}
+                callback={showAllNotifs}
+              />
+            </View>
+          ) : null}
         </SafeAreaView>
       </View>
     </ScrollView>

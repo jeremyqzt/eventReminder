@@ -2,7 +2,12 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { connect } from "react-redux";
-import { DefaultTheme, Everyone, EventType } from "../utils/constants";
+import {
+  DefaultTheme,
+  Everyone,
+  EventType,
+  DELETED_CONTACT,
+} from "../utils/constants";
 import {
   getNextOccurence,
   formatDate,
@@ -16,16 +21,26 @@ const OverviewCard = (props) => {
   const allContacts = props.contacts;
   const contactsCount = props.event.contacts.length || 0;
 
-  const isEveryone = props.event.contacts.some(
+  const isEveryone = (props.event.contacts || []).some(
     (event) => event === Everyone.value
   );
+
+  const thisContact =
+    Object.keys(allContacts) !== 0 && contactsCount !== 0
+      ? props.event.contacts[0]
+      : undefined;
+
+  const contactCtx =
+    thisContact && allContacts[thisContact]
+      ? allContacts[props.event.contacts[0]]
+      : DELETED_CONTACT;
 
   const contactsText = isEveryone
     ? "Everyone"
     : contactsCount === 1
-    ? allContacts[props.event.contacts[0]].firstName
+    ? contactCtx.firstName
     : contactsCount > 1
-    ? `${allContacts[props.event.contacts[0]].firstName} + ${contactsCount - 1}`
+    ? `${contactCtx.firstName} + ${contactsCount - 1}`
     : "None";
 
   const eventDate = new Date(

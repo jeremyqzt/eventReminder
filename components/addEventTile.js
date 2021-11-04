@@ -1,4 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
+import Swipeout from "react-native-swipeout";
+
 import {
   ListItem,
   Text,
@@ -208,6 +210,15 @@ const AddEventTile = (props) => {
     props.deleteEvent(props.event.id);
   };
 
+  const swipeoutBtns = [
+    {
+      text: "Delete",
+      onPress: () => deleteEvent(),
+      type: "delete",
+      autoClose: true,
+    },
+  ];
+
   const saveEvent = async (showNotif) => {
     let scheduleNotifs = [];
     if (props.notifs) {
@@ -257,349 +268,357 @@ const AddEventTile = (props) => {
   };
 
   return (
-    <View style={{ backgroundColor: backGroundColor }}>
-      <ListItem
-        id={props.event.id}
-        bottomDivider
-        containerStyle={{ backgroundColor: backGroundColor }}
-        onPress={() => {
-          if (expaneded) {
-            saveEvent(true);
-          }
-          setExpanded(!expaneded);
-        }}
-        style={{
-          ...styles.eventTile,
-          borderColor: `${valueColor ? valueColor : AvailableColors[0].value}`,
-        }}
-      >
-        <Avatar
-          size={"medium"}
-          icon={{
-            name: valueIcon ? valueIcon : "calendar",
-            color: `${valueColor ? valueColor : AvailableColors[0].value}`,
-            type: "font-awesome",
-          }}
-          overlayContainerStyle={{ backgroundColor: backGroundColor }}
-          onPress={() => setExpanded(!expaneded)}
-          activeOpacity={0.7}
-        />
-        <ListItem.Content>
-          <ListItem.Title
-            style={{
-              fontWeight: "bold",
-              fontSize: 20,
-              color: iconColor,
-            }}
-          >
-            {eventName || ""}
-          </ListItem.Title>
-          <ListItem.Subtitle
-            style={{
-              fontWeight: "normal",
-              fontSize: 14,
-              color: iconColor,
-            }}
-          >{`${formatDate(date)} ${
-            valueDateType === EventType[0].value ? "(Lunar)" : ""
-          }`}</ListItem.Subtitle>
-        </ListItem.Content>
-        <ListItem.Chevron
-          name={!expaneded ? "chevron-down" : "chevron-up"}
-          size={22}
-          color={iconColor}
-        ></ListItem.Chevron>
-      </ListItem>
-      {expaneded ? (
+    <Swipeout right={swipeoutBtns}>
+      <View style={{ backgroundColor: backGroundColor }}>
         <ListItem
-          id={props.event.id + "2"}
+          id={props.event.id}
           bottomDivider
           containerStyle={{ backgroundColor: backGroundColor }}
+          onPress={() => {
+            if (expaneded) {
+              saveEvent(true);
+            }
+            setExpanded(!expaneded);
+          }}
+          style={{
+            ...styles.eventTile,
+            borderColor: `${
+              valueColor ? valueColor : AvailableColors[0].value
+            }`,
+          }}
         >
+          <Avatar
+            size={"medium"}
+            icon={{
+              name: valueIcon ? valueIcon : "calendar",
+              color: `${valueColor ? valueColor : AvailableColors[0].value}`,
+              type: "font-awesome",
+            }}
+            overlayContainerStyle={{ backgroundColor: backGroundColor }}
+            onPress={() => setExpanded(!expaneded)}
+            activeOpacity={0.7}
+          />
           <ListItem.Content>
-            <View style={styles.form}>
-              <Input
-                inputContainerStyle={styles.inputContainer}
-                leftIconContainerStyle={styles.inputIconStyle}
-                placeholder={eventName || "Event Name (E.g. 🥮 Moon Festival)"}
-                spellCheck={false}
-                inputStyle={{ ...styles.titleStyle, color: iconColor }}
-                autoCorrect={false}
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 20,
-                }}
-                onChangeText={(value) => {
-                  setEventName(value);
-                }}
-                leftIcon={
+            <ListItem.Title
+              style={{
+                fontWeight: "bold",
+                fontSize: 20,
+                color: iconColor,
+              }}
+            >
+              {eventName || ""}
+            </ListItem.Title>
+            <ListItem.Subtitle
+              style={{
+                fontWeight: "normal",
+                fontSize: 14,
+                color: iconColor,
+              }}
+            >{`${formatDate(date)} ${
+              valueDateType === EventType[0].value ? "(Lunar)" : ""
+            }`}</ListItem.Subtitle>
+          </ListItem.Content>
+          <ListItem.Chevron
+            name={!expaneded ? "chevron-down" : "chevron-up"}
+            size={22}
+            color={iconColor}
+          ></ListItem.Chevron>
+        </ListItem>
+        {expaneded ? (
+          <ListItem
+            id={props.event.id + "2"}
+            bottomDivider
+            containerStyle={{ backgroundColor: backGroundColor }}
+          >
+            <ListItem.Content>
+              <View style={styles.form}>
+                <Input
+                  inputContainerStyle={styles.inputContainer}
+                  leftIconContainerStyle={styles.inputIconStyle}
+                  placeholder={
+                    eventName || "Event Name (E.g. 🥮 Moon Festival)"
+                  }
+                  spellCheck={false}
+                  inputStyle={{ ...styles.titleStyle, color: iconColor }}
+                  autoCorrect={false}
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 20,
+                  }}
+                  onChangeText={(value) => {
+                    setEventName(value);
+                  }}
+                  leftIcon={
+                    <Icon
+                      name="caret-right"
+                      type="font-awesome"
+                      size={14}
+                      color={iconColor}
+                    />
+                  }
+                />
+              </View>
+              <View style={styles.datePicker}>
+                <Text style={{ ...styles.tileHeader, color: iconColor }}>
+                  Select Original Event Date:
+                </Text>
+                <View style={styles.iOsPickerContainer}>
+                  <DateTimePicker
+                    value={date}
+                    mode={"date"}
+                    display="calendar"
+                    style={styles.iOsPicker}
+                    onChange={onChange}
+                  />
+                </View>
+              </View>
+              <View style={styles.dateInformation}>
+                <View style={styles.dateInformationText}>
                   <Icon
-                    name="caret-right"
+                    name={
+                      valueDateType === EventType[1].value
+                        ? "moon-o"
+                        : "calendar"
+                    }
                     type="font-awesome"
-                    size={14}
+                    size={12}
                     color={iconColor}
                   />
-                }
-              />
-            </View>
-            <View style={styles.datePicker}>
-              <Text style={{ ...styles.tileHeader, color: iconColor }}>
-                Select Original Event Date:
-              </Text>
-              <View style={styles.iOsPickerContainer}>
-                <DateTimePicker
-                  value={date}
-                  mode={"date"}
-                  display="calendar"
-                  style={styles.iOsPicker}
-                  onChange={onChange}
-                />
-              </View>
-            </View>
-            <View style={styles.dateInformation}>
-              <View style={styles.dateInformationText}>
-                <Icon
-                  name={
-                    valueDateType === EventType[1].value ? "moon-o" : "calendar"
-                  }
-                  type="font-awesome"
-                  size={12}
-                  color={iconColor}
-                />
-                <Text style={{ color: iconColor }}>
-                  {" "}
-                  {valueDateType === EventType[1].value
-                    ? "Equivalent Lunar Event:         " + `${otherDate}`
-                    : "Equivalent Gregorian Event:  " + `${otherDate}`}
-                </Text>
-              </View>
-              <View style={styles.dateInformationText}>
-                <Icon
-                  name="info-circle"
-                  type="font-awesome"
-                  size={12}
-                  color={iconColor}
-                />
-                <Text style={{ color: iconColor }}>
-                  {" "}
-                  {`Next Event Occurence:          ${nextOccur} ${
-                    valueDateType === EventType[0].value ? "(Lunar)" : ""
-                  }`}
-                </Text>
-              </View>
-            </View>
-            <View
-              style={[
-                styles.eventOptContainer,
-                { zIndex: 4000, zIndexInverse: 1000 },
-              ]}
-            >
-              <View style={[styles.eventOptline]}>
-                <Text style={{ width: "45%", color: iconColor }}>
-                  Select Event Icon:
-                </Text>
-                <View style={{ width: "50%", paddingRight: 5 }}>
-                  <DropDownPicker
-                    listMode="SCROLLVIEW"
-                    scrollViewProps={{
-                      nestedScrollEnabled: true,
-                    }}
-                    searchable
-                    placeholder={"Icon"}
-                    onOpen={onIconOpen}
-                    style={{ height: 40 }}
-                    zIndex={3000}
-                    zIndexInverse={1000}
-                    open={openIcon}
-                    value={valueIcon}
-                    items={itemsIcon}
-                    setOpen={setOpenIcon}
-                    setValue={setValueIcon}
-                    setItems={setItemsIcon}
+                  <Text style={{ color: iconColor }}>
+                    {" "}
+                    {valueDateType === EventType[1].value
+                      ? "Equivalent Lunar Event:         " + `${otherDate}`
+                      : "Equivalent Gregorian Event:  " + `${otherDate}`}
+                  </Text>
+                </View>
+                <View style={styles.dateInformationText}>
+                  <Icon
+                    name="info-circle"
+                    type="font-awesome"
+                    size={12}
+                    color={iconColor}
                   />
+                  <Text style={{ color: iconColor }}>
+                    {" "}
+                    {`Next Event Occurence:          ${nextOccur} ${
+                      valueDateType === EventType[0].value ? "(Lunar)" : ""
+                    }`}
+                  </Text>
                 </View>
               </View>
-            </View>
-            <View
-              style={[
-                styles.eventOptContainer,
-                { zIndex: 3000, zIndexInverse: 2000 },
-              ]}
-            >
-              <View style={[styles.eventOptline]}>
-                <Text style={{ width: "45%", color: iconColor }}>
-                  Select Event Type:
-                </Text>
-                <View style={{ width: "50%", paddingRight: 5 }}>
-                  <DropDownPicker
-                    listMode="SCROLLVIEW"
-                    scrollViewProps={{
-                      nestedScrollEnabled: true,
-                    }}
-                    placeholder={"Type"}
-                    onOpen={onEventTypeOpen}
-                    style={{ height: 40 }}
-                    zIndex={2000}
-                    zIndexInverse={2000}
-                    open={openDateType}
-                    value={valueDateType}
-                    items={itemsEventType}
-                    setOpen={setopenDateType}
-                    setValue={setValueDateType}
-                    setItems={setItemsEventType}
-                  />
+              <View
+                style={[
+                  styles.eventOptContainer,
+                  { zIndex: 4000, zIndexInverse: 1000 },
+                ]}
+              >
+                <View style={[styles.eventOptline]}>
+                  <Text style={{ width: "45%", color: iconColor }}>
+                    Select Event Icon:
+                  </Text>
+                  <View style={{ width: "50%", paddingRight: 5 }}>
+                    <DropDownPicker
+                      listMode="SCROLLVIEW"
+                      scrollViewProps={{
+                        nestedScrollEnabled: true,
+                      }}
+                      searchable
+                      placeholder={"Icon"}
+                      onOpen={onIconOpen}
+                      style={{ height: 40 }}
+                      zIndex={3000}
+                      zIndexInverse={1000}
+                      open={openIcon}
+                      value={valueIcon}
+                      items={itemsIcon}
+                      setOpen={setOpenIcon}
+                      setValue={setValueIcon}
+                      setItems={setItemsIcon}
+                    />
+                  </View>
                 </View>
               </View>
-            </View>
+              <View
+                style={[
+                  styles.eventOptContainer,
+                  { zIndex: 3000, zIndexInverse: 2000 },
+                ]}
+              >
+                <View style={[styles.eventOptline]}>
+                  <Text style={{ width: "45%", color: iconColor }}>
+                    Select Event Type:
+                  </Text>
+                  <View style={{ width: "50%", paddingRight: 5 }}>
+                    <DropDownPicker
+                      listMode="SCROLLVIEW"
+                      scrollViewProps={{
+                        nestedScrollEnabled: true,
+                      }}
+                      placeholder={"Type"}
+                      onOpen={onEventTypeOpen}
+                      style={{ height: 40 }}
+                      zIndex={2000}
+                      zIndexInverse={2000}
+                      open={openDateType}
+                      value={valueDateType}
+                      items={itemsEventType}
+                      setOpen={setopenDateType}
+                      setValue={setValueDateType}
+                      setItems={setItemsEventType}
+                    />
+                  </View>
+                </View>
+              </View>
 
-            <View
-              style={[
-                styles.eventOptContainer,
-                { zIndex: 2000, zIndexInverse: 3000 },
-              ]}
-            >
-              <View style={[styles.eventOptline]}>
-                <Text style={{ width: "45%", color: iconColor }}>
-                  Select Event Reoccurence:
-                </Text>
-                <View style={{ width: "50%", paddingRight: 5 }}>
-                  <DropDownPicker
-                    listMode="SCROLLVIEW"
-                    scrollViewProps={{
-                      nestedScrollEnabled: true,
-                    }}
-                    placeholder={"Reoccurence"}
-                    onOpen={onRecurrOpen}
-                    style={{ height: 40 }}
-                    zIndex={2000}
-                    zIndexInverse={2000}
-                    open={openRecurr}
-                    value={valueRecurr}
-                    items={itemsRecurr}
-                    setOpen={setOpenRecurr}
-                    setValue={setValueRecurr}
-                    setItems={setItemsRecurr}
-                  />
+              <View
+                style={[
+                  styles.eventOptContainer,
+                  { zIndex: 2000, zIndexInverse: 3000 },
+                ]}
+              >
+                <View style={[styles.eventOptline]}>
+                  <Text style={{ width: "45%", color: iconColor }}>
+                    Select Event Reoccurence:
+                  </Text>
+                  <View style={{ width: "50%", paddingRight: 5 }}>
+                    <DropDownPicker
+                      listMode="SCROLLVIEW"
+                      scrollViewProps={{
+                        nestedScrollEnabled: true,
+                      }}
+                      placeholder={"Reoccurence"}
+                      onOpen={onRecurrOpen}
+                      style={{ height: 40 }}
+                      zIndex={2000}
+                      zIndexInverse={2000}
+                      open={openRecurr}
+                      value={valueRecurr}
+                      items={itemsRecurr}
+                      setOpen={setOpenRecurr}
+                      setValue={setValueRecurr}
+                      setItems={setItemsRecurr}
+                    />
+                  </View>
                 </View>
               </View>
-            </View>
-            <View
-              style={[
-                styles.eventOptContainer,
-                { zIndex: 1000, zIndexInverse: 4000 },
-              ]}
-            >
-              <View style={[styles.eventOptline]}>
-                <Text style={{ width: "45%", color: iconColor }}>
-                  Select Event Color:
-                </Text>
-                <View style={{ width: "50%", paddingRight: 5 }}>
-                  <DropDownPicker
-                    listMode="SCROLLVIEW"
-                    scrollViewProps={{
-                      nestedScrollEnabled: true,
-                    }}
-                    searchable
-                    placeholder={"Color"}
-                    onOpen={onColorOpen}
-                    style={{
-                      height: 40,
-                    }}
-                    zIndex={1000}
-                    zIndexInverse={3000}
-                    open={openColor}
-                    value={valueColor}
-                    items={itemsColor}
-                    setOpen={setOpenColor}
-                    setValue={setValueColor}
-                    setItems={setItemsColor}
-                  />
+              <View
+                style={[
+                  styles.eventOptContainer,
+                  { zIndex: 1000, zIndexInverse: 4000 },
+                ]}
+              >
+                <View style={[styles.eventOptline]}>
+                  <Text style={{ width: "45%", color: iconColor }}>
+                    Select Event Color:
+                  </Text>
+                  <View style={{ width: "50%", paddingRight: 5 }}>
+                    <DropDownPicker
+                      listMode="SCROLLVIEW"
+                      scrollViewProps={{
+                        nestedScrollEnabled: true,
+                      }}
+                      searchable
+                      placeholder={"Color"}
+                      onOpen={onColorOpen}
+                      style={{
+                        height: 40,
+                      }}
+                      zIndex={1000}
+                      zIndexInverse={3000}
+                      open={openColor}
+                      value={valueColor}
+                      items={itemsColor}
+                      setOpen={setOpenColor}
+                      setValue={setValueColor}
+                      setItems={setItemsColor}
+                    />
+                  </View>
                 </View>
               </View>
-            </View>
-            <View style={[styles.contactsContainer]}>
-              <Text
-                style={{ width: "100%", marginBottom: 5, color: iconColor }}
-              >
-                Apply Event To:
-              </Text>
-              <DropDownPicker
-                placeholder={"Pick some contacts..."}
-                onOpen={onColorOpen}
-                style={{
-                  height: 40,
-                  width: "100%",
-                }}
-                searchable
-                listMode="MODAL"
-                mode="BADGE"
-                multiple={true}
-                min={0}
-                max={99}
-                zIndex={100}
-                zIndexInverse={4000}
-                open={openContacts}
-                value={valuesContacts}
-                items={itemsContacts}
-                setOpen={setOpenContacts}
-                setValue={setValuesContacts}
-                setItems={setItemContacts}
-              />
-            </View>
-            <View style={[styles.extraNotesContainer]}>
-              <Text
-                style={{ width: "100%", marginBottom: 5, color: iconColor }}
-              >
-                Additional Notes:
-              </Text>
-              <TextInput
-                style={{
-                  ...styles.bulkInput,
-                  backgroundColor: "white",
-                }}
-                onChangeText={onChangeText}
-                value={text}
-                multiline
-                placeholder="Enter some notes..."
-              />
-            </View>
-            <View style={[styles.form, styles.buttonRow]}>
-              <Button
-                type="outline"
-                raised
-                icon={{
-                  name: "ban",
-                  color: !props.darkMode ? DefaultTheme.delete : "white",
-                  type: "font-awesome",
-                }}
-                onPress={deleteEvent}
-                buttonStyle={{
-                  ...styles.deleteButton,
-                  backgroundColor: props.darkMode
-                    ? DefaultTheme.delete
-                    : "white",
-                }}
-                containerStyle={styles.buttonContainer}
-              />
-              <Button
-                icon={{
-                  name: "floppy-o",
-                  color: styles.saveButtonIcon.backgroundColor,
-                  type: "font-awesome",
-                }}
-                title="Save Event"
-                type="outline"
-                raised
-                onPress={onSave}
-                buttonStyle={styles.button}
-                titleStyle={styles.buttonText}
-                containerStyle={styles.buttonContainer}
-              />
-            </View>
-          </ListItem.Content>
-        </ListItem>
-      ) : null}
-    </View>
+              <View style={[styles.contactsContainer]}>
+                <Text
+                  style={{ width: "100%", marginBottom: 5, color: iconColor }}
+                >
+                  Apply Event To:
+                </Text>
+                <DropDownPicker
+                  placeholder={"Pick some contacts..."}
+                  onOpen={onColorOpen}
+                  style={{
+                    height: 40,
+                    width: "100%",
+                  }}
+                  searchable
+                  listMode="MODAL"
+                  mode="BADGE"
+                  multiple={true}
+                  min={0}
+                  max={99}
+                  zIndex={100}
+                  zIndexInverse={4000}
+                  open={openContacts}
+                  value={valuesContacts}
+                  items={itemsContacts}
+                  setOpen={setOpenContacts}
+                  setValue={setValuesContacts}
+                  setItems={setItemContacts}
+                />
+              </View>
+              <View style={[styles.extraNotesContainer]}>
+                <Text
+                  style={{ width: "100%", marginBottom: 5, color: iconColor }}
+                >
+                  Additional Notes:
+                </Text>
+                <TextInput
+                  style={{
+                    ...styles.bulkInput,
+                    backgroundColor: "white",
+                  }}
+                  onChangeText={onChangeText}
+                  value={text}
+                  multiline
+                  placeholder="Enter some notes..."
+                />
+              </View>
+              <View style={[styles.form, styles.buttonRow]}>
+                <Button
+                  type="outline"
+                  raised
+                  icon={{
+                    name: "ban",
+                    color: !props.darkMode ? DefaultTheme.delete : "white",
+                    type: "font-awesome",
+                  }}
+                  onPress={deleteEvent}
+                  buttonStyle={{
+                    ...styles.deleteButton,
+                    backgroundColor: props.darkMode
+                      ? DefaultTheme.delete
+                      : "white",
+                  }}
+                  containerStyle={styles.buttonContainer}
+                />
+                <Button
+                  icon={{
+                    name: "floppy-o",
+                    color: styles.saveButtonIcon.backgroundColor,
+                    type: "font-awesome",
+                  }}
+                  title="Save Event"
+                  type="outline"
+                  raised
+                  onPress={onSave}
+                  buttonStyle={styles.button}
+                  titleStyle={styles.buttonText}
+                  containerStyle={styles.buttonContainer}
+                />
+              </View>
+            </ListItem.Content>
+          </ListItem>
+        ) : null}
+      </View>
+    </Swipeout>
   );
 };
 

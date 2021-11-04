@@ -273,6 +273,10 @@ export const EventType = [
   },
 ];
 
+export const DELETED_CONTACT = {
+  firstName: "Deleted",
+};
+
 export const AvailableColors = [
   {
     label: "Grey",
@@ -380,3 +384,5 @@ export const lunarHolidays = Object.freeze({
 });
 
 export const birthdayEmojis = ["🎂", "🕯️", "🍰", "🧁", "🎉"];
+
+export const TESTING = true;

@@ -59,7 +59,7 @@ export const updateEvent = (event) => ({
 });
 
 export const deleteAllEvents = () => ({
-  type: "DELETE_ALL_EVENT",
+  type: "DELETE_ALL_EVENTS",
 });
 
 export const deleteAllContacts = () => ({

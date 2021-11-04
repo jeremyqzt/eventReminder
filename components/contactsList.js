@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import ContactItem from "./contactItem";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, ScrollView } from "react-native";
 
 import SuchEmptyWow from "./suchEmpty";
 
@@ -10,7 +10,11 @@ const ContactsList = (props) => {
   const allContactByIds = props.contacts.byId || {};
 
   if (allContactIds.length === 0) {
-    return <SuchEmptyWow darkMode={props.darkMode} />;
+    return (
+      <ScrollView>
+        <SuchEmptyWow darkMode={props.darkMode} />
+      </ScrollView>
+    );
   }
 
   return (
@@ -22,7 +26,7 @@ const ContactsList = (props) => {
         ))
       }
       data={allContactIds}
-      keyExtractor={(item, index) => `${item.id}-${index}`}
+      keyExtractor={(item, index) => `${item}-${index}`}
       renderItem={({ item, index }) => (
         <>
           <ContactItem contact={allContactByIds[item]} key={index} />

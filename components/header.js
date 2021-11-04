@@ -57,8 +57,8 @@ const HeadingImage = (props) => {
   const textColor = props.darkMode ? styles.textDark : styles.textNormal;
   const countText =
     props.count === 0
-      ? `No Events Today`
-      : `You Have ${props.count} Event(s) Today!`;
+      ? `No Reminder Today`
+      : `${props.count} Reminder(s) Today!`;
   return (
     <View style={tailwind("items-center rounded px-1 py-1")}>
       <Text style={[tailwind("font-bold text-xs"), textColor]}>

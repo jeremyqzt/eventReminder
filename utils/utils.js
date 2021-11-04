@@ -137,7 +137,7 @@ export const getNextXOccurence = (
   date,
   reoccurType,
   today,
-  X = 3,
+  X = 5,
   offset = 0
 ) => {
   let ret = null;
@@ -297,6 +297,8 @@ export const scheduleAllEventNotifs10Years = async (allEvents, updateFunc) => {
       type,
       reoccurence
     );
+
+    updateFunc({ ...event, notifs: [...nids] });
   }
 };
 
@@ -308,14 +310,11 @@ export const scheduleNext10Years = async (inDate, dateType, reoccurence) => {
 
   const ret = [];
 
-  const allNextOccurenceDate = getNextXOccurence(
-    eventDate,
-    reoccurence,
-    todayTyped,
-    2 * 12
-  );
+  const allNextOccurenceDate = (
+    getNextXOccurence(eventDate, reoccurence, todayTyped, 2 * 12) || []
+  ).filter((date) => date > new Date());
 
-  if (!allNextOccurenceDate) return [];
+  if (allNextOccurenceDate.length === 0) return [];
 
   for (let i = 0; i < allNextOccurenceDate.length; i++) {
     const nextOccurenceDate = allNextOccurenceDate[i];
