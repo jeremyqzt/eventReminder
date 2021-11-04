@@ -285,7 +285,20 @@ export const schedulePushNotification = async (content, date) => {
   });
 };
 
-export const scheduleAllEventNotifs10Years = async (allEvents) => {};
+export const scheduleAllEventNotifs10Years = async (allEvents, updateFunc) => {
+  const allEventKeys = Object.keys(allEvents);
+
+  for (const key of allEventKeys) {
+    const event = allEvents[key];
+    const { type, reoccurence, year, month, day } = event;
+
+    const nids = await scheduleNext10Years(
+      { year, month, day },
+      type,
+      reoccurence
+    );
+  }
+};
 
 export const scheduleNext10Years = async (inDate, dateType, reoccurence) => {
   const eventDate = new Date(inDate.year, inDate.month, inDate.day);
@@ -299,8 +312,10 @@ export const scheduleNext10Years = async (inDate, dateType, reoccurence) => {
     eventDate,
     reoccurence,
     todayTyped,
-    10 * 12
+    2 * 12
   );
+
+  if (!allNextOccurenceDate) return [];
 
   for (let i = 0; i < allNextOccurenceDate.length; i++) {
     const nextOccurenceDate = allNextOccurenceDate[i];

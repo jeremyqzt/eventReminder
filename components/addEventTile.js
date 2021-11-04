@@ -203,7 +203,8 @@ const AddEventTile = (props) => {
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
 
-  const deleteEvent = () => {
+  const deleteEvent = async () => {
+    await cancelNotifs(props.event.notifs || []);
     props.deleteEvent(props.event.id);
   };
 

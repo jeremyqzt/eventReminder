@@ -12,6 +12,7 @@ import {
   addEvent,
   settingsCalendar,
   settingsNotifs,
+  updateEvent,
 } from "../actions/actions";
 
 import SettingsActionHeader from "./settingsActionHeader";
@@ -69,7 +70,7 @@ const SettingsList = (props) => {
       });
       await Notifications.cancelAllScheduledNotificationsAsync();
       const allEventById = props.events.byId || {};
-      await scheduleAllEventNotifs10Years(allEventById);
+      await scheduleAllEventNotifs10Years(allEventById, props.updateEvent);
       props.toggleNotifs(true);
     } else {
       Notifications.cancelAllScheduledNotificationsAsync();
@@ -405,6 +406,7 @@ const mapDispatchToProps = (dispatch) => {
     addEvent: (event) => dispatch(addEvent(event)),
     toggleNotifs: (notif) => dispatch(settingsNotifs(notif)),
     setCalendar: (cal) => dispatch(settingsCalendar(cal)),
+    updateEvent: (event) => dispatch(updateEvent(event)),
   };
 };
 
