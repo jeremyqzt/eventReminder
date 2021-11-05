@@ -35,12 +35,42 @@ import { scheduleAllEventNotifs10Years } from "../utils/utils";
 import * as Constants from "expo-constants";
 import * as Contacts from "expo-contacts";
 import * as Notifications from "expo-notifications";
+import * as Calendar from "expo-calendar";
 
 const SettingsList = (props) => {
   const [darkMode, setDarkMode] = useState(props.darkMode);
   const [useCal, setUseCal] = useState(props.useCal);
 
   const [notifs, setNotifs] = useState(props.notifs);
+
+  async function getDefaultCalendarSource() {
+    const calendars = await Calendar.getCalendarsAsync(
+      Calendar.EntityTypes.EVENT
+    );
+    const defaultCalendars = calendars.filter(
+      (each) => each.source.name === "Default"
+    );
+    return defaultCalendars[0].source;
+  }
+
+  async function createCalendar() {
+    const defaultCalendarSource =
+      Platform.OS === "ios"
+        ? await getDefaultCalendarSource()
+        : { isLocalAccount: true, name: "Reminder Calendar" };
+
+    const newCalendarID = await Calendar.createCalendarAsync({
+      title: "Reminder Calendar",
+      color: "blue",
+      entityType: Calendar.EntityTypes.EVENT,
+      sourceId: defaultCalendarSource.id,
+      source: defaultCalendarSource,
+      name: "reminderCalendar",
+      ownerAccount: "personal",
+      accessLevel: Calendar.CalendarAccessLevel.OWNER,
+    });
+    console.log(`Your new calendar ID is: ${newCalendarID}`);
+  }
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -78,6 +108,60 @@ const SettingsList = (props) => {
       Notifications.cancelAllScheduledNotificationsAsync();
       props.toggleNotifs(false);
     }
+  };
+
+  const syncCalendar = async () => {
+    const { status } = await Calendar.requestPermissionsAsync();
+    if (!(Constants.default.isDevice && status === "granted")) {
+      return;
+    }
+
+    Alert.alert(
+      "Sync Events",
+      "Sync all events to your calendar.",
+      [
+        {
+          text: "Never Mind!",
+          onPress: () => {},
+          style: "cancel",
+        },
+        {
+          text: "Sync",
+          onPress: async () => {
+            const { data } = await Contacts.getContactsAsync({
+              fields: [
+                Contacts.Fields.FirstName,
+                Contacts.Fields.LastName,
+                Contacts.Fields.Company,
+              ],
+            });
+
+            const today = new Date().toISOString().slice(0, 10);
+            data.forEach((contact) => {
+              const newContact = {
+                firstName: contact.firstName,
+                lastName: contact.lastName || "",
+                description: `This contact was imported ${today}.`,
+                id: contact.id,
+              };
+
+              if (!(contact.id in props.contacts.byId)) {
+                props.addContact(newContact);
+              }
+            });
+            Toast.show("All Contacts Imported!", {
+              duration: Toast.durations.SHORT,
+              position: -100,
+              shadow: true,
+              animation: true,
+              hideOnPress: true,
+              delay: 0,
+            });
+          },
+        },
+      ],
+      { cancelable: true }
+    );
   };
 
   const importContacts = async () => {
@@ -240,7 +324,9 @@ const SettingsList = (props) => {
     Notifications.getAllScheduledNotificationsAsync().then((notifs) => {
       const normalNotifs = notifs.map((notif) => {
         return {
+          title: notif.content.title,
           content: notif.content.body,
+          date: notif.trigger,
         };
       });
       console.log(normalNotifs);
@@ -344,7 +430,7 @@ const SettingsList = (props) => {
             text={"Sync Events"}
             title={"Sync"}
             subText={"Sync from this app to your calendar."}
-            callback={importContacts}
+            callback={syncCalendar}
           />
           <SettingsResetHeader />
           <SettingsButton
