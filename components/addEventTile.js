@@ -192,9 +192,7 @@ const AddEventTile = (props) => {
 
   const todayTyped =
     valueDateType === EventType[0].value ? getEqualLunarDate(today) : today;
-  const nextOccur = formatDate(
-    getNextOccurence(eventDate, valueRecurr, todayTyped)
-  );
+  const nextOccur = formatDate(getNextOccurence(date, valueRecurr, todayTyped));
 
   const onChange = (_, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -219,6 +217,21 @@ const AddEventTile = (props) => {
     },
   ];
 
+  const localEvent = {
+    id: props.event.id,
+    eventName,
+    color: valueColor,
+    icon: valueIcon,
+    contacts: valuesContacts,
+    reoccurence: valueRecurr,
+    notes: text,
+    type: valueDateType,
+    year: date.getFullYear(),
+    month: date.getMonth(),
+    day: date.getDate(),
+    acknolwdged: props.event.acknolwdged || false,
+  };
+
   const saveEvent = async (showNotif) => {
     let scheduleNotifs = [];
     if (props.notifs) {
@@ -230,23 +243,13 @@ const AddEventTile = (props) => {
           day: date.getDate(),
         },
         valueDateType,
-        valueRecurr
+        valueRecurr,
+        localEvent
       );
     }
 
     const updateEvent = {
-      id: props.event.id,
-      eventName,
-      color: valueColor,
-      icon: valueIcon,
-      contacts: valuesContacts,
-      reoccurence: valueRecurr,
-      notes: text,
-      type: valueDateType,
-      year: date.getFullYear(),
-      month: date.getMonth(),
-      day: date.getDate(),
-      acknolwdged: props.event.acknolwdged || false,
+      ...localEvent,
       notifs: [...scheduleNotifs],
     };
     props.updateEvent(updateEvent);
@@ -264,7 +267,7 @@ const AddEventTile = (props) => {
   };
 
   const onSave = () => {
-    saveEvent();
+    saveEvent(true);
   };
 
   return (
@@ -276,7 +279,7 @@ const AddEventTile = (props) => {
           containerStyle={{ backgroundColor: backGroundColor }}
           onPress={() => {
             if (expaneded) {
-              saveEvent(true);
+              saveEvent(false);
             }
             setExpanded(!expaneded);
           }}
