@@ -295,14 +295,71 @@ export const scheduleAllEventNotifs10Years = async (allEvents, updateFunc) => {
     const nids = await scheduleNext10Years(
       { year, month, day },
       type,
-      reoccurence
+      reoccurence,
+      event
     );
 
     updateFunc({ ...event, notifs: [...nids] });
   }
 };
 
-export const scheduleNext10Years = async (inDate, dateType, reoccurence) => {
+export const isEmoji = (str) => {
+  var ranges = [
+    "(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32-\ude3a]|[\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])", // U+1F680 to U+1F6FF
+  ];
+  if (str.match(ranges.join("|"))) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const buildEventDescription = (event) => {
+  let msg = "";
+  switch (event.reoccurence) {
+    // Case 1, Does not reoccur
+    case AvailableReoccurences[0].value: {
+      msg = "Gentle Reminder That This Event Occurs Today!";
+      break;
+    }
+    // Case 2, Monthly
+    case AvailableReoccurences[1].value: {
+      const now = new Date();
+      const reoccurCount =
+        (now.getFullYear() - event.year) * 12 +
+        (now.getFullMonth() - event.month);
+      msg = `Gentle Reminder That ${event.eventName} Occurs Today! (${reoccurCount} occurences and counting)`;
+      break;
+    }
+    // Case 3, Yearly
+    case AvailableReoccurences[2].value: {
+      const now = new Date();
+      const reoccurCount = now.getFullYear() - event.year;
+      msg = `Gentle Reminder That ${event.eventName} Occurs Today! (${reoccurCount} occurences and counting)`;
+
+      break;
+    }
+    // Case 4, Offset
+    case AvailableReoccurences[3].value: {
+      msg = `Gentle Reminder That ${event.eventName} Occurs Today!`;
+      break;
+    }
+  }
+
+  return {
+    title: isEmoji(event.eventName)
+      ? `${event.eventName}`
+      : `📬 ${event.eventName}`,
+    body: `${msg}`,
+  };
+};
+
+export const scheduleNext10Years = async (
+  inDate,
+  dateType,
+  reoccurence,
+  event
+) => {
   const eventDate = new Date(inDate.year, inDate.month, inDate.day);
   const today = new Date();
   const todayTyped =
@@ -323,11 +380,12 @@ export const scheduleNext10Years = async (inDate, dateType, reoccurence) => {
         ? getEqualGregorianDate(nextOccurenceDate)
         : nextOccurenceDate;
 
-    const content = {
+    const content = buildEventDescription(event);
+
+    /*{
       title: "You've got mail! 📬",
       body: `${nextOccurUntyped}`,
-      data: { data: "goes here" },
-    };
+    };*/
 
     const nid = await schedulePushNotification(content, nextOccurUntyped);
     ret.push(nid);
