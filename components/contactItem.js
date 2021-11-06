@@ -26,7 +26,7 @@ const ContactItem = (props) => {
     props.deleteContact(props.contact.id);
   };
 
-  const saveContact = () => {
+  const saveContact = (notify) => {
     const updatedContact = {
       firstName: firstName,
       lastName: lastName,
@@ -34,6 +34,9 @@ const ContactItem = (props) => {
       id: props.contact.id,
     };
     props.updateContact(updatedContact);
+
+    if (!notify) return;
+
     Toast.show(`Contact: ${firstName} Saved!`, {
       duration: Toast.durations.SHORT,
       position: -100,
@@ -61,7 +64,7 @@ const ContactItem = (props) => {
           bottomDivider
           onPress={() => {
             if (expaneded) {
-              saveContact();
+              saveContact(false);
             }
 
             setExpanded(!expaneded);
@@ -201,7 +204,7 @@ const ContactItem = (props) => {
                   type="outline"
                   raised
                   onPress={() => {
-                    saveContact();
+                    saveContact(true);
                     setExpanded(false);
                   }}
                   buttonStyle={styles.button}
