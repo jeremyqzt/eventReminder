@@ -182,9 +182,7 @@ const Caldendar = (props) => {
   });
 
   useEffect(() => {
-    if (eventCount > 0) {
-      props.setCount(eventCount);
-    }
+    props.setCount(eventCount);
   }, [eventCount]);
 
   const monthData = buildAgenda(new Date());
@@ -224,13 +222,20 @@ const Caldendar = (props) => {
         }}
         showClosingKnob={true}
         selected={today}
-        pastScrollRange={0}
+        pastScrollRange={1}
         futureScrollRange={5}
         //renderEmptyData={renderEmptyItem}
         //renderEmptyDate={renderEmptyDate}
         theme={{
           calendarBackground: props.darkMode ? "black" : "white",
           backgroundColor: props.darkMode ? "black" : "white",
+          "stylesheet.calendar.header": {
+            week: {
+              marginTop: 0,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            },
+          },
         }}
         style={{ height: "100%" }}
       />

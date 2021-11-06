@@ -13,6 +13,8 @@ import {
   settingsCalendar,
   settingsNotifs,
   updateEvent,
+  settingsNativeCalendar,
+  settingsNativeCalendarId,
 } from "../actions/actions";
 
 import SettingsActionHeader from "./settingsActionHeader";
@@ -31,7 +33,10 @@ import {
   TESTING,
 } from "../utils/constants.js";
 
-import { scheduleAllEventNotifs10Years } from "../utils/utils";
+import {
+  scheduleAllEventNotifs10Years,
+  scheduleAllEventCalendar10Years,
+} from "../utils/utils";
 import * as Constants from "expo-constants";
 import * as Contacts from "expo-contacts";
 import * as Notifications from "expo-notifications";
@@ -40,37 +45,7 @@ import * as Calendar from "expo-calendar";
 const SettingsList = (props) => {
   const [darkMode, setDarkMode] = useState(props.darkMode);
   const [useCal, setUseCal] = useState(props.useCal);
-
   const [notifs, setNotifs] = useState(props.notifs);
-
-  async function getDefaultCalendarSource() {
-    const calendars = await Calendar.getCalendarsAsync(
-      Calendar.EntityTypes.EVENT
-    );
-    const defaultCalendars = calendars.filter(
-      (each) => each.source.name === "Default"
-    );
-    return defaultCalendars[0].source;
-  }
-
-  async function createCalendar() {
-    const defaultCalendarSource =
-      Platform.OS === "ios"
-        ? await getDefaultCalendarSource()
-        : { isLocalAccount: true, name: "Reminder Calendar" };
-
-    const newCalendarID = await Calendar.createCalendarAsync({
-      title: "Reminder Calendar",
-      color: "blue",
-      entityType: Calendar.EntityTypes.EVENT,
-      sourceId: defaultCalendarSource.id,
-      source: defaultCalendarSource,
-      name: "reminderCalendar",
-      ownerAccount: "personal",
-      accessLevel: Calendar.CalendarAccessLevel.OWNER,
-    });
-    console.log(`Your new calendar ID is: ${newCalendarID}`);
-  }
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -111,7 +86,7 @@ const SettingsList = (props) => {
   };
 
   const syncCalendar = async () => {
-    const { status } = await Calendar.requestPermissionsAsync();
+    const { status } = await Calendar.requestCalendarPermissionsAsync();
     if (!(Constants.default.isDevice && status === "granted")) {
       return;
     }
@@ -128,28 +103,36 @@ const SettingsList = (props) => {
         {
           text: "Sync",
           onPress: async () => {
-            const { data } = await Contacts.getContactsAsync({
-              fields: [
-                Contacts.Fields.FirstName,
-                Contacts.Fields.LastName,
-                Contacts.Fields.Company,
-              ],
-            });
-
-            const today = new Date().toISOString().slice(0, 10);
-            data.forEach((contact) => {
-              const newContact = {
-                firstName: contact.firstName,
-                lastName: contact.lastName || "",
-                description: `This contact was imported ${today}.`,
-                id: contact.id,
+            async function createCalendar() {
+              const defaultCalendarSource = {
+                isLocalAccount: true,
+                name: "Reminder Calendar",
               };
 
-              if (!(contact.id in props.contacts.byId)) {
-                props.addContact(newContact);
-              }
-            });
-            Toast.show("All Contacts Imported!", {
+              const newCalendarID = await Calendar.createCalendarAsync({
+                title: "Reminder Calendar",
+                color: "blue",
+                entityType: Calendar.EntityTypes.EVENT,
+                sourceId: defaultCalendarSource.id,
+                source: defaultCalendarSource,
+                name: "reminderCalendar",
+                ownerAccount: "personal",
+                accessLevel: Calendar.CalendarAccessLevel.OWNER,
+              });
+              return newCalendarID;
+            }
+
+            const calendarId = await createCalendar();
+            props.settingsNativeCalendarId(calendarId);
+            const allEventById = props.events.byId || {};
+            const eventIds = await scheduleAllEventCalendar10Years(
+              allEventById,
+              calendarId
+            );
+
+            props.settingsNativeCalendar(eventIds);
+
+            Toast.show("Calendar Events Synced!", {
               duration: Toast.durations.SHORT,
               position: -100,
               shadow: true,
@@ -361,6 +344,65 @@ const SettingsList = (props) => {
     );
   };
 
+  const deleteCalendar = async () => {
+    Alert.alert(
+      "Delete Calendar",
+      "Removes the calendar and its associated events.",
+      [
+        {
+          text: "Never Mind!",
+          onPress: () => {},
+          style: "cancel",
+        },
+        {
+          text: "Remove",
+          onPress: async () => {
+            if (props.calendarId) {
+              try {
+                await Calendar.deleteCalendarAsync(props.calendarId);
+              } catch {
+                Toast.show(
+                  "Something went wrong deleting the calendar (It is probably already deleted)!",
+                  {
+                    duration: Toast.durations.SHORT,
+                    position: -100,
+                    shadow: true,
+                    animation: true,
+                    hideOnPress: true,
+                    delay: 0,
+                  }
+                );
+                props.settingsNativeCalendarId(undefined);
+                props.settingsNativeCalendar([]);
+              }
+              props.settingsNativeCalendarId(undefined);
+              props.settingsNativeCalendar([]);
+
+              Toast.show("Calendar and Events Removed!", {
+                duration: Toast.durations.SHORT,
+                position: -100,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+              });
+            } else {
+              Toast.show("No Calendar Associated With This App!", {
+                duration: Toast.durations.SHORT,
+                position: -100,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+              });
+            }
+          },
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
   const deleteAllEvents = async () => {
     Alert.alert(
       "Remove Events",
@@ -445,6 +487,12 @@ const SettingsList = (props) => {
             subText={"Permanently deletes all contacts."}
             callback={deleteAllContacts}
           />
+          <SettingsButton
+            text={"Remove Calendar"}
+            title={"Remove"}
+            subText={"Remove the calendar associated with this app."}
+            callback={deleteCalendar}
+          />
           {TESTING ? (
             <View>
               <SettingsTestingHeader />
@@ -500,6 +548,9 @@ const mapDispatchToProps = (dispatch) => {
     toggleNotifs: (notif) => dispatch(settingsNotifs(notif)),
     setCalendar: (cal) => dispatch(settingsCalendar(cal)),
     updateEvent: (event) => dispatch(updateEvent(event)),
+    settingsNativeCalendarId: (id) => dispatch(settingsNativeCalendarId(id)),
+    settingsNativeCalendar: (calendar) =>
+      dispatch(settingsNativeCalendar(calendar)),
   };
 };
 
@@ -508,6 +559,8 @@ const mapStateToProps = (state) => {
     notifs: state.settingsReducer.notifs,
     darkMode: state.settingsReducer.darkMode,
     useCal: state.settingsReducer.useCalendar,
+    calendarId: state.settingsReducer.calendarId,
+    calendar: state.settingsReducer.calendar,
     contacts: state.contactsReducer,
     events: state.eventsReducer,
   };
