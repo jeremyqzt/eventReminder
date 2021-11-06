@@ -24,6 +24,18 @@ const settingsReducer = (state = initialState, action) => {
         notifs: action.notifs,
       };
     }
+    case "CALENDAR": {
+      return {
+        ...state,
+        calendar: action.calendar,
+      };
+    }
+    case "CALENDAR_ID": {
+      return {
+        ...state,
+        calendarId: action.calendarId,
+      };
+    }
     default: {
       return state;
     }

@@ -65,3 +65,13 @@ export const deleteAllEvents = () => ({
 export const deleteAllContacts = () => ({
   type: "DELETE_ALL_CONTACTS",
 });
+
+export const settingsNativeCalendar = (calendar) => ({
+  type: "CALENDAR",
+  calendar,
+});
+
+export const settingsNativeCalendarId = (calendarId) => ({
+  type: "CALENDAR_ID",
+  calendarId,
+});
