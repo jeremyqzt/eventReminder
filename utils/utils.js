@@ -314,7 +314,7 @@ export const isEmoji = (str) => {
   }
 };
 
-export const buildEventDescription = (event) => {
+export const buildEventDescription = (event, nextOccur) => {
   let msg = "";
   switch (event.reoccurence) {
     // Case 1, Does not reoccur
@@ -324,17 +324,15 @@ export const buildEventDescription = (event) => {
     }
     // Case 2, Monthly
     case AvailableReoccurences[1].value: {
-      const now = new Date();
       const reoccurCount =
-        (now.getFullYear() - event.year) * 12 +
-        (now.getFullMonth() - event.month);
+        (nextOccur.getUTCFullYear() - event.year) * 12 +
+        (nextOccur.getMonth() - event.month);
       msg = `Gentle Reminder That ${event.eventName} Occurs Today! (${reoccurCount} occurences and counting)`;
       break;
     }
     // Case 3, Yearly
     case AvailableReoccurences[2].value: {
-      const now = new Date();
-      const reoccurCount = now.getFullYear() - event.year;
+      const reoccurCount = nextOccur.getFullYear() - event.year;
       msg = `Gentle Reminder That ${event.eventName} Occurs Today! (${reoccurCount} occurences and counting)`;
 
       break;
@@ -380,7 +378,7 @@ export const scheduleNext10Years = async (
         ? getEqualGregorianDate(nextOccurenceDate)
         : nextOccurenceDate;
 
-    const content = buildEventDescription(event);
+    const content = buildEventDescription(event, nextOccurUntyped);
 
     /*{
       title: "You've got mail! 📬",
@@ -388,6 +386,71 @@ export const scheduleNext10Years = async (
     };*/
 
     const nid = await schedulePushNotification(content, nextOccurUntyped);
+    ret.push(nid);
+  }
+
+  return ret;
+};
+
+import * as Calendar from "expo-calendar";
+
+export const scheduleAllEventCalendar10Years = async (allEvents, id) => {
+  const allEventKeys = Object.keys(allEvents);
+  const ret = [];
+  for (const key of allEventKeys) {
+    const event = allEvents[key];
+    const { type, reoccurence, year, month, day } = event;
+
+    const nids = await scheduleNext10YearsCalendar(
+      { year, month, day },
+      type,
+      reoccurence,
+      event,
+      id
+    );
+    ret.push(...nids);
+  }
+
+  return ret;
+};
+
+export const scheduleNext10YearsCalendar = async (
+  inDate,
+  dateType,
+  reoccurence,
+  event,
+  id
+) => {
+  const eventDate = new Date(inDate.year, inDate.month, inDate.day);
+  const today = new Date();
+  const todayTyped =
+    dateType === EventType[0].value ? getEqualLunarDate(today) : today;
+
+  const ret = [];
+
+  const allNextOccurenceDate = (
+    getNextXOccurence(eventDate, reoccurence, todayTyped, 2 * 12) || []
+  ).filter((date) => date > new Date());
+
+  if (allNextOccurenceDate.length === 0) return [];
+
+  for (let i = 0; i < allNextOccurenceDate.length; i++) {
+    const nextOccurenceDate = allNextOccurenceDate[i];
+    const nextOccurUntyped =
+      dateType === EventType[0].value
+        ? getEqualGregorianDate(nextOccurenceDate)
+        : nextOccurenceDate;
+
+    const { title, body } = buildEventDescription(event, nextOccurUntyped);
+
+    const nid = await Calendar.createEventAsync(id, {
+      title,
+      notes: event.notes ? event.notes : body,
+      allDay: true,
+      startDate: nextOccurUntyped,
+      endDate: nextOccurUntyped,
+      timeZone: "Asia/Hong_Kong",
+    });
     ret.push(nid);
   }
 
