@@ -63,9 +63,7 @@ const OverviewList = (props) => {
   });
 
   useEffect(() => {
-    if (eventCount > 0) {
-      props.setCount(eventCount);
-    }
+    props.setCount(eventCount);
   }, [eventCount]);
 
   const allEventsSorted = allEventsArr.sort(
