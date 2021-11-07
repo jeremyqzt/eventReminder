@@ -92,8 +92,8 @@ const SettingsList = (props) => {
     }
 
     Alert.alert(
-      "Sync Events",
-      "Sync all events to your calendar.",
+      "Create Calendar",
+      "Creates a separate calendar with all current events. This can be deleted from your calendar app.",
       [
         {
           text: "Never Mind!",
@@ -101,7 +101,7 @@ const SettingsList = (props) => {
           style: "cancel",
         },
         {
-          text: "Sync",
+          text: "Create",
           onPress: async () => {
             async function createCalendar() {
               const defaultCalendarSource = {
@@ -469,9 +469,9 @@ const SettingsList = (props) => {
             callback={importEvents}
           />
           <SettingsButton
-            text={"Sync Events"}
-            title={"Sync"}
-            subText={"Sync from this app to your calendar."}
+            text={"Create Calendar"}
+            title={"Create"}
+            subText={"Create a calendar entry with all current events."}
             callback={syncCalendar}
           />
           <SettingsResetHeader />
