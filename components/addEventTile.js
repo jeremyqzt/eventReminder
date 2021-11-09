@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
+import { TouchableOpacity } from "react-native";
 import Swipeout from "react-native-swipeout";
 
 import {
@@ -9,7 +10,7 @@ import {
   Button,
   Avatar,
 } from "react-native-elements";
-import { View, TextInput } from "react-native";
+import { View, TextInput, Platform } from "react-native";
 
 import { styles } from "./styles";
 import { connect } from "react-redux";
@@ -43,7 +44,7 @@ const AddEventTile = (props) => {
     : DefaultTheme.normalMode.background;
 
   const [text, setText] = useState(props.event.notes);
-
+  const [showPicker, setShowPicker] = useState(false);
   const onChangeText = (newText) => {
     setText(newText);
   };
@@ -195,6 +196,7 @@ const AddEventTile = (props) => {
   const nextOccur = formatDate(getNextOccurence(date, valueRecurr, todayTyped));
 
   const onChange = (_, selectedDate) => {
+    setShowPicker(false);
     const currentDate = selectedDate || date;
     setDate(currentDate);
   };
@@ -337,15 +339,17 @@ const AddEventTile = (props) => {
                   placeholder={
                     eventName || "Event Name (E.g. 🥮 Moon Festival)"
                   }
-                  spellCheck={false}
+                  value={eventName}
+                  spellCheck={true}
                   inputStyle={{ ...styles.titleStyle, color: iconColor }}
-                  autoCorrect={false}
+                  autoCorrect={true}
                   style={{
                     fontWeight: "bold",
                     fontSize: 20,
                   }}
-                  onChangeText={(value) => {
-                    setEventName(value);
+                  onChangeText={(e) => {
+                    console.log(e);
+                    setEventName(e);
                   }}
                   leftIcon={
                     <Icon
@@ -362,13 +366,21 @@ const AddEventTile = (props) => {
                   Select Original Event Date:
                 </Text>
                 <View style={styles.iOsPickerContainer}>
-                  <DateTimePicker
-                    value={date}
-                    mode={"date"}
-                    display="calendar"
-                    style={styles.iOsPicker}
-                    onChange={onChange}
-                  />
+                  <TouchableOpacity onPress={() => setShowPicker(true)}>
+                    <View>
+                      <Text>{formatDate(date)}</Text>
+                    </View>
+                  </TouchableOpacity>
+
+                  {showPicker ? (
+                    <DateTimePicker
+                      value={date}
+                      mode={"date"}
+                      style={styles.iOsPicker}
+                      onChange={onChange}
+                      themeVariant={props.darkMode ? "dark" : "light"}
+                    />
+                  ) : null}
                 </View>
               </View>
               <View style={styles.dateInformation}>
@@ -417,7 +429,7 @@ const AddEventTile = (props) => {
                   </Text>
                   <View style={{ width: "50%", paddingRight: 5 }}>
                     <DropDownPicker
-                      listMode="SCROLLVIEW"
+                      listMode={Platform.OS === "ios" ? "SCROLLVIEW" : "MODAL"}
                       scrollViewProps={{
                         nestedScrollEnabled: true,
                       }}
@@ -425,7 +437,7 @@ const AddEventTile = (props) => {
                       placeholder={"Icon"}
                       onOpen={onIconOpen}
                       style={{ height: 40 }}
-                      zIndex={3000}
+                      zIndex={4000}
                       zIndexInverse={1000}
                       open={openIcon}
                       value={valueIcon}
@@ -449,14 +461,14 @@ const AddEventTile = (props) => {
                   </Text>
                   <View style={{ width: "50%", paddingRight: 5 }}>
                     <DropDownPicker
-                      listMode="SCROLLVIEW"
+                      listMode={Platform.OS === "ios" ? "SCROLLVIEW" : "MODAL"}
                       scrollViewProps={{
                         nestedScrollEnabled: true,
                       }}
                       placeholder={"Type"}
                       onOpen={onEventTypeOpen}
                       style={{ height: 40 }}
-                      zIndex={2000}
+                      zIndex={3000}
                       zIndexInverse={2000}
                       open={openDateType}
                       value={valueDateType}
@@ -481,7 +493,7 @@ const AddEventTile = (props) => {
                   </Text>
                   <View style={{ width: "50%", paddingRight: 5 }}>
                     <DropDownPicker
-                      listMode="SCROLLVIEW"
+                      listMode={Platform.OS === "ios" ? "SCROLLVIEW" : "MODAL"}
                       scrollViewProps={{
                         nestedScrollEnabled: true,
                       }}
@@ -489,7 +501,7 @@ const AddEventTile = (props) => {
                       onOpen={onRecurrOpen}
                       style={{ height: 40 }}
                       zIndex={2000}
-                      zIndexInverse={2000}
+                      zIndexInverse={3000}
                       open={openRecurr}
                       value={valueRecurr}
                       items={itemsRecurr}
@@ -512,7 +524,7 @@ const AddEventTile = (props) => {
                   </Text>
                   <View style={{ width: "50%", paddingRight: 5 }}>
                     <DropDownPicker
-                      listMode="SCROLLVIEW"
+                      listMode={Platform.OS === "ios" ? "SCROLLVIEW" : "MODAL"}
                       scrollViewProps={{
                         nestedScrollEnabled: true,
                       }}
@@ -523,7 +535,7 @@ const AddEventTile = (props) => {
                         height: 40,
                       }}
                       zIndex={1000}
-                      zIndexInverse={3000}
+                      zIndexInverse={4000}
                       open={openColor}
                       value={valueColor}
                       items={itemsColor}
@@ -551,10 +563,10 @@ const AddEventTile = (props) => {
                   listMode="MODAL"
                   mode="BADGE"
                   multiple={true}
+                  zIndex={2}
+                  zIndexInverse={4998}
                   min={0}
                   max={99}
-                  zIndex={100}
-                  zIndexInverse={4000}
                   open={openContacts}
                   value={valuesContacts}
                   items={itemsContacts}
