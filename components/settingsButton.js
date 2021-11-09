@@ -2,7 +2,7 @@ import React from "react";
 
 import { DefaultTheme } from "../utils/constants";
 
-import { View, StyleSheet, Button, Text } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { connect } from "react-redux";
 
 const SettingsButton = (props) => {
@@ -35,13 +35,19 @@ const SettingsButton = (props) => {
         </Text>
       </View>
       <View style={styles.textAndSwitch}>
-        <Button onPress={props.callback} title={props.title} />
+        <TouchableOpacity onPress={props.callback}>
+          <Text style={styles.btn}>{props.title}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  btn: {
+    padding: 0,
+    color: "#069",
+  },
   toggle: {
     display: "flex",
     flexDirection: "row",

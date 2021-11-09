@@ -155,7 +155,7 @@ const SettingsList = (props) => {
 
     Alert.alert(
       "Import Contacts",
-      "Import all contacts from this phone.",
+      "Import all contacts from this phone. This may take a while!",
       [
         {
           text: "Never Mind!",
@@ -471,7 +471,7 @@ const SettingsList = (props) => {
           <SettingsButton
             text={"Create Calendar"}
             title={"Create"}
-            subText={"Create a calendar entry with all current events."}
+            subText={"Create a calendar with all events."}
             callback={syncCalendar}
           />
           <SettingsResetHeader />

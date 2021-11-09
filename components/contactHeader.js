@@ -50,18 +50,23 @@ const HeadingImage = (props) => {
 
 const HeadingContact = (props) => {
   return (
-    <View style={styles.headerContainer}>
-      <View
-        style={[
-          tailwind("px-5 py-1 flex-row flex justify-between items-center"),
-          styles.header,
-        ]}
-      >
-        <HeadingText darkMode={props.darkMode} />
-        <HeadingImage darkMode={props.darkMode} addContact={props.addContact} />
+    <>
+      <View style={styles.headerContainer}>
+        <View
+          style={[
+            tailwind("px-5 py-1 flex-row flex justify-between items-center"),
+            styles.header,
+          ]}
+        >
+          <HeadingText darkMode={props.darkMode} />
+          <HeadingImage
+            darkMode={props.darkMode}
+            addContact={props.addContact}
+          />
+        </View>
+        <Divider />
       </View>
-      <Divider />
-    </View>
+    </>
   );
 };
 

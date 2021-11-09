@@ -1,0 +1,16 @@
+ {
+   "expo": {
+    "name": "Ribbon",
+    "icon": "./assets/icon.png",
+    "version": "1.0.0",
+    "slug": "ribbon",
+    "ios": {
+      "bundleIdentifier": "com.jq.ribbon",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.Ribbon.ribbon",
+      "versionCode": 1
+    }
+   }
+ }

@@ -46,7 +46,8 @@
     "tailwind-rn": "^1.1.0",
     "tslib": "^2.0.3",
     "uuid": "^8.3.2",
-    "expo-calendar": "~9.2.2"
+    "expo-calendar": "~9.2.2",
+    "expo-status-bar": "~1.0.4"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",

@@ -7,6 +7,7 @@ import SettingsPage from "./containers/settingsPage";
 import EventsPage from "./containers/eventsPage";
 
 import ContactsPage from "./containers/contactsPage";
+import { StatusBar } from "expo-status-bar";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
@@ -33,17 +34,20 @@ const TabsPage = (props) => {
   return (
     <>
       <NavigationContainer>
+        <StatusBar
+          backgroundColor={darkMode ? "black" : "white"}
+          style={darkMode ? "light" : "dark"}
+          translucent={false}
+        />
         <Tabs.Navigator
           tabBarOptions={{
             activeTintColor: darkMode ? "black" : "white",
             inactiveTintColor: darkMode ? "black" : "white",
           }}
           appearance={{
-            floating: true,
             tabBarBackground: darkMode
               ? DefaultTheme.offBlack
               : DefaultTheme.offWhite,
-            shadow: true,
             activeTabBackgrounds: darkMode ? "white" : "black",
           }}
         >

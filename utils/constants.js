@@ -385,4 +385,4 @@ export const lunarHolidays = Object.freeze({
 
 export const birthdayEmojis = ["🎂", "🕯️", "🍰", "🧁", "🎉"];
 
-export const TESTING = true;
+export const TESTING = false;

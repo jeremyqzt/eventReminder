@@ -98,11 +98,7 @@ const ContactItem = (props) => {
               style={{ fontWeight: "normal", fontSize: 14, color: iconColor }}
             >{`${description || "Enter a description"}`}</ListItem.Subtitle>
           </ListItem.Content>
-          <ListItem.Chevron
-            name={!expaneded ? "chevron-down" : "chevron-up"}
-            size={22}
-            color={iconColor}
-          ></ListItem.Chevron>
+          <ListItem.Chevron size={22} color={iconColor}></ListItem.Chevron>
         </ListItem>
         {expaneded ? (
           <ListItem

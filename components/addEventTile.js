@@ -321,11 +321,7 @@ const AddEventTile = (props) => {
               valueDateType === EventType[0].value ? "(Lunar)" : ""
             }`}</ListItem.Subtitle>
           </ListItem.Content>
-          <ListItem.Chevron
-            name={!expaneded ? "chevron-down" : "chevron-up"}
-            size={22}
-            color={iconColor}
-          ></ListItem.Chevron>
+          <ListItem.Chevron size={22} color={iconColor}></ListItem.Chevron>
         </ListItem>
         {expaneded ? (
           <ListItem
