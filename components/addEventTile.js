@@ -348,7 +348,6 @@ const AddEventTile = (props) => {
                     fontSize: 20,
                   }}
                   onChangeText={(e) => {
-                    console.log(e);
                     setEventName(e);
                   }}
                   leftIcon={

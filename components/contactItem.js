@@ -112,7 +112,8 @@ const ContactItem = (props) => {
                   containerStyle={styles.input}
                   inputContainerStyle={styles.inputContainer}
                   leftIconContainerStyle={styles.inputIconStyle}
-                  placeholder={firstName ? firstName : "First Name"}
+                  placeholder={"First Name"}
+                  value={firstName}
                   spellCheck={false}
                   inputStyle={{ ...styles.inputStyle, color: iconColor }}
                   autoCorrect={false}
@@ -139,7 +140,8 @@ const ContactItem = (props) => {
                   labelStyle={styles.inputLabelStyle}
                   spellCheck={false}
                   autoCorrect={false}
-                  placeholder={lastName ? lastName : "Last Name"}
+                  value={lastName}
+                  placeholder={"Last Name"}
                   leftIcon={
                     <Icon
                       name="user-circle"
@@ -154,9 +156,8 @@ const ContactItem = (props) => {
                 <Input
                   inputContainerStyle={styles.inputContainer}
                   leftIconContainerStyle={styles.inputIconStyle}
-                  placeholder={
-                    description ? description : "Describe this person!"
-                  }
+                  placeholder={"Describe this person!"}
+                  value={description}
                   inputStyle={{ ...styles.inputStyle, color: iconColor }}
                   onChangeText={(value) => {
                     setDescription(value);
