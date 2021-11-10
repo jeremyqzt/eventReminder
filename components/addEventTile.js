@@ -365,14 +365,25 @@ const AddEventTile = (props) => {
                 <Text style={{ ...styles.tileHeader, color: iconColor }}>
                   Select Original Event Date:
                 </Text>
-                <View style={styles.iOsPickerContainer}>
-                  <TouchableOpacity onPress={() => setShowPicker(true)}>
-                    <View>
-                      <Text>{formatDate(date)}</Text>
-                    </View>
-                  </TouchableOpacity>
+                <View style={[styles.iOsPickerContainer]}>
+                  {Platform.OS !== "ios" ? (
+                    <TouchableOpacity onPress={() => setShowPicker(true)}>
+                      <View>
+                        <Text
+                          style={{
+                            color: "blue",
+                            fontSize: 16,
+                            lineHeight: 20,
+                            marginLeft: 5,
+                          }}
+                        >
+                          {formatDate(date)}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  ) : null}
 
-                  {showPicker ? (
+                  {showPicker || Platform.OS === "ios" ? (
                     <DateTimePicker
                       value={date}
                       mode={"date"}
