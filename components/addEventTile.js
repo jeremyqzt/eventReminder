@@ -339,9 +339,7 @@ const AddEventTile = (props) => {
                 <Input
                   inputContainerStyle={styles.inputContainer}
                   leftIconContainerStyle={styles.inputIconStyle}
-                  placeholder={
-                    eventName || "Event Name (E.g. 🥮 Moon Festival)"
-                  }
+                  placeholder={eventName || "🧭 Event Name"}
                   value={eventName}
                   spellCheck={true}
                   inputStyle={{ ...styles.titleStyle, color: iconColor }}
@@ -378,7 +376,7 @@ const AddEventTile = (props) => {
                       <View>
                         <Text
                           style={{
-                            color: "blue",
+                            color: darkMode ? "grey" : "blue",
                             fontSize: 16,
                             lineHeight: 20,
                             marginLeft: 5,

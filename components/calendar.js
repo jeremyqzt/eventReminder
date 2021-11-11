@@ -76,8 +76,21 @@ const DayCard = (props) => {
     <Card
       containerStyle={
         props.darkMode
-          ? { ...styles.cardDark, borderLeftColor: leftBorderColor }
-          : { ...styles.cardNormal, borderLeftColor: leftBorderColor }
+          ? {
+              ...styles.cardDark,
+              borderColor: leftBorderColor,
+              borderLeftColor: leftBorderColor,
+              borderTopWidth: 0,
+              borderBottomWidth: 0,
+              borderRightWidth: 0,
+            }
+          : {
+              ...styles.cardNormal,
+              borderColor: leftBorderColor,
+              borderTopWidth: 0,
+              borderBottomWidth: 0,
+              borderRightWidth: 0,
+            }
       }
       style={styles.cardTitle}
     >
@@ -135,14 +148,6 @@ const Caldendar = (props) => {
 
   const allEventById = props.events.byId || {};
 
-  if (allEventIds.length === 0) {
-    return (
-      <ScrollView>
-        <SuchEmptyWow useTree darkMode={darkMode} />
-      </ScrollView>
-    );
-  }
-
   let eventCount = 0;
 
   let allEventsArr = [];
@@ -187,6 +192,14 @@ const Caldendar = (props) => {
   useEffect(() => {
     props.setCount(eventCount);
   }, [eventCount]);
+
+  if (allEventIds.length === 0) {
+    return (
+      <ScrollView>
+        <SuchEmptyWow useTree darkMode={darkMode} />
+      </ScrollView>
+    );
+  }
 
   const monthData = buildAgenda(new Date());
 

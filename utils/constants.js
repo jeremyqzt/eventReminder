@@ -112,10 +112,6 @@ export const ColorMode = Object.freeze({
 
 export const AvailableIcons = [
   {
-    label: "Ribbon",
-    value: "ribbon",
-  },
-  {
     label: "Calendar",
     value: "calendar",
   },

@@ -14,15 +14,15 @@ const SuchEmptyWow = (props) => {
   const tree = darkMode ? treeDark : treeLight;
   const empty = darkMode ? emptyDark : emptyLight;
 
-  const type = props.useTree ? tree : empty;
-  const h = props.useTree ? 250 : 200;
-  const w = props.useTree ? 250 : 300;
+  const type = Boolean(props.useTree) ? tree : empty;
+  const h = Boolean(props.useTree) ? 250 : 200;
+  const w = Boolean(props.useTree) ? 250 : 300;
 
   const textColor = darkMode
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
 
-  const instructText = useTree
+  const instructText = Boolean(props.useTree)
     ? "Add an contact or event to get started!"
     : "Add an entry to get started!";
 
