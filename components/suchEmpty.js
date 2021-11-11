@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, StyleSheet, Text } from "react-native";
+import { View, Image, StyleSheet, Text, useColorScheme } from "react-native";
 import emptyLight from "../assets/empty.png";
 import emptyDark from "../assets/empty-dark.png";
 
@@ -8,22 +8,25 @@ import treeDark from "../assets/tree-dark.png";
 import { DefaultTheme } from "../utils/constants";
 
 const SuchEmptyWow = (props) => {
-  const tree = props.darkMode ? treeDark : treeLight;
-  const empty = props.darkMode ? emptyDark : emptyLight;
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
+
+  const tree = darkMode ? treeDark : treeLight;
+  const empty = darkMode ? emptyDark : emptyLight;
 
   const type = props.useTree ? tree : empty;
   const h = props.useTree ? 250 : 200;
   const w = props.useTree ? 250 : 300;
 
-  const textColor = props.darkMode
+  const textColor = darkMode
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
 
-  const instructText = props.useTree
+  const instructText = useTree
     ? "Add an contact or event to get started!"
     : "Add an entry to get started!";
 
-  const styleBackground = props.darkMode ? styles.PageDark : styles.PageNormal;
+  const styleBackground = darkMode ? styles.PageDark : styles.PageNormal;
   return (
     <View style={[styles.container, styleBackground]}>
       <Text style={[styles.text, { color: textColor }]}>

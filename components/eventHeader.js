@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, useColorScheme } from "react-native";
 import tailwind from "tailwind-rn";
 import { connect } from "react-redux";
 import { Divider } from "react-native-elements";
@@ -63,6 +63,9 @@ const HeadingImage = (props) => {
 };
 
 const HeadingEvent = (props) => {
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
+
   return (
     <View style={styles.headerContainer}>
       <View
@@ -71,8 +74,8 @@ const HeadingEvent = (props) => {
           styles.header,
         ]}
       >
-        <HeadingText darkMode={props.darkMode} />
-        <HeadingImage darkMode={props.darkMode} addEvent={props.addEvent} />
+        <HeadingText darkMode={darkMode} />
+        <HeadingImage darkMode={darkMode} addEvent={props.addEvent} />
       </View>
       <Divider />
     </View>

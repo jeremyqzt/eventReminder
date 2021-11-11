@@ -7,16 +7,19 @@ import { connect } from "react-redux";
 import { DefaultTheme } from "../utils/constants";
 
 import { SafeAreaView } from "react-native";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, useColorScheme } from "react-native";
 import Calendar from "../components/calendar";
 
 const MainPage = (props) => {
   const [eventsToday, setEventsToday] = useState(0);
   const setEventsCount = (count) => setEventsToday(count);
-  const calendarMode = props.calendarMode;
+  const calendarMode = !props.calendarMode;
+
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
 
   return (
-    <View style={props.darkMode ? styles.mainPageDark : styles.mainPageNormal}>
+    <View style={darkMode ? styles.mainPageDark : styles.mainPageNormal}>
       <SafeAreaView>
         <Heading eventsToday={eventsToday} />
         {calendarMode ? (

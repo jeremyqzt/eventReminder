@@ -13,11 +13,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import { DefaultTheme } from "./utils/constants";
 import { connect } from "react-redux";
+import { useColorScheme } from "react-native";
 
 const Tabs = AnimatedTabBarNavigator();
 
 const TabsPage = (props) => {
-  const darkMode = props.darkMode;
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
 
   const getColor = (focused) => {
     if (darkMode) {

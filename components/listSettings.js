@@ -2,7 +2,13 @@ import React, { useState } from "react";
 
 import { DefaultTheme } from "../utils/constants";
 import { SafeAreaView } from "react-native";
-import { View, StyleSheet, Alert, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Alert,
+  ScrollView,
+  useColorScheme,
+} from "react-native";
 import { connect } from "react-redux";
 import {
   settingsDarkMode,
@@ -43,13 +49,16 @@ import * as Notifications from "expo-notifications";
 import * as Calendar from "expo-calendar";
 
 const SettingsList = (props) => {
-  const [darkMode, setDarkMode] = useState(props.darkMode);
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
+
+  const [realDarkMode, setDarkMode] = useState(props.darkMode);
   const [useCal, setUseCal] = useState(props.useCal);
   const [notifs, setNotifs] = useState(props.notifs);
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    props.setDarkMode(!darkMode);
+    setDarkMode(!realDarkMode);
+    props.setDarkMode(!realDarkMode);
   };
 
   const toggleUseCal = () => {
@@ -438,14 +447,14 @@ const SettingsList = (props) => {
       >
         <SafeAreaView>
           <SettingsToggle
-            text={"Dark Mode"}
-            subText={"Toggle between dark and light mode."}
-            value={darkMode}
+            text={"Force Dark Mode"}
+            subText={"Ignore OS settings and use dark mode."}
+            value={realDarkMode}
             callback={toggleDarkMode}
           />
           <SettingsToggle
-            text={"Use Calendar"}
-            subText={"Use calendar view on home page."}
+            text={"Use Overview"}
+            subText={"Use overview cards on home page."}
             value={useCal}
             callback={toggleUseCal}
           />

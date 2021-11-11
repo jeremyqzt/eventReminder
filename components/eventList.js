@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, FlatList, ScrollView } from "react-native";
+import { View, FlatList, ScrollView, useColorScheme } from "react-native";
 import { connect } from "react-redux";
 import AddEventTile from "./addEventTile";
 import { styles } from "./styles";
@@ -9,11 +9,12 @@ import SuchEmptyWow from "./suchEmpty";
 const EventsList = (props) => {
   const allEventIds = props.events.allIds || [];
   const allEventById = props.events.byId || {};
-
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
   if (allEventIds.length === 0) {
     return (
       <ScrollView>
-        <SuchEmptyWow darkMode={props.darkMode} />
+        <SuchEmptyWow darkMode={darkMode} />
       </ScrollView>
     );
   }

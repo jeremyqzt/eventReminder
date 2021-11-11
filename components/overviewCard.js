@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, useColorScheme } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { connect } from "react-redux";
 import {
@@ -24,6 +24,9 @@ const OverviewCard = (props) => {
   const isEveryone = (props.event.contacts || []).some(
     (event) => event === Everyone.value
   );
+
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
 
   const thisContact =
     Object.keys(allContacts) !== 0 && contactsCount !== 0
@@ -73,7 +76,7 @@ const OverviewCard = (props) => {
     props.event.type
   );
   const leftBorderColor = props.event.color;
-  const iconColor = props.darkMode
+  const iconColor = darkMode
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
 
@@ -81,14 +84,14 @@ const OverviewCard = (props) => {
   return (
     <Card
       containerStyle={
-        props.darkMode
+        darkMode
           ? { ...styles.cardDark, borderLeftColor: leftBorderColor }
           : { ...styles.cardNormal, borderLeftColor: leftBorderColor }
       }
       style={styles.cardTitle}
     >
       <View style={styles.cardTitle}>
-        <Text style={props.darkMode ? styles.titleTextDark : styles.titleText}>
+        <Text style={darkMode ? styles.titleTextDark : styles.titleText}>
           {props.event.eventName}
         </Text>
       </View>
@@ -111,7 +114,7 @@ const OverviewCard = (props) => {
             name="calendar"
             type="feather"
             color={
-              props.darkMode
+              darkMode
                 ? DefaultTheme.darkMode.text
                 : DefaultTheme.normalMode.text
             }
@@ -127,7 +130,7 @@ const OverviewCard = (props) => {
               type={"feather"}
               size={14}
               color={
-                props.darkMode
+                darkMode
                   ? DefaultTheme.darkMode.text
                   : DefaultTheme.normalMode.text
               }

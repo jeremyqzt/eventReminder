@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity,
+  useColorScheme,
   ScrollView,
 } from "react-native";
 import { Card, Icon } from "react-native-elements";
@@ -127,6 +127,9 @@ const DayCard = (props) => {
 };
 
 const Caldendar = (props) => {
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
+
   const allEventIds = props.events.allIds || [];
   const allContactsById = props.contacts.byId || {};
 
@@ -135,7 +138,7 @@ const Caldendar = (props) => {
   if (allEventIds.length === 0) {
     return (
       <ScrollView>
-        <SuchEmptyWow useTree darkMode={props.darkMode} />
+        <SuchEmptyWow useTree darkMode={darkMode} />
       </ScrollView>
     );
   }
@@ -196,7 +199,7 @@ const Caldendar = (props) => {
   const renderItem = (item) => {
     return (
       <DayCard
-        darkMode={props.darkMode}
+        darkMode={darkMode}
         contactIds={allEventIds}
         contacts={allContactsById}
         toRender={item}
@@ -209,7 +212,7 @@ const Caldendar = (props) => {
   return (
     <View style={{ height: "85%" }}>
       <Agenda
-        key={props.darkMode}
+        key={darkMode}
         items={monthData}
         renderItem={(item) => {
           return renderItem(item);
@@ -227,8 +230,8 @@ const Caldendar = (props) => {
         //renderEmptyData={renderEmptyItem}
         //renderEmptyDate={renderEmptyDate}
         theme={{
-          calendarBackground: props.darkMode ? "black" : "white",
-          backgroundColor: props.darkMode ? "black" : "white",
+          calendarBackground: darkMode ? "black" : "white",
+          backgroundColor: darkMode ? "black" : "white",
           "stylesheet.calendar.header": {
             week: {
               marginTop: 0,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, useColorScheme } from "react-native";
 import tailwind from "tailwind-rn";
 import { connect } from "react-redux";
 
@@ -32,6 +32,9 @@ const SettingsSecondary = (props) => {
 };
 
 const SettingsHeading = (props) => {
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
+
   return (
     <View style={styles.headerContainer}>
       <View
@@ -40,8 +43,8 @@ const SettingsHeading = (props) => {
           styles.header,
         ]}
       >
-        <SettingsMain darkMode={props.darkMode} />
-        <SettingsSecondary darkMode={props.darkMode} />
+        <SettingsMain darkMode={darkMode} />
+        <SettingsSecondary darkMode={darkMode} />
       </View>
       <Divider />
     </View>

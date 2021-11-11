@@ -7,11 +7,13 @@ import { connect } from "react-redux";
 import { DefaultTheme } from "../utils/constants";
 
 import { SafeAreaView } from "react-native";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, useColorScheme } from "react-native";
 
 const EventsPage = (props) => {
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
   return (
-    <View style={props.darkMode ? styles.PageDark : styles.PageNormal}>
+    <View style={darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>
         <HeadingEvent />
         <EventsList />

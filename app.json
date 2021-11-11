@@ -4,8 +4,12 @@
     "icon": "./assets/icon.png",
     "version": "1.0.0",
     "slug": "ribbon",
+    "splash": {
+      "image": "./assets/splash.png"
+    },
+    "userInterfaceStyle": "automatic",
     "ios": {
-      "bundleIdentifier": "com.jq.ribbon",
+      "bundleIdentifier": "com.Ribbon.ribbon",
       "buildNumber": "1.0.0"
     },
     "android": {

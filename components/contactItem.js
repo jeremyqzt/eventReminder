@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ListItem, Avatar, Input, Icon, Button } from "react-native-elements";
-import { View } from "react-native";
+import { View, useColorScheme } from "react-native";
 import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
@@ -8,17 +8,20 @@ import { deleteContact, updateContact } from "../actions/actions";
 import Toast from "react-native-root-toast";
 import Swipeout from "react-native-swipeout";
 const ContactItem = (props) => {
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
+
   const [expaneded, setExpanded] = useState(false);
 
   const [firstName, setFirstName] = useState(props.contact.firstName);
   const [lastName, setLastName] = useState(props.contact.lastName);
   const [description, setDescription] = useState(props.contact.description);
 
-  const iconColor = props.darkMode
+  const iconColor = darkMode
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
 
-  const backGroundColor = props.darkMode
+  const backGroundColor = darkMode
     ? DefaultTheme.darkMode.background
     : DefaultTheme.normalMode.background;
 
@@ -179,15 +182,13 @@ const ContactItem = (props) => {
                   raised
                   icon={{
                     name: "trash",
-                    color: !props.darkMode ? DefaultTheme.delete : "white",
+                    color: !darkMode ? DefaultTheme.delete : "white",
                     type: "font-awesome",
                   }}
                   onPress={deleteContact}
                   buttonStyle={{
                     ...styles.deleteButton,
-                    backgroundColor: props.darkMode
-                      ? DefaultTheme.delete
-                      : "white",
+                    backgroundColor: darkMode ? DefaultTheme.delete : "white",
                   }}
                   containerStyle={styles.buttonContainer}
                 />

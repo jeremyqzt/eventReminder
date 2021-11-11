@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, FlatList, ScrollView } from "react-native";
+import { View, FlatList, ScrollView, useColorScheme } from "react-native";
 import { connect } from "react-redux";
 import OverviewCard from "./overviewCard";
 import { styles } from "./styles";
@@ -19,10 +19,13 @@ const OverviewList = (props) => {
 
   const allEventById = props.events.byId || {};
 
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
+
   if (allEventIds.length === 0) {
     return (
       <ScrollView>
-        <SuchEmptyWow useTree darkMode={props.darkMode} />
+        <SuchEmptyWow useTree darkMode={darkMode} />
       </ScrollView>
     );
   }

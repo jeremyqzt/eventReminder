@@ -10,7 +10,7 @@ import {
   Button,
   Avatar,
 } from "react-native-elements";
-import { View, TextInput, Platform } from "react-native";
+import { View, TextInput, Platform, useColorScheme } from "react-native";
 
 import { styles } from "./styles";
 import { connect } from "react-redux";
@@ -39,7 +39,10 @@ import DropDownPicker from "react-native-dropdown-picker";
 import Toast from "react-native-root-toast";
 
 const AddEventTile = (props) => {
-  const backGroundColor = props.darkMode
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
+
+  const backGroundColor = darkMode
     ? DefaultTheme.darkMode.background
     : DefaultTheme.normalMode.background;
 
@@ -201,7 +204,7 @@ const AddEventTile = (props) => {
     setDate(currentDate);
   };
 
-  const iconColor = props.darkMode
+  const iconColor = darkMode
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
 
@@ -388,7 +391,7 @@ const AddEventTile = (props) => {
                       mode={"date"}
                       style={styles.iOsPicker}
                       onChange={onChange}
-                      themeVariant={props.darkMode ? "dark" : "light"}
+                      themeVariant={darkMode ? "dark" : "light"}
                     />
                   ) : null}
                 </View>
@@ -608,15 +611,13 @@ const AddEventTile = (props) => {
                   raised
                   icon={{
                     name: "ban",
-                    color: !props.darkMode ? DefaultTheme.delete : "white",
+                    color: !darkMode ? DefaultTheme.delete : "white",
                     type: "font-awesome",
                   }}
                   onPress={deleteEvent}
                   buttonStyle={{
                     ...styles.deleteButton,
-                    backgroundColor: props.darkMode
-                      ? DefaultTheme.delete
-                      : "white",
+                    backgroundColor: darkMode ? DefaultTheme.delete : "white",
                   }}
                   containerStyle={styles.buttonContainer}
                 />

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, useColorScheme } from "react-native";
 import tailwind from "tailwind-rn";
 import { connect } from "react-redux";
 import { Divider } from "react-native-elements";
@@ -21,6 +21,9 @@ const SettingsSubHeaderText = (props) => {
 };
 
 const SettingsResetHeader = (props) => {
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
+
   return (
     <View style={styles.headerContainer}>
       <View
@@ -29,7 +32,7 @@ const SettingsResetHeader = (props) => {
           styles.header,
         ]}
       >
-        <SettingsSubHeaderText darkMode={props.darkMode} />
+        <SettingsSubHeaderText darkMode={darkMode} />
       </View>
       <Divider />
     </View>

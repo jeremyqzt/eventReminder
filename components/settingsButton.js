@@ -2,10 +2,19 @@ import React from "react";
 
 import { DefaultTheme } from "../utils/constants";
 
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  useColorScheme,
+} from "react-native";
 import { connect } from "react-redux";
 
 const SettingsButton = (props) => {
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
+
   return (
     <View style={styles.toggle}>
       <View style={styles.textAndSwitch}>
@@ -13,7 +22,7 @@ const SettingsButton = (props) => {
           style={[
             styles.text,
             {
-              color: props.darkMode
+              color: darkMode
                 ? DefaultTheme.darkMode.text
                 : DefaultTheme.normalMode.text,
             },
@@ -25,7 +34,7 @@ const SettingsButton = (props) => {
           style={[
             styles.subText,
             {
-              color: props.darkMode
+              color: darkMode
                 ? DefaultTheme.darkMode.text
                 : DefaultTheme.normalMode.text,
             },

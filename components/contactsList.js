@@ -1,18 +1,26 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import ContactItem from "./contactItem";
-import { StyleSheet, View, FlatList, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  ScrollView,
+  useColorScheme,
+} from "react-native";
 
 import SuchEmptyWow from "./suchEmpty";
 
 const ContactsList = (props) => {
   const allContactIds = props.contacts.allIds || [];
   const allContactByIds = props.contacts.byId || {};
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark" || props.darkMode;
 
   if (allContactIds.length === 0) {
     return (
       <ScrollView>
-        <SuchEmptyWow darkMode={props.darkMode} />
+        <SuchEmptyWow darkMode={darkMode} />
       </ScrollView>
     );
   }
