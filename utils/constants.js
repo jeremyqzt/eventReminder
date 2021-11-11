@@ -112,6 +112,10 @@ export const ColorMode = Object.freeze({
 
 export const AvailableIcons = [
   {
+    label: "Ribbon",
+    value: "ribbon",
+  },
+  {
     label: "Calendar",
     value: "calendar",
   },
@@ -253,11 +257,11 @@ export const AvailableReoccurences = [
     value: OccurenceTypes.yearly,
     indicator: "🔄",
   },
-  {
-    label: "Offset Mode",
-    value: OccurenceTypes.offset,
-    indicator: "⤵️",
-  },
+  //  {
+  //    label: "Offset Mode",
+  //    value: OccurenceTypes.offset,
+  //    indicator: "⤵️",
+  //  },
 ];
 
 export const EventType = [
@@ -278,6 +282,10 @@ export const DELETED_CONTACT = {
 };
 
 export const AvailableColors = [
+  {
+    label: "Ribbon Red",
+    value: "#DC143C",
+  },
   {
     label: "Grey",
     value: "#D3D3D3",

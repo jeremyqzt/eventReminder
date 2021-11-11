@@ -367,7 +367,12 @@ const AddEventTile = (props) => {
                 <Text style={{ ...styles.tileHeader, color: iconColor }}>
                   Select Original Event Date:
                 </Text>
-                <View style={[styles.iOsPickerContainer]}>
+                <View
+                  style={[
+                    styles.iOsPickerContainer,
+                    { backgroundColor: darkMode ? "black" : "white" },
+                  ]}
+                >
                   {Platform.OS !== "ios" ? (
                     <TouchableOpacity onPress={() => setShowPicker(true)}>
                       <View>
@@ -389,7 +394,10 @@ const AddEventTile = (props) => {
                     <DateTimePicker
                       value={date}
                       mode={"date"}
-                      style={styles.iOsPicker}
+                      style={[
+                        styles.iOsPicker,
+                        { backgroundColor: darkMode ? "black" : "white" },
+                      ]}
                       onChange={onChange}
                       themeVariant={darkMode ? "dark" : "light"}
                     />
