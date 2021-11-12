@@ -9,12 +9,17 @@
     },
     "userInterfaceStyle": "automatic",
     "ios": {
-      "bundleIdentifier": "com.Ribbon.ribbon",
-      "buildNumber": "1.0.0"
+      "bundleIdentifier": "com.Ribbon.ribbonReminder",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSRemindersUsageDescription": "This app can sync events to your calendar",
+        "NSContactsUsageDescription": "This app has the ability to import contats"
+      }
     },
     "android": {
       "package": "com.Ribbon.ribbon",
-      "versionCode": 1
+      "versionCode": 1,
+      "permissions": ["WRITE_CALENDAR", "READ_CALENDAR", "READ_CONTACTS"]
     }
    }
  }
