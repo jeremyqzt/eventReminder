@@ -123,11 +123,6 @@ export const getNextOccurence = (date, reoccurType, today, x) => {
       ret = getNextYearOccurence(date, today);
       break;
     }
-    // Case 4, Offset Mode, just add
-    case AvailableReoccurences[3].value: {
-      ret = getOffsetOccurence(date, x);
-      break;
-    }
   }
 
   return ret;
@@ -178,12 +173,6 @@ export const getNextXOccurence = (
           nextOccur.getDate() + 1
         );
       }
-      break;
-    }
-    // Case 4, Offset
-    case AvailableReoccurences[3].value: {
-      const nextOccur = getOffsetOccurence(date, offset);
-      ret = [nextOccur];
       break;
     }
   }
@@ -335,11 +324,6 @@ export const buildEventDescription = (event, nextOccur) => {
       const reoccurCount = nextOccur.getFullYear() - event.year;
       msg = `Gentle Reminder That ${event.eventName} Occurs Today! (${reoccurCount} occurences and counting)`;
 
-      break;
-    }
-    // Case 4, Offset
-    case AvailableReoccurences[3].value: {
-      msg = `Gentle Reminder That ${event.eventName} Occurs Today!`;
       break;
     }
   }

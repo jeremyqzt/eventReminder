@@ -2,7 +2,7 @@
    "expo": {
     "name": "Ribbon",
     "icon": "./assets/icon.png",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "slug": "ribbon",
     "splash": {
       "image": "./assets/splash.png"
@@ -10,7 +10,7 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "bundleIdentifier": "com.Ribbon.ribbonReminder",
-      "buildNumber": "1.0.0",
+      "buildNumber": "1.0.1",
       "infoPlist": {
         "NSRemindersUsageDescription": "This app can sync events to your calendar",
         "NSContactsUsageDescription": "This app has the ability to import contats"
@@ -18,7 +18,7 @@
     },
     "android": {
       "package": "com.Ribbon.ribbon",
-      "versionCode": 1,
+      "versionCode": 2,
       "permissions": ["WRITE_CALENDAR", "READ_CALENDAR", "READ_CONTACTS"]
     }
    }
