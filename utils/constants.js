@@ -360,7 +360,8 @@ export const Everyone = {
 const today = new Date();
 
 export const defaultEvent = Object.freeze({
-  eventName: "✨ New Event",
+  eventName: "",
+  expand: true,
   color: AvailableColors[0].value,
   icon: AvailableIcons[0].value,
   contacts: [Everyone.value],

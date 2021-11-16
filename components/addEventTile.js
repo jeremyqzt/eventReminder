@@ -131,7 +131,7 @@ const AddEventTile = (props) => {
   });
   const [itemsColor, setItemsColor] = useState(availColors);
 
-  const [expaneded, setExpanded] = useState(false);
+  const [expaneded, setExpanded] = useState(boolean(props.expand));
 
   const [eventName, setEventName] = useState(props.event.eventName);
   // Icons
@@ -314,7 +314,7 @@ const AddEventTile = (props) => {
                 color: iconColor,
               }}
             >
-              {eventName || ""}
+              {eventName || "🧭 New Event"}
             </ListItem.Title>
             <ListItem.Subtitle
               style={{
@@ -339,7 +339,7 @@ const AddEventTile = (props) => {
                 <Input
                   inputContainerStyle={styles.inputContainer}
                   leftIconContainerStyle={styles.inputIconStyle}
-                  placeholder={eventName || "🧭 Event Name"}
+                  placeholder={eventName || "🧭 Enter Event Name"}
                   value={eventName}
                   spellCheck={true}
                   inputStyle={{ ...styles.titleStyle, color: iconColor }}
