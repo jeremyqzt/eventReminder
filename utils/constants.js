@@ -353,7 +353,7 @@ export const AvailableColors = [
 ];
 
 export const Everyone = {
-  label: "Everyone",
+  label: "My Self",
   value: "0-0-0-0",
 };
 
