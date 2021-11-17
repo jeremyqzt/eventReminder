@@ -59,11 +59,7 @@ const DayCard = (props) => {
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
   const leftBorderColor = props.toRender.color;
-  const nextOccurDate = getNextOccurence(
-    new Date(props.toRender.year, props.toRender.month, props.toRender.day),
-    props.toRender.reoccurence,
-    eventType === EventTypes.lunar ? getEqualLunarDate(new Date()) : new Date()
-  );
+  const nextOccurDate = props.toRender.nextOccur;
   const nextOccur = formatDate(nextOccurDate);
   const dateText =
     props.toRender.daysUntil !== 0
@@ -183,6 +179,7 @@ const Caldendar = (props) => {
       allEventsArr.push({
         ...allEventById[key],
         daysUntil: daysUntil,
+        nextOccur: nextOccurTyped,
         dateKey: createDateKey(nextOccurTyped),
       });
     });
@@ -238,7 +235,7 @@ const Caldendar = (props) => {
         showClosingKnob={true}
         selected={today}
         pastScrollRange={1}
-        futureScrollRange={5}
+        futureScrollRange={6}
         //renderEmptyData={renderEmptyItem}
         //renderEmptyDate={renderEmptyDate}
         theme={{

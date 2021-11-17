@@ -132,7 +132,7 @@ export const getNextXOccurence = (
   date,
   reoccurType,
   today,
-  X = 5,
+  X = 7,
   offset = 0
 ) => {
   let ret = null;
@@ -347,7 +347,7 @@ export const getnThEventOccurTest = (event, nextOccur) => {
     // Case 2, Monthly
     case AvailableReoccurences[1].value: {
       const reoccurCount =
-        (nextOccur.getUTCFullYear() - event.year) * 12 +
+        (nextOccur.getFullYear() - event.year) * 12 +
         (nextOccur.getMonth() - event.month) +
         1;
       msg = `${event.eventName}'s ${reoccurCount} monthiversary!`;
