@@ -3,7 +3,7 @@ import { DefaultTheme } from "../utils/constants";
 
 export const styles = StyleSheet.create({
   flat: {
-    height: 150,
+    height: 350,
   },
   buttonContainer: {
     marginHorizontal: 5,

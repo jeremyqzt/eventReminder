@@ -25,6 +25,7 @@ import {
   buildAgenda,
   createDateKey,
   getNextXOccurence,
+  getnThEventOccurTest,
 } from "../utils/utils";
 
 const DayCard = (props) => {
@@ -58,19 +59,17 @@ const DayCard = (props) => {
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
   const leftBorderColor = props.toRender.color;
-  const nextOccur = formatDate(
-    getNextOccurence(
-      new Date(props.toRender.year, props.toRender.month, props.toRender.day),
-      props.toRender.reoccurence,
-      eventType === EventTypes.lunar
-        ? getEqualLunarDate(new Date())
-        : new Date()
-    )
+  const nextOccurDate = getNextOccurence(
+    new Date(props.toRender.year, props.toRender.month, props.toRender.day),
+    props.toRender.reoccurence,
+    eventType === EventTypes.lunar ? getEqualLunarDate(new Date()) : new Date()
   );
+  const nextOccur = formatDate(nextOccurDate);
   const dateText =
     props.toRender.daysUntil !== 0
       ? `T-${props.toRender.daysUntil} Days`
       : "Today!";
+  const helpText = getnThEventOccurTest(props.toRender, nextOccurDate);
 
   return (
     <Card
@@ -118,7 +117,7 @@ const DayCard = (props) => {
           <Text style={{ color: iconColor }}>{dateText}</Text>
         </View>
       </View>
-      {undefined ? (
+      {true ? (
         <View style={styles.items}>
           <View style={{ ...styles.subItemReminders, color: iconColor }}>
             <Icon
@@ -330,7 +329,7 @@ const styles = StyleSheet.create({
     color: DefaultTheme.darkMode.kindaWhite,
   },
   items: {
-    marginTop: 7,
+    marginTop: 12,
     display: "flex",
     flexDirection: "column",
   },

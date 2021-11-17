@@ -336,6 +336,34 @@ export const buildEventDescription = (event, nextOccur) => {
   };
 };
 
+export const getnThEventOccurTest = (event, nextOccur) => {
+  let msg = "";
+  switch (event.reoccurence) {
+    // Case 1, Does not reoccur
+    case AvailableReoccurences[0].value: {
+      msg = "This is a single occruence event.";
+      break;
+    }
+    // Case 2, Monthly
+    case AvailableReoccurences[1].value: {
+      const reoccurCount =
+        (nextOccur.getUTCFullYear() - event.year) * 12 +
+        (nextOccur.getMonth() - event.month) +
+        1;
+      msg = `${event.eventName}'s ${reoccurCount} monthiversary!`;
+      break;
+    }
+    // Case 3, Yearly
+    case AvailableReoccurences[2].value: {
+      const reoccurCount = nextOccur.getFullYear() - event.year + 1;
+      msg = `${event.eventName}'s ${reoccurCount} anniversary!`;
+      break;
+    }
+  }
+
+  return msg;
+};
+
 export const scheduleNext10Years = async (
   inDate,
   dateType,

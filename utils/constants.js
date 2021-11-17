@@ -98,6 +98,8 @@ export const DefaultTheme = {
 
     kindaBlack: "#212121",
     kindaWhite: "#EEEEEE",
+    kindaGreen: "#53d769",
+
     kindaGary: "#D3D3D3",
   },
 

@@ -42,7 +42,7 @@ const SettingsToggle = (props) => {
           style={{ transform: [{ scaleX: 0.75 }, { scaleY: 0.75 }] }}
           trackColor={{
             false: DefaultTheme.normalMode.text,
-            true: DefaultTheme.darkMode.kindaWhite,
+            true: DefaultTheme.darkMode.kindaGreen,
           }}
           thumbColor={
             props.value
