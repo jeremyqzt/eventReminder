@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet, useColorScheme } from "react-native";
 import tailwind from "tailwind-rn";
 import { connect } from "react-redux";
@@ -10,6 +10,7 @@ import "moment-lunar";
 
 import { DefaultTheme, defaultEvent } from "../utils/constants";
 import { addEvent } from "../actions/actions";
+import { Picker } from "react-native-woodpicker";
 
 const HeadingText = (props) => {
   const textColor = props.darkMode ? styles.textDark : styles.textNormal;
@@ -48,16 +49,64 @@ const HeadingImage = (props) => {
     props.addEvent(defaultEvent);
   };
 
+  const [pickedData, setPickedData] = useState(1);
+
+  const data = [
+    { label: "Creation ᐁ", value: 1 },
+    { label: "Next Date ᐁ", value: 2 },
+    { label: "Initial Date ᐁ", value: 3 },
+  ];
+
   return (
-    <View style={{ overflow: "hidden" }}>
+    <View
+      style={{
+        overflow: "hidden",
+        display: "flex",
+        alignContent: "flex-end",
+        width: "50%",
+      }}
+    >
       <Button
-        icon={<Icon name="calendar-plus-o" size={15} color={iconColor} />}
+        icon={<Icon name="calendar-plus-o" size={12} color={iconColor} />}
         buttonStyle={props.darkMode ? styles.buttonDark : styles.buttonNormal}
         title=" Add Event"
         titleStyle={textColor}
-        raised
         onPress={addEvent}
       />
+      <View
+        style={{
+          overflow: "hidden",
+          height: 30,
+          marginTop: 5,
+          display: "flex",
+          alignContent: "space-between",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <Text style={{ fontWeight: "bold" }}>Sort By: </Text>
+        <View
+          style={{
+            borderColor: "black",
+            padding: 5,
+            borderWidth: 1,
+            position: "absolute",
+            width: 110,
+            alignItems: "center",
+            borderRadius: 5,
+            right: 0,
+          }}
+        >
+          <Picker
+            item={pickedData}
+            items={data}
+            onItemChange={setPickedData}
+            placeholder="Sort Events ᐁ"
+            mode="dropdown"
+            itemColor={props.darkMode ? "white" : "black"}
+          />
+        </View>
+      </View>
     </View>
   );
 };
