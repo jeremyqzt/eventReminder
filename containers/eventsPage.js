@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import HeadingEvent from "../components/eventHeader";
 import EventsList from "../components/eventList";
@@ -12,11 +12,13 @@ import { View, StyleSheet, useColorScheme } from "react-native";
 const EventsPage = (props) => {
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;
+
+  const [sortType, setSortType] = useState(1);
   return (
     <View style={darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>
-        <HeadingEvent />
-        <EventsList />
+        <HeadingEvent sortType={sortType} setSortType={setSortType} />
+        <EventsList sortType={sortType} />
       </SafeAreaView>
     </View>
   );

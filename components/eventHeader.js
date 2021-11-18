@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Text, View, StyleSheet, useColorScheme } from "react-native";
 import tailwind from "tailwind-rn";
 import { connect } from "react-redux";
@@ -8,7 +8,7 @@ import { Button } from "react-native-elements";
 import moment from "moment";
 import "moment-lunar";
 
-import { DefaultTheme, defaultEvent } from "../utils/constants";
+import { DefaultTheme, defaultEvent, EVENT_SORT } from "../utils/constants";
 import { addEvent } from "../actions/actions";
 import { Picker } from "react-native-woodpicker";
 
@@ -48,14 +48,6 @@ const HeadingImage = (props) => {
   const addEvent = () => {
     props.addEvent(defaultEvent);
   };
-
-  const [pickedData, setPickedData] = useState(1);
-
-  const data = [
-    { label: "Creation ᐁ", value: 1 },
-    { label: "Next Date ᐁ", value: 2 },
-    { label: "Initial Date ᐁ", value: 3 },
-  ];
 
   return (
     <View
@@ -98,9 +90,9 @@ const HeadingImage = (props) => {
           }}
         >
           <Picker
-            item={pickedData}
-            items={data}
-            onItemChange={setPickedData}
+            item={props.sortType}
+            items={EVENT_SORT}
+            onItemChange={props.setSortType}
             placeholder="Sort Events ᐁ"
             mode="dropdown"
             itemColor={props.darkMode ? "white" : "black"}
@@ -124,7 +116,12 @@ const HeadingEvent = (props) => {
         ]}
       >
         <HeadingText darkMode={darkMode} />
-        <HeadingImage darkMode={darkMode} addEvent={props.addEvent} />
+        <HeadingImage
+          darkMode={darkMode}
+          addEvent={props.addEvent}
+          sortType={props.sortType}
+          setSortType={props.setSortType}
+        />
       </View>
       <Divider />
     </View>

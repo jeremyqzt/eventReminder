@@ -5,6 +5,14 @@ import AddEventTile from "./addEventTile";
 import { styles } from "./styles";
 
 import SuchEmptyWow from "./suchEmpty";
+import { EVENT_SORT, EventType } from "../utils/constants";
+
+import {
+  getNextOccurence,
+  getEqualGregorianDate,
+  getEqualLunarDate,
+  getDifferenceFromToday,
+} from "../utils/utils";
 
 const EventsList = (props) => {
   const allEventIds = props.events.allIds || [];
@@ -19,9 +27,84 @@ const EventsList = (props) => {
     );
   }
 
+  const sortType = props.sortType;
+
+  let eventIds = allEventIds;
+  switch (sortType.value) {
+    case EVENT_SORT[0].value: {
+      eventIds = allEventIds;
+      break;
+    }
+    case EVENT_SORT[1].value: {
+      const allEvents = allEventIds.map((key) => {
+        const eventDate = new Date(
+          allEventById[key].year,
+          allEventById[key].month,
+          allEventById[key].day
+        );
+        const today = new Date();
+        const todayTyped =
+          allEventById[key].type === EventType[0].value
+            ? getEqualLunarDate(today)
+            : today;
+
+        const nextOccurenceDate = getNextOccurence(
+          eventDate,
+          allEventById[key].reoccurence,
+          todayTyped
+        );
+        const nextOccurTyped =
+          allEventById[key].type === EventType[0].value
+            ? getEqualGregorianDate(nextOccurenceDate)
+            : nextOccurenceDate;
+
+        const daysUntil = getDifferenceFromToday(nextOccurTyped);
+        if (daysUntil === 0) {
+          eventCount++;
+        }
+
+        return {
+          ...allEventById[key],
+          daysUntil: daysUntil,
+        };
+      });
+
+      const eventIdsObj = allEvents.sort(
+        (a, b) => parseFloat(a.daysUntil) - parseFloat(b.daysUntil)
+      );
+
+      eventIds = eventIdsObj.map((event) => event.id);
+      break;
+    }
+    case EVENT_SORT[2].value: {
+      const allEvents = allEventIds.map((key) => {
+        const eventDate = new Date(
+          allEventById[key].year,
+          allEventById[key].month,
+          allEventById[key].day
+        );
+
+        return {
+          ...allEventById[key],
+          eventDate: eventDate,
+        };
+      });
+
+      const eventIdsObj = allEvents.sort((a, b) => a.eventDate - b.eventDate);
+
+      console.log(eventIdsObj);
+
+      eventIds = eventIdsObj.map((event) => event.id);
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+
   return (
     <FlatList
-      data={allEventIds}
+      data={eventIds}
       renderItem={({ item }) => {
         return <AddEventTile event={allEventById[item]} />;
       }}
