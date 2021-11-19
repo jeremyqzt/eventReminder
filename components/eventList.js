@@ -99,7 +99,7 @@ const EventsList = (props) => {
     <FlatList
       data={eventIds}
       renderItem={({ item }) => {
-        return <AddEventTile event={allEventById[item]} />;
+        return <AddEventTile event={allEventById[item]} sortType={sortType} />;
       }}
       keyExtractor={(item, _) => {
         return item;

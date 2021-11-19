@@ -120,6 +120,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: 10,
     marginTop: 3,
+    marginBottom: 3,
     alignItems: "center",
     width: "100%",
   },

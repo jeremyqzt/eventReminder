@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import Swipeout from "react-native-swipeout";
+import { DatePicker } from "react-native-woodpicker";
 
 import {
   ListItem,
@@ -33,6 +34,7 @@ import {
   AvailableColors,
   Everyone,
   EventType,
+  EVENT_SORT,
 } from "../utils/constants";
 
 import DropDownPicker from "react-native-dropdown-picker";
@@ -41,6 +43,7 @@ import Toast from "react-native-root-toast";
 const AddEventTile = (props) => {
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;
+  const sortType = props.sortType;
 
   const backGroundColor = darkMode
     ? DefaultTheme.darkMode.background
@@ -198,8 +201,7 @@ const AddEventTile = (props) => {
     valueDateType === EventType[0].value ? getEqualLunarDate(today) : today;
   const nextOccur = formatDate(getNextOccurence(date, valueRecurr, todayTyped));
 
-  const onChange = (_, selectedDate) => {
-    setShowPicker(false);
+  const onChange = (selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
   };
@@ -275,6 +277,20 @@ const AddEventTile = (props) => {
     saveEvent(true);
   };
 
+  const sortHint =
+    props.sortType.value === EVENT_SORT[1].value
+      ? "Next Event: "
+      : props.sortType.value === EVENT_SORT[2].value
+      ? "Original Event: "
+      : "";
+
+  const sortHintDate =
+    props.sortType.value === EVENT_SORT[1].value
+      ? formatDate(getNextOccurence(date, valueRecurr, todayTyped))
+      : formatDate(date);
+
+  const handleText = () => (date ? formatDate(date) : "No value Selected");
+
   return (
     <Swipeout right={swipeoutBtns}>
       <View style={{ backgroundColor: backGroundColor }}>
@@ -321,10 +337,20 @@ const AddEventTile = (props) => {
                 fontWeight: "normal",
                 fontSize: 14,
                 color: iconColor,
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
               }}
-            >{`${formatDate(date)} ${
-              valueDateType === EventType[0].value ? "(Lunar)" : ""
-            }`}</ListItem.Subtitle>
+            >
+              <Text
+                style={{ fontWeight: "200", color: iconColor }}
+              >{`${sortHint}`}</Text>
+              <Text style={{ color: iconColor }}>
+                {`${sortHintDate} ${
+                  valueDateType === EventType[0].value ? "(Lunar)" : ""
+                }`}
+              </Text>
+            </ListItem.Subtitle>
           </ListItem.Content>
           <ListItem.Chevron size={22} color={iconColor}></ListItem.Chevron>
         </ListItem>
@@ -371,35 +397,43 @@ const AddEventTile = (props) => {
                     { backgroundColor: darkMode ? "black" : "white" },
                   ]}
                 >
-                  {Platform.OS !== "ios" ? (
-                    <TouchableOpacity onPress={() => setShowPicker(true)}>
-                      <View>
-                        <Text
-                          style={{
-                            color: darkMode ? "grey" : "blue",
-                            fontSize: 16,
-                            lineHeight: 20,
-                            marginLeft: 5,
-                          }}
-                        >
-                          {formatDate(date)}
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  ) : null}
-
-                  {showPicker || Platform.OS === "ios" ? (
-                    <DateTimePicker
-                      value={date}
-                      mode={"date"}
-                      style={[
-                        styles.iOsPicker,
-                        { backgroundColor: darkMode ? "black" : "white" },
-                      ]}
-                      onChange={onChange}
-                      themeVariant={darkMode ? "dark" : "light"}
-                    />
-                  ) : null}
+                  <>
+                    <View
+                      style={{
+                        height: 26,
+                        paddingVertical: 3,
+                        marginLeft: 10,
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignContent: "center",
+                        borderColor: "black",
+                        borderRadius: 7,
+                        paddingHorizontal: 5,
+                        borderWidth: 1,
+                        ...(darkMode
+                          ? {
+                              backgroundColor: "white",
+                            }
+                          : {}),
+                      }}
+                    >
+                      <DatePicker
+                        value={date}
+                        onDateChange={onChange}
+                        title={`Pick Event Date ${
+                          valueDateType === EventType[0].value
+                            ? "(Lunar)"
+                            : "(Gregorian)"
+                        }`}
+                        text={handleText()}
+                        isNullable={false}
+                        iosMode="date"
+                        iosDisplay="spinner"
+                        androidDisplay="spinner"
+                      />
+                    </View>
+                  </>
                 </View>
               </View>
               <View style={styles.dateInformation}>

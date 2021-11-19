@@ -76,7 +76,14 @@ const HeadingImage = (props) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ fontWeight: "bold" }}>Sort By: </Text>
+        <Text
+          style={{
+            fontWeight: "bold",
+            color: props.darkMode ? "white" : "black",
+          }}
+        >
+          Sort By:
+        </Text>
         <View
           style={{
             borderColor: "black",
@@ -87,15 +94,19 @@ const HeadingImage = (props) => {
             alignItems: "center",
             borderRadius: 5,
             right: 0,
+            ...(props.darkMode
+              ? {
+                  backgroundColor: "white",
+                }
+              : {}),
           }}
         >
           <Picker
             item={props.sortType}
             items={EVENT_SORT}
             onItemChange={props.setSortType}
-            placeholder="Sort Events ᐁ"
             mode="dropdown"
-            itemColor={props.darkMode ? "white" : "black"}
+            placeholder="Sort Events ᐁ"
           />
         </View>
       </View>

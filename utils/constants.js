@@ -355,7 +355,7 @@ export const AvailableColors = [
 ];
 
 export const Everyone = {
-  label: "My Self",
+  label: "Myself",
   value: "0-0-0-0",
 };
 
@@ -395,12 +395,12 @@ export const birthdayEmojis = ["🎂", "🕯️", "🍰", "🧁", "🎉"];
 export const TESTING = false;
 
 export const EVENT_SORT = [
-  { label: "Creation ᐁ", value: 1 },
+  { label: "None ᐁ", value: 1 },
   { label: "Next Date ᐁ", value: 2 },
   { label: "Initial Date ᐁ", value: 3 },
 ];
 
 export const CONTACTS_SORT = [
-  { label: "Creation ᐁ", value: 1 },
+  { label: "None ᐁ", value: 1 },
   { label: "Alphabetical ᐁ", value: 2 },
 ];
