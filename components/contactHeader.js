@@ -6,8 +6,14 @@ import { Divider } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Button } from "react-native-elements";
 
-import { DefaultTheme, defaultContact } from "../utils/constants";
+import {
+  DefaultTheme,
+  defaultContact,
+  CONTACTS_SORT,
+} from "../utils/constants";
 import { addContact } from "../actions/actions";
+
+import { Picker } from "react-native-woodpicker";
 
 const HeadingText = (props) => {
   const textColor = props.darkMode ? styles.textDark : styles.textNormal;
@@ -35,15 +41,55 @@ const HeadingImage = (props) => {
   };
 
   return (
-    <View style={[{ overflow: "hidden" }]}>
+    <View
+      style={{
+        overflow: "hidden",
+        display: "flex",
+        alignContent: "flex-end",
+        width: "50%",
+      }}
+    >
       <Button
         icon={<Icon name="user-plus" size={15} color={iconColor} />}
         buttonStyle={props.darkMode ? styles.buttonDark : styles.buttonNormal}
         title=" Add Contact"
         titleStyle={textColor}
-        raised
         onPress={addContact}
       />
+      <View
+        style={{
+          overflow: "hidden",
+          height: 30,
+          marginTop: 5,
+          display: "flex",
+          alignContent: "space-between",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <Text style={{ fontWeight: "bold" }}>Sort By: </Text>
+        <View
+          style={{
+            borderColor: "black",
+            padding: 5,
+            borderWidth: 1,
+            position: "absolute",
+            width: 110,
+            alignItems: "center",
+            borderRadius: 5,
+            right: 0,
+          }}
+        >
+          <Picker
+            item={props.sortType}
+            items={CONTACTS_SORT}
+            onItemChange={props.setSortType}
+            placeholder="Sort Events ᐁ"
+            mode="dropdown"
+            itemColor={props.darkMode ? "white" : "black"}
+          />
+        </View>
+      </View>
     </View>
   );
 };
@@ -62,7 +108,12 @@ const HeadingContact = (props) => {
           ]}
         >
           <HeadingText darkMode={darkMode} />
-          <HeadingImage darkMode={darkMode} addContact={props.addContact} />
+          <HeadingImage
+            darkMode={darkMode}
+            addContact={props.addContact}
+            sortType={props.sortType}
+            setSortType={props.setSortType}
+          />
         </View>
         <Divider />
       </View>

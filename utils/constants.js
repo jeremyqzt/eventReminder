@@ -399,3 +399,8 @@ export const EVENT_SORT = [
   { label: "Next Date ᐁ", value: 2 },
   { label: "Initial Date ᐁ", value: 3 },
 ];
+
+export const CONTACTS_SORT = [
+  { label: "Creation ᐁ", value: 1 },
+  { label: "Alphabetical ᐁ", value: 2 },
+];

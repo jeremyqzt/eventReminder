@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import HeadingContact from "../components/contactHeader";
 
@@ -12,11 +12,13 @@ import ContactsList from "../components/contactsList";
 const ContactsPage = (props) => {
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;
+  const [sortType, setSortType] = useState(1);
+
   return (
     <View style={darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>
-        <HeadingContact />
-        <ContactsList />
+        <HeadingContact sortType={sortType} setSortType={setSortType} />
+        <ContactsList sortType={sortType} />
       </SafeAreaView>
     </View>
   );

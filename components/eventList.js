@@ -59,13 +59,9 @@ const EventsList = (props) => {
             : nextOccurenceDate;
 
         const daysUntil = getDifferenceFromToday(nextOccurTyped);
-        if (daysUntil === 0) {
-          eventCount++;
-        }
-
         return {
           ...allEventById[key],
-          daysUntil: daysUntil,
+          daysUntil: daysUntil < 0 ? Math.infinity : daysUntil,
         };
       });
 
@@ -91,9 +87,6 @@ const EventsList = (props) => {
       });
 
       const eventIdsObj = allEvents.sort((a, b) => a.eventDate - b.eventDate);
-
-      console.log(eventIdsObj);
-
       eventIds = eventIdsObj.map((event) => event.id);
       break;
     }

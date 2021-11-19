@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 import SuchEmptyWow from "./suchEmpty";
+import { CONTACTS_SORT } from "../utils/constants";
 
 const ContactsList = (props) => {
   const allContactIds = props.contacts.allIds || [];
@@ -25,6 +26,31 @@ const ContactsList = (props) => {
     );
   }
 
+  const sortType = props.sortType;
+
+  let sortedContactIds = [...allContactIds];
+  switch (sortType.value) {
+    case CONTACTS_SORT[0].value: {
+      break;
+    }
+    case CONTACTS_SORT[1].value: {
+      sortedContactIds.sort((aID, bID) => {
+        const nameA = (allContactByIds[aID]?.firstName || "").toUpperCase();
+        const nameB = (allContactByIds[bID]?.firstName || "").toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+      });
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+
   return (
     <FlatList
       ItemSeparatorComponent={
@@ -33,7 +59,7 @@ const ContactsList = (props) => {
           <View style={[styles.separator, highlighted && { marginLeft: 0 }]} />
         ))
       }
-      data={allContactIds}
+      data={sortedContactIds}
       keyExtractor={(item, index) => `${item}-${index}`}
       renderItem={({ item, index }) => (
         <>
