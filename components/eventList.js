@@ -3,6 +3,7 @@ import { View, FlatList, ScrollView, useColorScheme } from "react-native";
 import { connect } from "react-redux";
 import AddEventTile from "./addEventTile";
 import { styles } from "./styles";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import SuchEmptyWow from "./suchEmpty";
 import { EVENT_SORT, EventType } from "../utils/constants";
@@ -19,6 +20,7 @@ const EventsList = (props) => {
   const allEventById = props.events.byId || {};
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;
+
   if (allEventIds.length === 0) {
     return (
       <ScrollView>
@@ -96,16 +98,20 @@ const EventsList = (props) => {
   }
 
   return (
-    <FlatList
-      data={eventIds}
-      renderItem={({ item }) => {
-        return <AddEventTile event={allEventById[item]} sortType={sortType} />;
-      }}
-      keyExtractor={(item, _) => {
-        return item;
-      }}
-      ListFooterComponent={<View style={styles.flat} />}
-    />
+    <KeyboardAwareScrollView extraHeight={300}>
+      <FlatList
+        data={eventIds}
+        renderItem={({ item, index }) => {
+          return (
+            <AddEventTile event={allEventById[item]} sortType={sortType} />
+          );
+        }}
+        keyExtractor={(item, _) => {
+          return item;
+        }}
+        ListFooterComponent={<View style={styles.flat} />}
+      />
+    </KeyboardAwareScrollView>
   );
 };
 

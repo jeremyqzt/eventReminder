@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { TouchableOpacity } from "react-native";
 import Swipeout from "react-native-swipeout";
 import { DatePicker } from "react-native-woodpicker";
 
@@ -16,7 +15,6 @@ import { View, TextInput, Platform, useColorScheme } from "react-native";
 import { styles } from "./styles";
 import { connect } from "react-redux";
 import { deleteEvent, updateEvent } from "../actions/actions";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import "moment-lunar";
 
 import {
@@ -50,7 +48,6 @@ const AddEventTile = (props) => {
     : DefaultTheme.normalMode.background;
 
   const [text, setText] = useState(props.event.notes);
-  const [showPicker, setShowPicker] = useState(false);
   const onChangeText = (newText) => {
     setText(newText);
   };
@@ -278,14 +275,14 @@ const AddEventTile = (props) => {
   };
 
   const sortHint =
-    props.sortType.value === EVENT_SORT[1].value
+    sortType.value === EVENT_SORT[1].value
       ? "Next Event: "
-      : props.sortType.value === EVENT_SORT[2].value
+      : sortType.value === EVENT_SORT[2].value
       ? "Original Event: "
       : "";
 
   const sortHintDate =
-    props.sortType.value === EVENT_SORT[1].value
+    sortType.value === EVENT_SORT[1].value
       ? formatDate(getNextOccurence(date, valueRecurr, todayTyped))
       : formatDate(date);
 
@@ -302,6 +299,7 @@ const AddEventTile = (props) => {
             if (expaneded) {
               saveEvent(false);
             }
+
             setExpanded(!expaneded);
           }}
           style={{
