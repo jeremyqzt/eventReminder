@@ -101,7 +101,7 @@ const EventsList = (props) => {
     <KeyboardAwareScrollView extraHeight={300}>
       <FlatList
         data={eventIds}
-        renderItem={({ item, index }) => {
+        renderItem={({ item }) => {
           return (
             <AddEventTile event={allEventById[item]} sortType={sortType} />
           );

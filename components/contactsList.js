@@ -11,6 +11,7 @@ import {
 
 import SuchEmptyWow from "./suchEmpty";
 import { CONTACTS_SORT } from "../utils/constants";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const ContactsList = (props) => {
   const allContactIds = props.contacts.allIds || [];
@@ -52,24 +53,28 @@ const ContactsList = (props) => {
   }
 
   return (
-    <FlatList
-      ItemSeparatorComponent={
-        Platform.OS !== "android" &&
-        (({ highlighted }) => (
-          <View style={[styles.separator, highlighted && { marginLeft: 0 }]} />
-        ))
-      }
-      data={sortedContactIds}
-      keyExtractor={(item, index) => `${item}-${index}`}
-      renderItem={({ item, index }) => (
-        <>
-          <ContactItem contact={allContactByIds[item]} key={index} />
-          {index + 1 === allContactIds.length ? (
-            <View style={styles.flat}></View>
-          ) : null}
-        </>
-      )}
-    />
+    <KeyboardAwareScrollView extraHeight={300}>
+      <FlatList
+        ItemSeparatorComponent={
+          Platform.OS !== "android" &&
+          (({ highlighted }) => (
+            <View
+              style={[styles.separator, highlighted && { marginLeft: 0 }]}
+            />
+          ))
+        }
+        data={sortedContactIds}
+        keyExtractor={(item, index) => `${item}-${index}`}
+        renderItem={({ item, index }) => (
+          <>
+            <ContactItem contact={allContactByIds[item]} key={index} />
+            {index + 1 === allContactIds.length ? (
+              <View style={styles.flat}></View>
+            ) : null}
+          </>
+        )}
+      />
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -82,7 +87,7 @@ const mapStateToProps = (state) => {
 
 const styles = StyleSheet.create({
   flat: {
-    height: 250,
+    height: 700,
   },
 });
 

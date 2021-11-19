@@ -13,10 +13,9 @@ import { DefaultTheme, DELETED_CONTACT } from "../utils/constants";
 import { addEvent } from "../actions/actions";
 import { Agenda } from "react-native-calendars";
 import { connect } from "react-redux";
-import { EventType, Everyone, EventTypes } from "../utils/constants";
+import { EventType, Everyone } from "../utils/constants";
 
 import {
-  getNextOccurence,
   formatDate,
   getEqualGregorianDate,
   getEqualLunarDate,
@@ -48,7 +47,7 @@ const DayCard = (props) => {
       : DELETED_CONTACT;
 
   const contactsText = isEveryone
-    ? "Everyone"
+    ? "Myself"
     : contactsCount === 1
     ? contactCtx.firstName
     : contactsCount > 1
@@ -91,7 +90,7 @@ const DayCard = (props) => {
     >
       <View style={styles.cardTitle}>
         <Text style={props.darkMode ? styles.titleTextDark : styles.titleText}>
-          {props.toRender.eventName}
+          {props.toRender.eventName || "❓ Unamed Event"}
         </Text>
       </View>
       <Card.Divider />
@@ -113,7 +112,7 @@ const DayCard = (props) => {
           <Text style={{ color: iconColor }}>{dateText}</Text>
         </View>
       </View>
-      {true ? (
+      {props.toRender.eventName ? (
         <View style={styles.items}>
           <View style={{ ...styles.subItemReminders, color: iconColor }}>
             <Icon

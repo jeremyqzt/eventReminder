@@ -39,7 +39,7 @@ const OverviewCard = (props) => {
       : DELETED_CONTACT;
 
   const contactsText = isEveryone
-    ? "Everyone"
+    ? "Myself"
     : contactsCount === 1
     ? contactCtx.firstName
     : contactsCount > 1
@@ -92,7 +92,7 @@ const OverviewCard = (props) => {
     >
       <View style={styles.cardTitle}>
         <Text style={darkMode ? styles.titleTextDark : styles.titleText}>
-          {props.event.eventName}
+          {props.event.eventName || "❓ Unamed Event"}
         </Text>
       </View>
       <Card.Divider />
