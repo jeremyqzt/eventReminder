@@ -13,7 +13,7 @@ const EventsPage = (props) => {
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;
 
-  const [sortType, setSortType] = useState(1);
+  const [sortType, setSortType] = useState({ label: "No Sorting", value: 1 });
   return (
     <View style={darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>

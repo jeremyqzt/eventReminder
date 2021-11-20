@@ -395,12 +395,12 @@ export const birthdayEmojis = ["🎂", "🕯️", "🍰", "🧁", "🎉"];
 export const TESTING = false;
 
 export const EVENT_SORT = [
-  { label: "None ᐁ", value: 1 },
-  { label: "Next Date ᐁ", value: 2 },
-  { label: "Initial Date ᐁ", value: 3 },
+  { label: "No Sorting", value: 1 },
+  { label: "Next Date", value: 2 },
+  { label: "Initial Date", value: 3 },
 ];
 
 export const CONTACTS_SORT = [
-  { label: "None ᐁ", value: 1 },
-  { label: "Alphabetical ᐁ", value: 2 },
+  { label: "No Sorting", value: 1 },
+  { label: "Alphabetical", value: 2 },
 ];

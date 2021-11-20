@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, useColorScheme } from "react-native";
+import { Text, View, StyleSheet, useColorScheme, Platform } from "react-native";
 import tailwind from "tailwind-rn";
 import { connect } from "react-redux";
 import { Divider } from "react-native-elements";
@@ -48,6 +48,12 @@ const HeadingImage = (props) => {
   const addEvent = () => {
     props.addEvent(defaultEvent);
   };
+  const eventSortOpts =
+    Platform.OS === "ios"
+      ? EVENT_SORT.map((item) => {
+          return { ...item, label: `${item.label} ᐁ` };
+        })
+      : EVENT_SORT;
 
   return (
     <View
@@ -68,7 +74,7 @@ const HeadingImage = (props) => {
       <View
         style={{
           overflow: "hidden",
-          height: 30,
+          height: 35,
           marginTop: 5,
           display: "flex",
           alignContent: "space-between",
@@ -103,10 +109,10 @@ const HeadingImage = (props) => {
         >
           <Picker
             item={props.sortType}
-            items={EVENT_SORT}
+            items={eventSortOpts}
             onItemChange={props.setSortType}
             mode="dropdown"
-            placeholder="Sort Events ᐁ"
+            placeholder={"Sort" + Platform.OS === "ios" ? " ᐁ" : ""}
           />
         </View>
       </View>
