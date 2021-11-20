@@ -196,7 +196,8 @@ const AddEventTile = (props) => {
 
   const todayTyped =
     valueDateType === EventType[0].value ? getEqualLunarDate(today) : today;
-  const nextOccur = formatDate(getNextOccurence(date, valueRecurr, todayTyped));
+  const nextOccurDate = getNextOccurence(date, valueRecurr, todayTyped);
+  const nextOccur = formatDate(nextOccurDate);
 
   const onChange = (selectedDate) => {
     const currentDate = selectedDate || date;
@@ -274,27 +275,36 @@ const AddEventTile = (props) => {
     saveEvent(true);
   };
 
+  const eventPassed = nextOccurDate < todayTyped;
   const sortHint =
     sortType.value === EVENT_SORT[1].value
-      ? "Next Event: "
+      ? !eventPassed
+        ? "Next Event: "
+        : "📝 Event Passed: "
       : sortType.value === EVENT_SORT[2].value
       ? "Original Event: "
       : "";
 
   const sortHintDate =
     sortType.value === EVENT_SORT[1].value
-      ? formatDate(getNextOccurence(date, valueRecurr, todayTyped))
+      ? formatDate(nextOccurDate)
       : formatDate(date);
 
   const handleText = () => (date ? formatDate(date) : "No value Selected");
 
+  const passedBackgroundColor =
+    eventPassed && sortType.value === EVENT_SORT[1].value
+      ? darkMode
+        ? "#19181a"
+        : "#dddddd"
+      : backGroundColor;
   return (
     <Swipeout right={swipeoutBtns}>
-      <View style={{ backgroundColor: backGroundColor }}>
+      <View style={{ backgroundColor: backGroundColor, activeOpacity: 0.4 }}>
         <ListItem
           id={props.event.id}
           bottomDivider
-          containerStyle={{ backgroundColor: backGroundColor }}
+          containerStyle={{ backgroundColor: passedBackgroundColor }}
           onPress={() => {
             if (expaneded) {
               saveEvent(false);
@@ -316,7 +326,7 @@ const AddEventTile = (props) => {
               color: `${valueColor ? valueColor : AvailableColors[0].value}`,
               type: "font-awesome",
             }}
-            overlayContainerStyle={{ backgroundColor: backGroundColor }}
+            overlayContainerStyle={{ backgroundColor: passedBackgroundColor }}
             onPress={() => setExpanded(!expaneded)}
             activeOpacity={0.7}
           />
@@ -398,6 +408,7 @@ const AddEventTile = (props) => {
                   <>
                     <View
                       style={{
+                        width: "100%",
                         height: 26,
                         paddingVertical: 3,
                         marginLeft: 10,
@@ -428,7 +439,8 @@ const AddEventTile = (props) => {
                         isNullable={false}
                         iosMode="date"
                         iosDisplay="spinner"
-                        androidDisplay="spinner"
+                        androidDisplay="default"
+                        style={{ color: "black" }}
                       />
                     </View>
                   </>
