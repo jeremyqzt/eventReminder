@@ -61,9 +61,7 @@ const HeadingImage = (props) => {
       : `${props.count} Reminder(s) Today!`;
   return (
     <View style={tailwind("items-center rounded px-1 py-1")}>
-      <Text style={[tailwind("font-bold text-xs"), textColor]}>
-        {countText}
-      </Text>
+      <Text style={[tailwind("font-bold"), textColor]}>{countText}</Text>
     </View>
   );
 };
