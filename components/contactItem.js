@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { ListItem, Avatar, Input, Icon, Button } from "react-native-elements";
-import { View, useColorScheme } from "react-native";
+import { View } from "react-native";
 import { styles } from "./styles";
 import { DefaultTheme } from "../utils/constants";
 import { connect } from "react-redux";
 import { deleteContact, updateContact } from "../actions/actions";
 import Toast from "react-native-root-toast";
 import Swipeout from "react-native-swipeout";
+import { useColorScheme } from "../utils/utils";
+
 const ContactItem = (props) => {
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;

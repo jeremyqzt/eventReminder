@@ -5,15 +5,21 @@ import EventsList from "../components/eventList";
 
 import { connect } from "react-redux";
 import { DefaultTheme } from "../utils/constants";
+import { useColorScheme } from "../utils/utils";
 
 import { SafeAreaView } from "react-native";
-import { View, StyleSheet, useColorScheme } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 const EventsPage = (props) => {
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;
 
-  const [sortType, setSortType] = useState({ label: "No Sorting", value: 1 });
+  console.log(darkMode, colorScheme);
+
+  const [sortType, setSortType] = useState({
+    label: "Next Date",
+    value: 2,
+  });
   return (
     <View style={darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>

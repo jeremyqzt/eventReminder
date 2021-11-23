@@ -2,13 +2,9 @@ import React, { useState } from "react";
 
 import { DefaultTheme } from "../utils/constants";
 import { SafeAreaView } from "react-native";
-import {
-  View,
-  StyleSheet,
-  Alert,
-  ScrollView,
-  useColorScheme,
-} from "react-native";
+import { View, StyleSheet, Alert, ScrollView } from "react-native";
+import { useColorScheme } from "../utils/utils";
+
 import { connect } from "react-redux";
 import {
   settingsDarkMode,

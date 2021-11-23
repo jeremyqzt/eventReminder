@@ -7,8 +7,9 @@ import { connect } from "react-redux";
 import { DefaultTheme } from "../utils/constants";
 
 import { SafeAreaView } from "react-native";
-import { View, StyleSheet, useColorScheme } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Calendar from "../components/calendar";
+import { useColorScheme } from "../utils/utils";
 
 const MainPage = (props) => {
   const [eventsToday, setEventsToday] = useState(0);

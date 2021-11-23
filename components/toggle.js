@@ -2,8 +2,9 @@ import React from "react";
 
 import { DefaultTheme } from "../utils/constants";
 
-import { View, StyleSheet, Switch, Text, useColorScheme } from "react-native";
+import { View, StyleSheet, Switch, Text } from "react-native";
 import { connect } from "react-redux";
+import { useColorScheme } from "../utils/utils";
 
 const SettingsToggle = (props) => {
   const colorScheme = useColorScheme();

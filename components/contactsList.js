@@ -1,13 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import ContactItem from "./contactItem";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  ScrollView,
-  useColorScheme,
-} from "react-native";
+import { StyleSheet, View, FlatList, ScrollView } from "react-native";
+import { useColorScheme } from "../utils/utils";
 
 import SuchEmptyWow from "./suchEmpty";
 import { CONTACTS_SORT } from "../utils/constants";

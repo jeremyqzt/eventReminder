@@ -480,3 +480,37 @@ export const cancelNotif = async (nid) => {
 export const cancelAllNotif = async (nid) => {
   return Notifications.cancelAllScheduledNotificationsAsync();
 };
+
+import { Appearance } from "react-native";
+import { useEffect, useRef, useState } from "react";
+
+export const useColorScheme = (delay = 500) => {
+  const [colorScheme, setColorScheme] = useState(Appearance.getColorScheme());
+
+  let timeout = useRef(null).current;
+
+  useEffect(() => {
+    Appearance.addChangeListener(onColorSchemeChange);
+
+    return () => {
+      resetCurrentTimeout();
+      Appearance.removeChangeListener(onColorSchemeChange);
+    };
+  }, []);
+
+  function onColorSchemeChange(preferences) {
+    resetCurrentTimeout();
+
+    timeout = setTimeout(() => {
+      setColorScheme(preferences.colorScheme);
+    }, delay);
+  }
+
+  function resetCurrentTimeout() {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+  }
+
+  return colorScheme;
+};

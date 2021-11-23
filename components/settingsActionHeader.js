@@ -1,11 +1,12 @@
 import React from "react";
-import { Text, View, StyleSheet, useColorScheme } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import tailwind from "tailwind-rn";
 import { connect } from "react-redux";
 import { Divider } from "react-native-elements";
 
 import { DefaultTheme } from "../utils/constants";
 import { addContact } from "../actions/actions";
+import { useColorScheme } from "../utils/utils";
 
 const SettingsSubHeaderText = (props) => {
   const textColor = props.darkMode ? styles.textDark : styles.textNormal;

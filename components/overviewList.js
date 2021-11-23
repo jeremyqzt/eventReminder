@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { View, FlatList, ScrollView, useColorScheme } from "react-native";
+import { View, FlatList, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import OverviewCard from "./overviewCard";
 import { styles } from "./styles";
 import { EventType } from "../utils/constants";
+import { useColorScheme } from "../utils/utils";
 
 import SuchEmptyWow from "./suchEmpty";
 import {

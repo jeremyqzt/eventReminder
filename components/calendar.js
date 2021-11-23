@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  useColorScheme,
-  ScrollView,
-} from "react-native";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { useColorScheme } from "../utils/utils";
+
 import { Card, Icon } from "react-native-elements";
 import "moment-lunar";
 import SuchEmptyWow from "./suchEmpty";

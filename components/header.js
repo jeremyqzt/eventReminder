@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, View, StyleSheet, useColorScheme } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import tailwind from "tailwind-rn";
 import { connect } from "react-redux";
 import { Divider } from "react-native-elements";
+import { useColorScheme } from "../utils/utils";
 
 import { DefaultTheme } from "../utils/constants";
 

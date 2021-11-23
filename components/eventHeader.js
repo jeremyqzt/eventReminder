@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, useColorScheme, Platform } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import tailwind from "tailwind-rn";
 import { connect } from "react-redux";
 import { Divider } from "react-native-elements";
@@ -7,6 +7,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Button } from "react-native-elements";
 import moment from "moment";
 import "moment-lunar";
+import { useColorScheme } from "../utils/utils";
 
 import { DefaultTheme, defaultEvent, EVENT_SORT } from "../utils/constants";
 import { addEvent } from "../actions/actions";
@@ -48,12 +49,7 @@ const HeadingImage = (props) => {
   const addEvent = () => {
     props.addEvent(defaultEvent);
   };
-  const eventSortOpts =
-    Platform.OS === "ios"
-      ? EVENT_SORT.map((item) => {
-          return { ...item, label: `${item.label} ᐁ` };
-        })
-      : EVENT_SORT;
+  const eventSortOpts = EVENT_SORT;
 
   return (
     <View
@@ -112,7 +108,7 @@ const HeadingImage = (props) => {
             items={eventSortOpts}
             onItemChange={props.setSortType}
             mode="dropdown"
-            placeholder={"Sort" + Platform.OS === "ios" ? " ᐁ" : ""}
+            placeholder={"Sort"}
           />
         </View>
       </View>

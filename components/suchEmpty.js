@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Image, StyleSheet, Text, useColorScheme } from "react-native";
+import { View, Image, StyleSheet, Text } from "react-native";
 import emptyLight from "../assets/empty.png";
 import emptyDark from "../assets/empty-dark.png";
 
 import treeLight from "../assets/tree.png";
 import treeDark from "../assets/tree-dark.png";
 import { DefaultTheme } from "../utils/constants";
+import { useColorScheme } from "../utils/utils";
 
 const SuchEmptyWow = (props) => {
   const colorScheme = useColorScheme();

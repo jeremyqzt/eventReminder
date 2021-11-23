@@ -10,7 +10,8 @@ import {
   Button,
   Avatar,
 } from "react-native-elements";
-import { View, TextInput, Platform, useColorScheme } from "react-native";
+import { View, TextInput, Platform } from "react-native";
+import { useColorScheme } from "../utils/utils";
 
 import { styles } from "./styles";
 import { connect } from "react-redux";

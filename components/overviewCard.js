@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, useColorScheme } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { connect } from "react-redux";
 import {
@@ -16,6 +16,7 @@ import {
   getDifferenceFromToday,
   buildEventAdditionalMessage,
 } from "../utils/utils";
+import { useColorScheme } from "../utils/utils";
 
 const OverviewCard = (props) => {
   const allContacts = props.contacts;

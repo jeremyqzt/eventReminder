@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, useColorScheme, Platform } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import tailwind from "tailwind-rn";
 import { connect } from "react-redux";
 import { Divider } from "react-native-elements";
@@ -14,6 +14,7 @@ import {
 import { addContact } from "../actions/actions";
 
 import { Picker } from "react-native-woodpicker";
+import { useColorScheme } from "../utils/utils";
 
 const HeadingText = (props) => {
   const textColor = props.darkMode ? styles.textDark : styles.textNormal;
@@ -40,12 +41,7 @@ const HeadingImage = (props) => {
     props.addContact(defaultContact);
   };
 
-  const contactSortOpts =
-    Platform.OS === "ios"
-      ? CONTACTS_SORT.map((item) => {
-          return { ...item, label: `${item.label} ᐁ` };
-        })
-      : CONTACTS_SORT;
+  const contactSortOpts = CONTACTS_SORT;
 
   return (
     <View
@@ -104,7 +100,7 @@ const HeadingImage = (props) => {
             items={contactSortOpts}
             onItemChange={props.setSortType}
             mode="dropdown"
-            placeholder={"Sort" + Platform.OS === "ios" ? " ᐁ" : ""}
+            placeholder={"Sort"}
           />
         </View>
       </View>

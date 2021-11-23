@@ -1,9 +1,10 @@
 import * as React from "react";
-import { View, FlatList, ScrollView, useColorScheme } from "react-native";
+import { View, FlatList, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import AddEventTile from "./addEventTile";
 import { styles } from "./styles";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useColorScheme } from "../utils/utils";
 
 import SuchEmptyWow from "./suchEmpty";
 import { EVENT_SORT, EventType } from "../utils/constants";

@@ -2,14 +2,9 @@ import React from "react";
 
 import { DefaultTheme } from "../utils/constants";
 
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  useColorScheme,
-} from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { connect } from "react-redux";
+import { useColorScheme } from "../utils/utils";
 
 const SettingsButton = (props) => {
   const colorScheme = useColorScheme();
