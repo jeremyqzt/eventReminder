@@ -14,8 +14,6 @@ const EventsPage = (props) => {
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;
 
-  console.log(darkMode, colorScheme);
-
   const [sortType, setSortType] = useState({
     label: "Next Date",
     value: 2,
