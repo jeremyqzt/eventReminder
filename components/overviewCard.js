@@ -40,7 +40,9 @@ const OverviewCard = (props) => {
       : DELETED_CONTACT;
 
   const contactsText = isEveryone
-    ? "Myself"
+    ? contactsCount > 1
+      ? `Myself + ${contactsCount - 1}`
+      : "Myself"
     : contactsCount === 1
     ? contactCtx.firstName
     : contactsCount > 1

@@ -43,7 +43,9 @@ const DayCard = (props) => {
       : DELETED_CONTACT;
 
   const contactsText = isEveryone
-    ? "Myself"
+    ? contactsCount > 1
+      ? `Myself + ${contactsCount - 1}`
+      : "Myself"
     : contactsCount === 1
     ? contactCtx.firstName
     : contactsCount > 1
@@ -54,6 +56,7 @@ const DayCard = (props) => {
     ? DefaultTheme.darkMode.text
     : DefaultTheme.normalMode.text;
   const leftBorderColor = props.toRender.color;
+
   const nextOccurDate = props.toRender.nextOccur;
   const nextOccur = formatDate(nextOccurDate);
   const dateText =
@@ -77,6 +80,7 @@ const DayCard = (props) => {
           : {
               ...styles.cardNormal,
               borderColor: leftBorderColor,
+              borderLeftColor: leftBorderColor,
               borderTopWidth: 0,
               borderBottomWidth: 0,
               borderRightWidth: 0,

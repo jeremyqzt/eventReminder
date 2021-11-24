@@ -95,7 +95,7 @@ const AddEventTile = (props) => {
   const [valuesContacts, setValuesContacts] = useState([Everyone.value]);
   const availableContacts = (props.contacts.allIds || []).map((item) => {
     return {
-      label: props.contacts.byId[item].firstName || "Skipped",
+      label: props.contacts.byId[item].firstName || "Name Not Available",
       value: item,
     };
   });
@@ -107,7 +107,7 @@ const AddEventTile = (props) => {
   useEffect(() => {
     const newContacts = (props.contacts.allIds || []).map((item) => {
       return {
-        label: props.contacts.byId[item].firstName || "Skipped2",
+        label: props.contacts.byId[item].firstName || "Name Not Available",
         value: item,
       };
     });
@@ -222,13 +222,13 @@ const AddEventTile = (props) => {
       autoClose: true,
     },
   ];
-
+  console.log(valuesContacts);
   const localEvent = {
     id: props.event.id,
     eventName,
     color: valueColor,
     icon: valueIcon,
-    contacts: valuesContacts,
+    contacts: [...valuesContacts],
     reoccurence: valueRecurr,
     notes: text,
     type: valueDateType,
