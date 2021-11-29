@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { connect } from "react-redux";
 import {
@@ -85,64 +85,66 @@ const OverviewCard = (props) => {
 
   const dateText = daysUntil === 0 ? "Today!" : `T-${daysUntil} Days`;
   return (
-    <Card
-      containerStyle={
-        darkMode
-          ? { ...styles.cardDark, borderLeftColor: leftBorderColor }
-          : { ...styles.cardNormal, borderLeftColor: leftBorderColor }
-      }
-      style={styles.cardTitle}
-    >
-      <View style={styles.cardTitle}>
-        <Text style={darkMode ? styles.titleTextDark : styles.titleText}>
-          {props.event.eventName || "❓ Unamed Event"}
-        </Text>
-      </View>
-      <Card.Divider />
-      <View style={styles.infoContainer}>
-        <View>
-          <Icon name="user" type="feather" color={iconColor} />
-          <Text style={{ color: iconColor }}>{contactsText}</Text>
+    <TouchableOpacity onPress={() => props.goEvents()}>
+      <Card
+        containerStyle={
+          darkMode
+            ? { ...styles.cardDark, borderLeftColor: leftBorderColor }
+            : { ...styles.cardNormal, borderLeftColor: leftBorderColor }
+        }
+        style={styles.cardTitle}
+      >
+        <View style={styles.cardTitle}>
+          <Text style={darkMode ? styles.titleTextDark : styles.titleText}>
+            {props.event.eventName || "❓ Unamed Event"}
+          </Text>
         </View>
-        <View>
-          <Icon
-            name={props.event.type === EventType[0].value ? "moon" : "sun"}
-            type={"feather"}
-            color={iconColor}
-          />
-          <Text style={{ color: iconColor }}>{nextOccur}</Text>
-        </View>
-        <View>
-          <Icon
-            name="calendar"
-            type="feather"
-            color={
-              darkMode
-                ? DefaultTheme.darkMode.text
-                : DefaultTheme.normalMode.text
-            }
-          />
-          <Text style={{ color: iconColor }}>{dateText}</Text>
-        </View>
-      </View>
-      {helpText ? (
-        <View style={styles.items}>
-          <View style={{ ...styles.subItemReminders, color: iconColor }}>
+        <Card.Divider />
+        <View style={styles.infoContainer}>
+          <View>
+            <Icon name="user" type="feather" color={iconColor} />
+            <Text style={{ color: iconColor }}>{contactsText}</Text>
+          </View>
+          <View>
             <Icon
-              name={"info"}
+              name={props.event.type === EventType[0].value ? "moon" : "sun"}
               type={"feather"}
-              size={14}
+              color={iconColor}
+            />
+            <Text style={{ color: iconColor }}>{nextOccur}</Text>
+          </View>
+          <View>
+            <Icon
+              name="calendar"
+              type="feather"
               color={
                 darkMode
                   ? DefaultTheme.darkMode.text
                   : DefaultTheme.normalMode.text
               }
             />
-            <Text style={{ color: iconColor }}>{` ${helpText}`}</Text>
+            <Text style={{ color: iconColor }}>{dateText}</Text>
           </View>
         </View>
-      ) : null}
-    </Card>
+        {helpText ? (
+          <View style={styles.items}>
+            <View style={{ ...styles.subItemReminders, color: iconColor }}>
+              <Icon
+                name={"info"}
+                type={"feather"}
+                size={14}
+                color={
+                  darkMode
+                    ? DefaultTheme.darkMode.text
+                    : DefaultTheme.normalMode.text
+                }
+              />
+              <Text style={{ color: iconColor }}>{` ${helpText}`}</Text>
+            </View>
+          </View>
+        ) : null}
+      </Card>
+    </TouchableOpacity>
   );
 };
 

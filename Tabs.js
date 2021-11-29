@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -9,10 +9,7 @@ import EventsPage from "./containers/eventsPage";
 import ContactsPage from "./containers/contactsPage";
 import { StatusBar } from "expo-status-bar";
 
-import {
-  NavigationContainer,
-  useNavigationContainerRef,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import { DefaultTheme } from "./utils/constants";
 import { connect } from "react-redux";
@@ -23,7 +20,7 @@ const Tabs = AnimatedTabBarNavigator();
 const TabsPage = (props) => {
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;
-  const navigationRef = useNavigationContainerRef(); // You can also use a regular ref with `React.useRef()`
+  const navigationRef = useRef(null);
 
   const getColor = (focused) => {
     if (darkMode) {
@@ -37,6 +34,10 @@ const TabsPage = (props) => {
       : DefaultTheme.normalMode.text;
   };
 
+  const goEvents = () => {
+    navigationRef.current.navigate("Events");
+  };
+
   return (
     <>
       <NavigationContainer ref={navigationRef}>
@@ -45,7 +46,6 @@ const TabsPage = (props) => {
           style={darkMode ? "light" : "dark"}
           translucent={false}
         />
-        <Button onPress={() => navigationRef.navigate("Home")}>Go home</Button>
         <Tabs.Navigator
           tabBarOptions={{
             activeTintColor: darkMode ? "black" : "white",
@@ -60,7 +60,7 @@ const TabsPage = (props) => {
         >
           <Tabs.Screen
             name="Home"
-            component={MainPage}
+            children={() => <MainPage goEvents={goEvents} />}
             options={{
               tabBarIcon: ({ focused }) => (
                 <Icon
@@ -88,7 +88,7 @@ const TabsPage = (props) => {
           />
           <Tabs.Screen
             name="Events"
-            component={EventsPage}
+            children={() => <EventsPage goEvents={goEvents} />}
             options={{
               tabBarIcon: ({ focused }) => (
                 <Icon

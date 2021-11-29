@@ -78,7 +78,13 @@ const OverviewList = (props) => {
     <FlatList
       data={allEventsSorted}
       renderItem={({ item }) => {
-        return <OverviewCard event={item} contacts={allContactsById} />;
+        return (
+          <OverviewCard
+            event={item}
+            contacts={allContactsById}
+            goEvents={props.goEvents}
+          />
+        );
       }}
       keyExtractor={(_, index) => index.toString()}
       ListFooterComponent={<View style={styles.flat} />}

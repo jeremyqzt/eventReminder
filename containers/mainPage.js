@@ -24,9 +24,9 @@ const MainPage = (props) => {
       <SafeAreaView>
         <Heading eventsToday={eventsToday} />
         {calendarMode ? (
-          <Calendar setCount={setEventsCount} />
+          <Calendar setCount={setEventsCount} goEvents={props.goEvents} />
         ) : (
-          <OverviewList setCount={setEventsCount} />
+          <OverviewList setCount={setEventsCount} goEvents={props.goEvents} />
         )}
       </SafeAreaView>
     </View>
