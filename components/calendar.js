@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { useColorScheme } from "../utils/utils";
 
 import { Card, Icon } from "react-native-elements";
@@ -66,70 +72,74 @@ const DayCard = (props) => {
   const helpText = getnThEventOccurTest(props.toRender, nextOccurDate);
 
   return (
-    <Card
-      containerStyle={
-        props.darkMode
-          ? {
-              ...styles.cardDark,
-              borderColor: leftBorderColor,
-              borderLeftColor: leftBorderColor,
-              borderTopWidth: 0,
-              borderBottomWidth: 0,
-              borderRightWidth: 0,
-            }
-          : {
-              ...styles.cardNormal,
-              borderColor: leftBorderColor,
-              borderLeftColor: leftBorderColor,
-              borderTopWidth: 0,
-              borderBottomWidth: 0,
-              borderRightWidth: 0,
-            }
-      }
-      style={styles.cardTitle}
-    >
-      <View style={styles.cardTitle}>
-        <Text style={props.darkMode ? styles.titleTextDark : styles.titleText}>
-          {props.toRender.eventName || "❓ Unamed Event"}
-        </Text>
-      </View>
-      <Card.Divider />
-      <View style={styles.infoContainer}>
-        <View style={styles.inlineContainer}>
-          <Icon name="user" type="feather" color={iconColor} />
-          <Text style={{ color: iconColor }}>{contactsText}</Text>
-        </View>
-        <View style={styles.inlineContainer}>
-          <Icon
-            name={eventType === EventType[0].value ? "moon" : "sun"}
-            type={"feather"}
-            color={iconColor}
-          />
-          <Text style={{ color: iconColor }}>{nextOccur}</Text>
-        </View>
-        <View style={styles.inlineContainer}>
-          <Icon name="calendar" type="feather" color={iconColor} />
-          <Text style={{ color: iconColor }}>{dateText}</Text>
-        </View>
-      </View>
-      {props.toRender.eventName ? (
-        <View style={styles.items}>
-          <View style={{ ...styles.subItemReminders, color: iconColor }}>
-            <Icon
-              name={"info"}
-              type={"feather"}
-              size={14}
-              color={
-                props.darkMode
-                  ? DefaultTheme.darkMode.text
-                  : DefaultTheme.normalMode.text
+    <TouchableOpacity onPress={props.goEvents}>
+      <Card
+        containerStyle={
+          props.darkMode
+            ? {
+                ...styles.cardDark,
+                borderColor: leftBorderColor,
+                borderLeftColor: leftBorderColor,
+                borderTopWidth: 0,
+                borderBottomWidth: 0,
+                borderRightWidth: 0,
               }
+            : {
+                ...styles.cardNormal,
+                borderColor: leftBorderColor,
+                borderLeftColor: leftBorderColor,
+                borderTopWidth: 0,
+                borderBottomWidth: 0,
+                borderRightWidth: 0,
+              }
+        }
+        style={styles.cardTitle}
+      >
+        <View style={styles.cardTitle}>
+          <Text
+            style={props.darkMode ? styles.titleTextDark : styles.titleText}
+          >
+            {props.toRender.eventName || "❓ Unamed Event"}
+          </Text>
+        </View>
+        <Card.Divider />
+        <View style={styles.infoContainer}>
+          <View style={styles.inlineContainer}>
+            <Icon name="user" type="feather" color={iconColor} />
+            <Text style={{ color: iconColor }}>{contactsText}</Text>
+          </View>
+          <View style={styles.inlineContainer}>
+            <Icon
+              name={eventType === EventType[0].value ? "moon" : "sun"}
+              type={"feather"}
+              color={iconColor}
             />
-            <Text style={{ color: iconColor }}>{` ${helpText}`}</Text>
+            <Text style={{ color: iconColor }}>{nextOccur}</Text>
+          </View>
+          <View style={styles.inlineContainer}>
+            <Icon name="calendar" type="feather" color={iconColor} />
+            <Text style={{ color: iconColor }}>{dateText}</Text>
           </View>
         </View>
-      ) : null}
-    </Card>
+        {props.toRender.eventName ? (
+          <View style={styles.items}>
+            <View style={{ ...styles.subItemReminders, color: iconColor }}>
+              <Icon
+                name={"info"}
+                type={"feather"}
+                size={14}
+                color={
+                  props.darkMode
+                    ? DefaultTheme.darkMode.text
+                    : DefaultTheme.normalMode.text
+                }
+              />
+              <Text style={{ color: iconColor }}>{` ${helpText}`}</Text>
+            </View>
+          </View>
+        ) : null}
+      </Card>
+    </TouchableOpacity>
   );
 };
 
@@ -207,6 +217,7 @@ const Caldendar = (props) => {
   const renderItem = (item) => {
     return (
       <DayCard
+        goEvents={() => props.goEvents(item.id)}
         darkMode={darkMode}
         contactIds={allEventIds}
         contacts={allContactsById}

@@ -21,6 +21,7 @@ const EventsList = (props) => {
   const allEventById = props.events.byId || {};
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;
+  const deepLinkedEvent = props.deepLinkedEvent;
 
   if (allEventIds.length === 0) {
     return (
@@ -104,7 +105,12 @@ const EventsList = (props) => {
         data={eventIds}
         renderItem={({ item }) => {
           return (
-            <AddEventTile event={allEventById[item]} sortType={sortType} />
+            <AddEventTile
+              event={allEventById[item]}
+              sortType={sortType}
+              goEvents={props.goEvents}
+              expand={deepLinkedEvent === item}
+            />
           );
         }}
         keyExtractor={(item, _) => {

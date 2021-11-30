@@ -55,6 +55,14 @@ const AddEventTile = (props) => {
   // Reoccurence
   const [openRecurr, setOpenRecurr] = useState(false);
   const [valueRecurr, setValueRecurr] = useState(props.event.reoccurence);
+
+  useEffect(() => {
+    if (props.expand) {
+      setExpanded(true);
+      props.goEvents ? props.goEvents("-1") : null;
+    }
+  }, [props.expand]);
+
   const availReoccurences = AvailableReoccurences.map((item, idx) => {
     return {
       ...item,
@@ -132,7 +140,9 @@ const AddEventTile = (props) => {
   });
   const [itemsColor, setItemsColor] = useState(availColors);
 
-  const [expaneded, setExpanded] = useState(Boolean(props.expand));
+  const [expaneded, setExpanded] = useState(
+    Boolean(props.expand || props.isDeepLinked)
+  );
 
   const [eventName, setEventName] = useState(props.event.eventName);
   // Icons
@@ -222,7 +232,7 @@ const AddEventTile = (props) => {
       autoClose: true,
     },
   ];
-  console.log(valuesContacts);
+
   const localEvent = {
     id: props.event.id,
     eventName,

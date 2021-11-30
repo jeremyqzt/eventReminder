@@ -22,7 +22,11 @@ const EventsPage = (props) => {
     <View style={darkMode ? styles.PageDark : styles.PageNormal}>
       <SafeAreaView>
         <HeadingEvent sortType={sortType} setSortType={setSortType} />
-        <EventsList sortType={sortType} />
+        <EventsList
+          sortType={sortType}
+          goEvents={props.goEvents}
+          deepLinkedEvent={props.deepLinkedEvent}
+        />
       </SafeAreaView>
     </View>
   );
