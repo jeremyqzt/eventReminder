@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -21,6 +21,7 @@ const TabsPage = (props) => {
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;
   const navigationRef = useRef(null);
+  const [deepLinkedEvent, setDeepLinkedEvent] = useState(null);
 
   const getColor = (focused) => {
     if (darkMode) {
@@ -34,7 +35,8 @@ const TabsPage = (props) => {
       : DefaultTheme.normalMode.text;
   };
 
-  const goEvents = () => {
+  const goEvents = (eid) => {
+    eid ? setDeepLinkedEvent(eid) : null;
     navigationRef.current.navigate("Events");
   };
 
@@ -88,7 +90,12 @@ const TabsPage = (props) => {
           />
           <Tabs.Screen
             name="Events"
-            children={() => <EventsPage goEvents={goEvents} />}
+            children={() => (
+              <EventsPage
+                goEvents={goEvents}
+                deepLinkedEvent={deepLinkedEvent}
+              />
+            )}
             options={{
               tabBarIcon: ({ focused }) => (
                 <Icon
