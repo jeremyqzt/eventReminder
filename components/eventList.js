@@ -24,8 +24,9 @@ const EventsList = (props) => {
   const deepLinkedEvent = props.deepLinkedEvent;
   const [topEvent, setTopEvent] = React.useState(null);
 
-  react.useEffect(() => {
-    if (deepLinkedEvent !== -1 && deepLinkedEvent) {
+  React.useEffect(() => {
+    if (deepLinkedEvent !== "-1" && deepLinkedEvent) {
+      console.log(deepLinkedEvent);
       setTopEvent(deepLinkedEvent);
     }
   }, [deepLinkedEvent]);
