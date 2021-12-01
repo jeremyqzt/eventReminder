@@ -22,6 +22,13 @@ const EventsList = (props) => {
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;
   const deepLinkedEvent = props.deepLinkedEvent;
+  const [topEvent, setTopEvent] = React.useState(null);
+
+  react.useEffect(() => {
+    if (deepLinkedEvent !== -1 && deepLinkedEvent) {
+      setTopEvent(deepLinkedEvent);
+    }
+  }, [deepLinkedEvent]);
 
   if (allEventIds.length === 0) {
     return (
@@ -99,10 +106,13 @@ const EventsList = (props) => {
     }
   }
 
+  const eventIdsFilter = eventIds.filter((id) => id !== topEvent);
+  const newEventIds = topEvent ? [topEvent, ...eventIdsFilter] : eventIdsFilter;
+
   return (
     <KeyboardAwareScrollView extraHeight={300}>
       <FlatList
-        data={eventIds}
+        data={newEventIds}
         renderItem={({ item }) => {
           return (
             <AddEventTile
