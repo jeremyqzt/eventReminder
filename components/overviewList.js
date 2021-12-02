@@ -74,9 +74,13 @@ const OverviewList = (props) => {
     (a, b) => parseFloat(a.daysUntil) - parseFloat(b.daysUntil)
   );
 
+  const allEventsSortedAndFiltered = allEventsSorted.filter(
+    (eve) => eve.daysUntil >= 0
+  );
+
   return (
     <FlatList
-      data={allEventsSorted}
+      data={allEventsSortedAndFiltered}
       renderItem={({ item }) => {
         return (
           <OverviewCard
