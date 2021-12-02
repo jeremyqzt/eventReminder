@@ -65,9 +65,12 @@ const DayCard = (props) => {
 
   const nextOccurDate = props.toRender.nextOccur;
   const nextOccur = formatDate(nextOccurDate);
+
   const dateText =
     props.toRender.daysUntil !== 0
-      ? `T-${props.toRender.daysUntil} Days`
+      ? props.toRender.daysUntil > 0
+        ? `T-${props.toRender.daysUntil} Day(s)`
+        : `Past ${Math.abs(props.toRender.daysUntil)} Day(s) Ago`
       : "Today!";
   const helpText = getnThEventOccurTest(props.toRender, nextOccurDate);
 
