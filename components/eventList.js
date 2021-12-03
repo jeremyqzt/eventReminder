@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, FlatList, ScrollView } from "react-native";
+import { View, FlatList, ScrollView, Text } from "react-native";
 import { connect } from "react-redux";
 import AddEventTile from "./addEventTile";
 import { styles } from "./styles";
@@ -112,6 +112,33 @@ const EventsList = (props) => {
 
   return (
     <KeyboardAwareScrollView extraHeight={300}>
+      <FlatList
+        data={newEventIds}
+        renderItem={({ item }) => {
+          return (
+            <AddEventTile
+              event={allEventById[item]}
+              sortType={sortType}
+              goEvents={props.goEvents}
+              expand={deepLinkedEvent === item}
+            />
+          );
+        }}
+        keyExtractor={(item, _) => {
+          return item;
+        }}
+        ListFooterComponent={<View style={styles.shortFlat} />}
+      />
+      <Text
+        style={{
+          fontSize: 24,
+          fontWeight: "bold",
+          marginBottom: 20,
+          marginLeft: 20,
+        }}
+      >
+        Historical Events
+      </Text>
       <FlatList
         data={newEventIds}
         renderItem={({ item }) => {

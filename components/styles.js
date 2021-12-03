@@ -5,6 +5,9 @@ export const styles = StyleSheet.create({
   flat: {
     height: 700,
   },
+  shortFlat: {
+    height: 30,
+  },
   buttonContainer: {
     marginHorizontal: 5,
   },
