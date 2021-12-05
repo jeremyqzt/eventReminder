@@ -42,13 +42,17 @@ const EventsList = (props) => {
   const sortType = props.sortType;
 
   let eventIds = allEventIds;
+  let pastEvents = undefined;
+
   switch (sortType.value) {
     case EVENT_SORT[0].value: {
       eventIds = allEventIds;
       break;
     }
     case EVENT_SORT[1].value: {
-      const allEvents = allEventIds.map((key) => {
+      const allEvents = [];
+      const allPastEvents = [];
+      allEventIds.forEach((key) => {
         const eventDate = new Date(
           allEventById[key].year,
           allEventById[key].month,
@@ -71,17 +75,30 @@ const EventsList = (props) => {
             : nextOccurenceDate;
 
         const daysUntil = getDifferenceFromToday(nextOccurTyped);
-        return {
-          ...allEventById[key],
-          daysUntil: daysUntil < 0 ? Math.infinity : daysUntil,
-        };
+
+        if (daysUntil >= 0) {
+          allEvents.push({
+            ...allEventById[key],
+            daysUntil: daysUntil < 0 ? Math.infinity : daysUntil,
+          });
+        } else {
+          allPastEvents.push({
+            ...allEventById[key],
+            daysUntil: daysUntil < 0 ? Math.infinity : daysUntil,
+          });
+        }
       });
 
       const eventIdsObj = allEvents.sort(
         (a, b) => parseFloat(a.daysUntil) - parseFloat(b.daysUntil)
       );
 
+      const pastEventsObj = allPastEvents.sort(
+        (a, b) => parseFloat(a.daysUntil) - parseFloat(b.daysUntil)
+      );
+
       eventIds = eventIdsObj.map((event) => event.id);
+      pastEvents = pastEventsObj.map((event) => event.id);
       break;
     }
     case EVENT_SORT[2].value: {
@@ -129,33 +146,37 @@ const EventsList = (props) => {
         }}
         ListFooterComponent={<View style={styles.shortFlat} />}
       />
-      <Text
-        style={{
-          fontSize: 24,
-          fontWeight: "bold",
-          marginBottom: 20,
-          marginLeft: 20,
-        }}
-      >
-        Historical Events
-      </Text>
-      <FlatList
-        data={newEventIds}
-        renderItem={({ item }) => {
-          return (
-            <AddEventTile
-              event={allEventById[item]}
-              sortType={sortType}
-              goEvents={props.goEvents}
-              expand={deepLinkedEvent === item}
-            />
-          );
-        }}
-        keyExtractor={(item, _) => {
-          return item;
-        }}
-        ListFooterComponent={<View style={styles.flat} />}
-      />
+      {pastEvents ? (
+        <>
+          <Text
+            style={{
+              fontSize: 24,
+              fontWeight: "bold",
+              marginBottom: 20,
+              marginLeft: 20,
+            }}
+          >
+            Past Events
+          </Text>
+          <FlatList
+            data={pastEvents}
+            renderItem={({ item }) => {
+              return (
+                <AddEventTile
+                  event={allEventById[item]}
+                  sortType={sortType}
+                  goEvents={props.goEvents}
+                  expand={false}
+                />
+              );
+            }}
+            keyExtractor={(item, _) => {
+              return item;
+            }}
+            ListFooterComponent={<View style={styles.flat} />}
+          />
+        </>
+      ) : null}
     </KeyboardAwareScrollView>
   );
 };
