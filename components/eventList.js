@@ -173,7 +173,7 @@ const EventsList = (props) => {
             keyExtractor={(item, _) => {
               return item;
             }}
-            ListFooterComponent={<View style={styles.flat} />}
+            ListFooterComponent={<View style={styles.shortFlat} />}
           />
         </>
       ) : null}
