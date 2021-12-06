@@ -51,7 +51,6 @@ const NewContactModal = (props) => {
   };
 
   const saveEvent = () => {
-    console.log(events);
     const valid = Boolean(
       checkValidEvents(events) && checkValidContact(contact)
     );

@@ -85,7 +85,7 @@ const OverviewCard = (props) => {
 
   const dateText = daysUntil === 0 ? "Today!" : `T-${daysUntil} Days`;
   return (
-    <TouchableOpacity onPress={() => props.goEvents()}>
+    <TouchableOpacity onPress={props.goEvents}>
       <Card
         containerStyle={
           darkMode

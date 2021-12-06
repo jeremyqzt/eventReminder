@@ -86,7 +86,7 @@ const OverviewList = (props) => {
           <OverviewCard
             event={item}
             contacts={allContactsById}
-            goEvents={props.goEvents}
+            goEvents={() => props.goEvents(item.id)}
           />
         );
       }}

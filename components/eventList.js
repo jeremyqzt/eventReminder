@@ -26,7 +26,6 @@ const EventsList = (props) => {
 
   React.useEffect(() => {
     if (deepLinkedEvent !== "-1" && deepLinkedEvent) {
-      console.log(deepLinkedEvent);
       setTopEvent(deepLinkedEvent);
     }
   }, [deepLinkedEvent]);
