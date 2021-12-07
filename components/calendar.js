@@ -15,7 +15,7 @@ import { DefaultTheme, DELETED_CONTACT } from "../utils/constants";
 import { addEvent } from "../actions/actions";
 import { Agenda } from "react-native-calendars";
 import { connect } from "react-redux";
-import { EventType, Everyone } from "../utils/constants";
+import { EventType, Everyone, randomEmojis } from "../utils/constants";
 
 import {
   formatDate,
@@ -102,7 +102,10 @@ const DayCard = (props) => {
           <Text
             style={props.darkMode ? styles.titleTextDark : styles.titleText}
           >
-            {props.toRender.eventName || "❓ Unamed Event"}
+            {props.toRender.eventName ||
+              `${
+                randomEmojis[Math.floor(Math.random() * randomEmojis.length)]
+              } Unamed Event`}
           </Text>
         </View>
         <Card.Divider />

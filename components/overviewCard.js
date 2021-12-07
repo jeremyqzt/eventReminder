@@ -7,6 +7,7 @@ import {
   Everyone,
   EventType,
   DELETED_CONTACT,
+  randomEmojis,
 } from "../utils/constants";
 import {
   getNextOccurence,
@@ -96,7 +97,10 @@ const OverviewCard = (props) => {
       >
         <View style={styles.cardTitle}>
           <Text style={darkMode ? styles.titleTextDark : styles.titleText}>
-            {props.event.eventName || "❓ Unamed Event"}
+            {props.event.eventName ||
+              `${
+                randomEmojis[Math.floor(Math.random() * randomEmojis.length)]
+              } Unamed Event`}
           </Text>
         </View>
         <Card.Divider />
