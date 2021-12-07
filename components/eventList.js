@@ -124,6 +124,7 @@ const EventsList = (props) => {
   }
 
   const eventIdsFilter = eventIds.filter((id) => id !== topEvent);
+  const pastEventsFilter = (pastEvents || []).filter((id) => id !== topEvent);
   const newEventIds = topEvent ? [topEvent, ...eventIdsFilter] : eventIdsFilter;
 
   return (
@@ -145,7 +146,7 @@ const EventsList = (props) => {
         }}
         ListFooterComponent={<View style={styles.shortFlat} />}
       />
-      {pastEvents ? (
+      {pastEventsFilter.length !== 0 ? (
         <>
           <Text
             style={{
@@ -158,7 +159,7 @@ const EventsList = (props) => {
             Past Events
           </Text>
           <FlatList
-            data={pastEvents}
+            data={pastEventsFilter}
             renderItem={({ item }) => {
               return (
                 <AddEventTile
