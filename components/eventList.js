@@ -154,6 +154,7 @@ const EventsList = (props) => {
               fontWeight: "bold",
               marginBottom: 20,
               marginLeft: 20,
+              color: darkMode ? "white" : "black",
             }}
           >
             Past Events
