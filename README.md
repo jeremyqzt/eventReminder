@@ -1,6 +1,6 @@
 # Ribbon Reminders
 
-![Ribbon Reminders](https://github.com/jeremyqzt/festivity-reminder/blob/main/others/android/baseImg/horizontal.png?raw=true)
+![Ribbon Reminders](https://github.com/jeremyqzt/eventReminder/blob/main/others/android/baseImg/horizontal.png?raw=true)
 
 ## Purpose
 
