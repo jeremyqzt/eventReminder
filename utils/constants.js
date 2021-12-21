@@ -234,6 +234,15 @@ export const OccurenceTypes = Object.freeze({
   offset: 3,
 });
 
+export const AdvancedReminderTypes = Object.freeze({
+  never: 0,
+  one: 1,
+  three: 2,
+  threeUntil: 3,
+  seven: 4,
+  seventUntil: 5,
+});
+
 export const EventTypes = Object.freeze({
   lunar: 0,
   gregorian: 1,
@@ -272,6 +281,39 @@ export const EventType = [
     label: "Gregorian",
     value: EventTypes.gregorian,
     indicator: "📅",
+  },
+];
+
+export const PreReminderType = [
+  {
+    label: "Don't",
+    value: AdvancedReminderTypes.never,
+    indicator: "⛔",
+  },
+  {
+    label: "1 Day",
+    value: AdvancedReminderTypes.one,
+    indicator: "1️⃣",
+  },
+  {
+    label: "3 Days",
+    value: AdvancedReminderTypes.three,
+    indicator: "3️⃣",
+  },
+  {
+    label: "3 Days Reapeating",
+    value: AdvancedReminderTypes.threeUntil,
+    indicator: "🔁",
+  },
+  {
+    label: "7 Days",
+    value: AdvancedReminderTypes.seven,
+    indicator: "7️⃣",
+  },
+  {
+    label: "7 Days Reapeating",
+    value: AdvancedReminderTypes.seventUntil,
+    indicator: "🔁",
   },
 ];
 

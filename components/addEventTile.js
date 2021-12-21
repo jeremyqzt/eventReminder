@@ -33,6 +33,8 @@ import {
   AvailableColors,
   Everyone,
   EventType,
+  PreReminderType,
+  AdvancedReminderTypes,
   EVENT_SORT,
 } from "../utils/constants";
 
@@ -56,12 +58,33 @@ const AddEventTile = (props) => {
   const [openRecurr, setOpenRecurr] = useState(false);
   const [valueRecurr, setValueRecurr] = useState(props.event.reoccurence);
 
+  // Pre-reminder
+  const [openRemind, setOpenRemind] = useState(false);
+  const [valueRemind, setValueRemind] = useState(
+    props.event.remind || AdvancedReminderTypes.never
+  );
+
   useEffect(() => {
     if (props.expand) {
       setExpanded(true);
       props.goEvents ? props.goEvents("-1") : null;
     }
   }, [props.expand]);
+
+  const availReminds = PreReminderType.map((item, idx) => {
+    return {
+      ...item,
+      index: idx,
+      icon: () => (
+        <Avatar
+          size={"small"}
+          title={item.indicator}
+          overlayContainerStyle={{ backgroundColor: "white" }}
+          activeOpacity={0.7}
+        />
+      ),
+    };
+  });
 
   const availReoccurences = AvailableReoccurences.map((item, idx) => {
     return {
@@ -78,6 +101,7 @@ const AddEventTile = (props) => {
     };
   });
   const [itemsRecurr, setItemsRecurr] = useState([...availReoccurences]);
+  const [reminds, setreminds] = useState([...availReminds]);
 
   // Event DateType
   const [openDateType, setopenDateType] = useState(false);
@@ -171,18 +195,28 @@ const AddEventTile = (props) => {
     setOpenIcon(false);
     setOpenColor(false);
     setOpenRecurr(false);
+    setOpenRemind(false);
   }, []);
 
   const onRecurrOpen = useCallback(() => {
     setOpenIcon(false);
     setOpenColor(false);
     setopenDateType(false);
+    setOpenRemind(false);
   }, []);
 
   const onIconOpen = useCallback(() => {
     setOpenRecurr(false);
     setOpenColor(false);
     setopenDateType(false);
+    setOpenRemind(false);
+  }, []);
+
+  const onRemindsOpen = useCallback(() => {
+    setOpenRecurr(false);
+    setOpenColor(false);
+    setopenDateType(false);
+    setOpenIcon(false);
   }, []);
 
   const onColorOpen = useCallback(() => {
@@ -246,6 +280,7 @@ const AddEventTile = (props) => {
     month: date.getMonth(),
     day: date.getDate(),
     acknolwdged: props.event.acknolwdged || false,
+    remind: valueRemind,
   };
 
   const saveEvent = async (showNotif) => {
@@ -489,6 +524,37 @@ const AddEventTile = (props) => {
                       valueDateType === EventType[0].value ? "(Lunar)" : ""
                     }`}
                   </Text>
+                </View>
+              </View>
+              <View
+                style={[
+                  styles.eventOptContainer,
+                  { zIndex: 5000, zIndexInverse: 1000 },
+                ]}
+              >
+                <View style={[styles.eventOptline]}>
+                  <Text style={{ width: "45%", color: iconColor }}>
+                    Advanced Reminder:
+                  </Text>
+                  <View style={{ width: "50%", paddingRight: 5 }}>
+                    <DropDownPicker
+                      listMode={Platform.OS === "ios" ? "SCROLLVIEW" : "MODAL"}
+                      scrollViewProps={{
+                        nestedScrollEnabled: true,
+                      }}
+                      placeholder={"Icon"}
+                      onOpen={onRemindsOpen}
+                      style={{ height: 40 }}
+                      zIndex={4000}
+                      zIndexInverse={1000}
+                      open={openRemind}
+                      value={valueRemind}
+                      items={reminds}
+                      setOpen={setOpenRemind}
+                      setValue={setValueRemind}
+                      setItems={setreminds}
+                    />
+                  </View>
                 </View>
               </View>
               <View
