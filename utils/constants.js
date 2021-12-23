@@ -449,6 +449,7 @@ export const EVENT_SORT = [
   { label: "No Sorting", value: 1 },
   { label: "Next Date", value: 2 },
   { label: "Initial Date", value: 3 },
+  { label: "Past", value: 4 },
 ];
 
 export const CONTACTS_SORT = [

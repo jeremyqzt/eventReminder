@@ -43,12 +43,15 @@ const EventsList = (props) => {
   let eventIds = allEventIds;
   let pastEvents = undefined;
 
+  const pastOnly = sortType.value == EVENT_SORT[3].value;
+
   switch (sortType.value) {
     case EVENT_SORT[0].value: {
       eventIds = allEventIds;
       break;
     }
-    case EVENT_SORT[1].value: {
+    case EVENT_SORT[1].value:
+    case EVENT_SORT[3].value: {
       const allEvents = [];
       const allPastEvents = [];
       allEventIds.forEach((key) => {
@@ -129,36 +132,40 @@ const EventsList = (props) => {
 
   return (
     <KeyboardAwareScrollView extraHeight={300}>
-      <FlatList
-        data={newEventIds}
-        renderItem={({ item }) => {
-          return (
-            <AddEventTile
-              event={allEventById[item]}
-              sortType={sortType}
-              goEvents={props.goEvents}
-              expand={deepLinkedEvent === item}
-            />
-          );
-        }}
-        keyExtractor={(item, _) => {
-          return item;
-        }}
-        ListFooterComponent={<View style={styles.shortFlat} />}
-      />
+      {!pastOnly ? (
+        <FlatList
+          data={newEventIds}
+          renderItem={({ item }) => {
+            return (
+              <AddEventTile
+                event={allEventById[item]}
+                sortType={sortType}
+                goEvents={props.goEvents}
+                expand={deepLinkedEvent === item}
+              />
+            );
+          }}
+          keyExtractor={(item, _) => {
+            return item;
+          }}
+          ListFooterComponent={<View style={styles.shortFlat} />}
+        />
+      ) : null}
       {pastEventsFilter.length !== 0 ? (
         <>
-          <Text
-            style={{
-              fontSize: 24,
-              fontWeight: "bold",
-              marginBottom: 20,
-              marginLeft: 20,
-              color: darkMode ? "white" : "black",
-            }}
-          >
-            Past Events
-          </Text>
+          {!pastOnly ? (
+            <Text
+              style={{
+                fontSize: 24,
+                fontWeight: "bold",
+                marginBottom: 20,
+                marginLeft: 20,
+                color: darkMode ? "white" : "black",
+              }}
+            >
+              Past Events
+            </Text>
+          ) : null}
           <FlatList
             data={pastEventsFilter}
             renderItem={({ item }) => {
