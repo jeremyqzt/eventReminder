@@ -526,37 +526,41 @@ const AddEventTile = (props) => {
                   </Text>
                 </View>
               </View>
-              <View
-                style={[
-                  styles.eventOptContainer,
-                  { zIndex: 5000, zIndexInverse: 1000 },
-                ]}
-              >
-                <View style={[styles.eventOptline]}>
-                  <Text style={{ width: "45%", color: iconColor }}>
-                    Advanced Reminder:
-                  </Text>
-                  <View style={{ width: "50%", paddingRight: 5 }}>
-                    <DropDownPicker
-                      listMode={Platform.OS === "ios" ? "SCROLLVIEW" : "MODAL"}
-                      scrollViewProps={{
-                        nestedScrollEnabled: true,
-                      }}
-                      placeholder={"Icon"}
-                      onOpen={onRemindsOpen}
-                      style={{ height: 40 }}
-                      zIndex={4000}
-                      zIndexInverse={1000}
-                      open={openRemind}
-                      value={valueRemind}
-                      items={reminds}
-                      setOpen={setOpenRemind}
-                      setValue={setValueRemind}
-                      setItems={setreminds}
-                    />
+              {props.notifs ? (
+                <View
+                  style={[
+                    styles.eventOptContainer,
+                    { zIndex: 5000, zIndexInverse: 1000 },
+                  ]}
+                >
+                  <View style={[styles.eventOptline]}>
+                    <Text style={{ width: "45%", color: iconColor }}>
+                      Advanced Reminder:
+                    </Text>
+                    <View style={{ width: "50%", paddingRight: 5 }}>
+                      <DropDownPicker
+                        listMode={
+                          Platform.OS === "ios" ? "SCROLLVIEW" : "MODAL"
+                        }
+                        scrollViewProps={{
+                          nestedScrollEnabled: true,
+                        }}
+                        placeholder={"Icon"}
+                        onOpen={onRemindsOpen}
+                        style={{ height: 40 }}
+                        zIndex={4000}
+                        zIndexInverse={1000}
+                        open={openRemind}
+                        value={valueRemind}
+                        items={reminds}
+                        setOpen={setOpenRemind}
+                        setValue={setValueRemind}
+                        setItems={setreminds}
+                      />
+                    </View>
                   </View>
                 </View>
-              </View>
+              ) : null}
               <View
                 style={[
                   styles.eventOptContainer,
