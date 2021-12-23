@@ -3,8 +3,10 @@ import {
   EventType,
   lunarHolidays,
   gregorianHolidays,
+  AdvancedReminderTypes,
 } from "./constants";
 import * as Notifications from "expo-notifications";
+import * as Calendar from "expo-calendar";
 
 import moment from "moment";
 import "moment-lunar";
@@ -336,6 +338,17 @@ export const buildEventDescription = (event, nextOccur) => {
   };
 };
 
+export const preReminderMessage = (event, ttl) => {
+  const msg = `Advnaced notice that this event ooccurs in ${ttl} day(s)!`;
+
+  return {
+    title: isEmoji(event.eventName)
+      ? `${event.eventName}`
+      : `📬 ${event.eventName}`,
+    body: `${msg}`,
+  };
+};
+
 export const getnThEventOccurTest = (event, nextOccur) => {
   let msg = "";
   switch (event.reoccurence) {
@@ -383,6 +396,8 @@ export const scheduleNext10Years = async (
 
   if (allNextOccurenceDate.length === 0) return [];
 
+  const preReminder = event.remind || AdvancedReminderTypes.never;
+
   for (let i = 0; i < allNextOccurenceDate.length; i++) {
     const nextOccurenceDate = allNextOccurenceDate[i];
     const nextOccurUntyped =
@@ -397,14 +412,50 @@ export const scheduleNext10Years = async (
       body: `${nextOccurUntyped}`,
     };*/
 
-    const nid = await schedulePushNotification(content, nextOccurUntyped);
-    ret.push(nid);
+    switch (preReminder) {
+      case AdvancedReminderTypes.never: {
+        const nid = await schedulePushNotification(content, nextOccurUntyped);
+        ret.push(nid);
+        break;
+      }
+      case AdvancedReminderTypes.one: {
+        ret.push(await schedulePushNotification(content, nextOccurUntyped));
+        nextOccurUntyped.setDate(nextOccurUntyped.getDate() - 1);
+        ret.push(
+          await schedulePushNotification(
+            preReminderMessage(event, 1),
+            nextOccurUntyped
+          )
+        );
+        break;
+      }
+      case AdvancedReminderTypes.three: {
+        ret.push(await schedulePushNotification(content, nextOccurUntyped));
+        nextOccurUntyped.setDate(nextOccurUntyped.getDate() - 3);
+        ret.push(
+          await schedulePushNotification(
+            preReminderMessage(event, 3),
+            nextOccurUntyped
+          )
+        );
+        break;
+      }
+      case AdvancedReminderTypes.seven: {
+        ret.push(await schedulePushNotification(content, nextOccurUntyped));
+        nextOccurUntyped.setDate(nextOccurUntyped.getDate() - 7);
+        ret.push(
+          await schedulePushNotification(
+            preReminderMessage(event, 7),
+            nextOccurUntyped
+          )
+        );
+        break;
+      }
+    }
   }
 
   return ret;
 };
-
-import * as Calendar from "expo-calendar";
 
 export const scheduleAllEventCalendar10Years = async (allEvents, id) => {
   const allEventKeys = Object.keys(allEvents);

@@ -301,19 +301,9 @@ export const PreReminderType = [
     indicator: "3️⃣",
   },
   {
-    label: "3 Days Reapeating",
-    value: AdvancedReminderTypes.threeUntil,
-    indicator: "🔁",
-  },
-  {
     label: "7 Days",
     value: AdvancedReminderTypes.seven,
     indicator: "7️⃣",
-  },
-  {
-    label: "7 Days Reapeating",
-    value: AdvancedReminderTypes.seventUntil,
-    indicator: "🔁",
   },
 ];
 
