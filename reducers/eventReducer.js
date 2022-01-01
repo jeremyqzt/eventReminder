@@ -1,11 +1,12 @@
 import "react-native-get-random-values";
 import { combineReducers } from "redux";
+import { defaultEventIds, defaultEvents } from "../utils/constants";
 
 const initial = {
-  event: {},
+  ...defaultEvents,
 };
 
-const initialIds = [];
+const initialIds = [...defaultEventIds];
 
 const addOrEditEventEntry = (state, action) => {
   const { event } = action;

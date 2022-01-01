@@ -50,7 +50,7 @@ const AddEventTile = (props) => {
     ? DefaultTheme.darkMode.background
     : DefaultTheme.normalMode.background;
 
-  const [text, setText] = useState(props.event.notes);
+  const [text, setText] = useState(props.event?.notes || "");
   const onChangeText = (newText) => {
     setText(newText);
   };

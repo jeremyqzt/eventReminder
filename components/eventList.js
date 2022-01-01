@@ -126,10 +126,13 @@ const EventsList = (props) => {
     }
   }
 
+  console.log(eventIds);
   const eventIdsFilter = eventIds.filter((id) => id !== topEvent);
   const pastEventsFilter = (pastEvents || []).filter((id) => id !== topEvent);
   const newEventIds = topEvent ? [topEvent, ...eventIdsFilter] : eventIdsFilter;
 
+  console.log(eventIdsFilter);
+  console.log(allEventIds);
   return (
     <KeyboardAwareScrollView extraHeight={300}>
       {!pastOnly ? (
