@@ -368,13 +368,20 @@ export const getnThEventOccurTest = (event, nextOccur) => {
         (nextOccur.getFullYear() - event.year) * 12 +
         (nextOccur.getMonth() - event.month) +
         1;
-      msg = `${event.eventName}'s ${reoccurCount} monthiversary!`;
+
+      const reminder = reoccurCount % 10;
+      const additionalSuffix =
+        reminder == 1 ? "st" : reminder == "2" ? "nd" : "th";
+      msg = `${event.eventName}'s ${reoccurCount}${additionalSuffix} occurence!`;
       break;
     }
     // Case 3, Yearly
     case AvailableReoccurences[2].value: {
       const reoccurCount = nextOccur.getFullYear() - event.year + 1;
-      msg = `${event.eventName}'s ${reoccurCount} anniversary!`;
+      const reminder = reoccurCount % 10;
+      const additionalSuffix =
+        reminder == 1 ? "st" : reminder == "2" ? "nd" : "th";
+      msg = `${event.eventName}'s ${reoccurCount}${additionalSuffix} anniversary!`;
       break;
     }
   }

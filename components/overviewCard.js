@@ -8,6 +8,7 @@ import {
   EventType,
   DELETED_CONTACT,
   randomEmojis,
+  defaultEventIds,
 } from "../utils/constants";
 import {
   getNextOccurence,
@@ -73,12 +74,14 @@ const OverviewCard = (props) => {
       : nextOccurenceDate;
 
   const daysUntil = getDifferenceFromToday(nextOccurTyped);
-
-  const helpText = buildEventAdditionalMessage(
-    props.event.month,
-    props.event.day,
-    props.event.type
-  );
+  const needHelpText = !defaultEventIds.includes(props.event.id);
+  const helpText = needHelpText
+    ? buildEventAdditionalMessage(
+        props.event.month,
+        props.event.day,
+        props.event.type
+      )
+    : null;
   const leftBorderColor = props.event.color;
   const iconColor = darkMode
     ? DefaultTheme.darkMode.text
