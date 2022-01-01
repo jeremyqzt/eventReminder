@@ -308,6 +308,9 @@ export const isEmoji = (str) => {
 
 export const buildEventDescription = (event, nextOccur) => {
   let msg = "";
+
+  const isDefaultEvent = defaultEventIds.includes(event.id);
+
   switch (event.reoccurence) {
     // Case 1, Does not reoccur
     case AvailableReoccurences[0].value: {
@@ -319,14 +322,17 @@ export const buildEventDescription = (event, nextOccur) => {
       const reoccurCount =
         (nextOccur.getUTCFullYear() - event.year) * 12 +
         (nextOccur.getMonth() - event.month);
-      msg = `Gentle Reminder That ${event.eventName} Occurs Today! (${reoccurCount} occurences and counting)`;
+      msg = isDefaultEvent
+        ? `Gentle Reminder That ${event.eventName} Occurs Today!`
+        : `Gentle Reminder That ${event.eventName} Occurs Today! (${reoccurCount} occurences and counting)`;
       break;
     }
     // Case 3, Yearly
     case AvailableReoccurences[2].value: {
       const reoccurCount = nextOccur.getFullYear() - event.year;
-      msg = `Gentle Reminder That ${event.eventName} Occurs Today! (${reoccurCount} occurences and counting)`;
-
+      msg = isDefaultEvent
+        ? `Gentle Reminder That ${event.eventName} Occurs Today!`
+        : `Gentle Reminder That ${event.eventName} Occurs Today! (${reoccurCount} occurences and counting)`;
       break;
     }
   }
@@ -340,7 +346,7 @@ export const buildEventDescription = (event, nextOccur) => {
 };
 
 export const preReminderMessage = (event, ttl) => {
-  const msg = `Advnaced notice that this event ooccurs in ${ttl} day(s)!`;
+  const msg = `Advanced notice that this event ooccurs in ${ttl} day(s)!`;
 
   return {
     title: isEmoji(event.eventName)
@@ -403,7 +409,7 @@ export const scheduleNext10Years = async (
   const ret = [];
 
   const allNextOccurenceDate = (
-    getNextXOccurence(eventDate, reoccurence, todayTyped, 2 * 12) || []
+    getNextXOccurence(eventDate, reoccurence, todayTyped, 10 * 12) || []
   ).filter((date) => date > new Date());
 
   if (allNextOccurenceDate.length === 0) return [];
