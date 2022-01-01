@@ -4,6 +4,7 @@ import {
   lunarHolidays,
   gregorianHolidays,
   AdvancedReminderTypes,
+  defaultEventIds,
 } from "./constants";
 import * as Notifications from "expo-notifications";
 import * as Calendar from "expo-calendar";
@@ -350,6 +351,10 @@ export const preReminderMessage = (event, ttl) => {
 };
 
 export const getnThEventOccurTest = (event, nextOccur) => {
+  if (defaultEventIds.includes(event.id)) {
+    return null;
+  }
+
   let msg = "";
   switch (event.reoccurence) {
     // Case 1, Does not reoccur

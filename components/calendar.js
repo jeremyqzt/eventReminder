@@ -127,7 +127,7 @@ const DayCard = (props) => {
             <Text style={{ color: iconColor }}>{dateText}</Text>
           </View>
         </View>
-        {props.toRender.eventName ? (
+        {props.toRender.eventName && helpText ? (
           <View style={styles.items}>
             <View style={{ ...styles.subItemReminders, color: iconColor }}>
               <Icon
