@@ -82,7 +82,7 @@ const mapStateToProps = (state) => {
 
 const styles = StyleSheet.create({
   flat: {
-    height: 700,
+    height: 125,
   },
 });
 

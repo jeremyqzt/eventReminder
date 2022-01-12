@@ -81,11 +81,13 @@ const EventsList = (props) => {
         if (daysUntil >= 0) {
           allEvents.push({
             ...allEventById[key],
+            eventDate,
             daysUntil: daysUntil < 0 ? Math.infinity : daysUntil,
           });
         } else {
           allPastEvents.push({
             ...allEventById[key],
+            eventDate,
             daysUntil: daysUntil < 0 ? Math.infinity : daysUntil,
           });
         }
@@ -96,7 +98,7 @@ const EventsList = (props) => {
       );
 
       const pastEventsObj = allPastEvents.sort(
-        (a, b) => parseFloat(a.daysUntil) - parseFloat(b.daysUntil)
+        (a, b) => parseFloat(a.eventDate) - parseFloat(b.eventDate)
       );
 
       eventIds = eventIdsObj.map((event) => event.id);
@@ -148,7 +150,15 @@ const EventsList = (props) => {
           keyExtractor={(item, _) => {
             return item;
           }}
-          ListFooterComponent={<View style={styles.shortFlat} />}
+          ListFooterComponent={
+            <View
+              style={
+                pastEventsFilter.length === 0
+                  ? styles.shortFlat
+                  : styles.shorterFlat
+              }
+            />
+          }
         />
       ) : null}
       {pastEventsFilter.length !== 0 ? (
@@ -181,7 +191,7 @@ const EventsList = (props) => {
             keyExtractor={(item, _) => {
               return item;
             }}
-            ListFooterComponent={<View style={styles.shortFlat} />}
+            ListFooterComponent={<View style={styles.longFlat} />}
           />
         </>
       ) : null}

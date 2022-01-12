@@ -6,7 +6,13 @@ export const styles = StyleSheet.create({
     height: 700,
   },
   shortFlat: {
+    height: 125,
+  },
+  shorterFlat: {
     height: 30,
+  },
+  longFlat: {
+    height: 200,
   },
   buttonContainer: {
     marginHorizontal: 5,
