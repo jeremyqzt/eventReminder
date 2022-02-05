@@ -98,7 +98,7 @@ const EventsList = (props) => {
       );
 
       const pastEventsObj = allPastEvents.sort(
-        (a, b) => a.eventDate - b.eventDate
+        (a, b) => b.eventDate - a.eventDate
       );
 
       eventIds = eventIdsObj.map((event) => event.id);
