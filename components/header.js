@@ -55,14 +55,23 @@ const HeadingGreet = (props) => {
 };
 
 const HeadingImage = (props) => {
-  const textColor = props.darkMode ? styles.textDark : styles.textNormal;
+  const textColorNormal = props.darkMode ? styles.textDark : styles.textNormal;
+  const textColorEvent = styles.textEvent;
   const countText =
     props.count === 0
       ? `No Reminder Today`
-      : `${props.count} Reminder(s) Today!`;
+      : `${props.count} Reminder${props.count === 1 ? "" : "s"} Today!`;
+
   return (
     <View style={tailwind("items-center rounded px-1 py-1")}>
-      <Text style={[tailwind("font-bold"), textColor]}>{countText}</Text>
+      <Text
+        style={[
+          tailwind("font-bold"),
+          props.count === 0 ? textColorNormal : textColorEvent,
+        ]}
+      >
+        {countText}
+      </Text>
     </View>
   );
 };
@@ -92,6 +101,9 @@ const styles = StyleSheet.create({
   },
   textNormal: {
     color: DefaultTheme.normalMode.text,
+  },
+  textEvent: {
+    color: "#DC143C",
   },
   headerContainer: {
     marginBottom: 0,
