@@ -255,7 +255,6 @@ const AddEventTile = (props) => {
 
   const deleteEvent = async () => {
     if (props.notifs) await cancelNotifs(props?.event?.notifs || []);
-    console.log(props?.event?.id);
     props.deleteEvent(props?.event?.id);
   };
 
