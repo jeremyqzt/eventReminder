@@ -23,14 +23,6 @@ const OverviewList = (props) => {
   const colorScheme = useColorScheme();
   const darkMode = colorScheme === "dark" || props.darkMode;
 
-  if (allEventIds.length === 0) {
-    return (
-      <ScrollView>
-        <SuchEmptyWow useTree darkMode={darkMode} />
-      </ScrollView>
-    );
-  }
-
   let eventCount = 0;
 
   const allEventsArr = allEventIds.map((key) => {
@@ -70,6 +62,13 @@ const OverviewList = (props) => {
     props.setCount(eventCount);
   }, [eventCount]);
 
+  if (allEventIds.length === 0) {
+    return (
+      <ScrollView>
+        <SuchEmptyWow useTree darkMode={darkMode} />
+      </ScrollView>
+    );
+  }
   const allEventsSorted = allEventsArr.sort(
     (a, b) => parseFloat(a.daysUntil) - parseFloat(b.daysUntil)
   );
@@ -77,7 +76,6 @@ const OverviewList = (props) => {
   const allEventsSortedAndFiltered = allEventsSorted.filter(
     (eve) => eve.daysUntil >= 0
   );
-
   return (
     <FlatList
       data={allEventsSortedAndFiltered}

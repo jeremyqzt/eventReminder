@@ -56,12 +56,12 @@ const AddEventTile = (props) => {
   };
   // Reoccurence
   const [openRecurr, setOpenRecurr] = useState(false);
-  const [valueRecurr, setValueRecurr] = useState(props.event.reoccurence);
+  const [valueRecurr, setValueRecurr] = useState(props?.event?.reoccurence);
 
   // Pre-reminder
   const [openRemind, setOpenRemind] = useState(false);
   const [valueRemind, setValueRemind] = useState(
-    props.event.remind || AdvancedReminderTypes.never
+    props?.event?.remind || AdvancedReminderTypes.never
   );
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const AddEventTile = (props) => {
 
   // Event DateType
   const [openDateType, setopenDateType] = useState(false);
-  const [valueDateType, setValueDateType] = useState(props.event.type);
+  const [valueDateType, setValueDateType] = useState(props?.event?.type);
   const availEventTypes = EventType.map((item, idx) => {
     return {
       ...item,
@@ -148,7 +148,7 @@ const AddEventTile = (props) => {
 
   // Colors
   const [openColor, setOpenColor] = useState(false);
-  const [valueColor, setValueColor] = useState(props.event.color);
+  const [valueColor, setValueColor] = useState(props?.event?.color);
   const availColors = AvailableColors.map((item) => {
     return {
       ...item,
@@ -168,10 +168,10 @@ const AddEventTile = (props) => {
     Boolean(props.expand || props.isDeepLinked)
   );
 
-  const [eventName, setEventName] = useState(props.event.eventName);
+  const [eventName, setEventName] = useState(props?.event?.eventName);
   // Icons
   const [openIcon, setOpenIcon] = useState(false);
-  const [valueIcon, setValueIcon] = useState(props.event.icon);
+  const [valueIcon, setValueIcon] = useState(props?.event?.icon);
   const availIcons = AvailableIcons.map((item) => {
     return {
       ...item,
@@ -227,9 +227,9 @@ const AddEventTile = (props) => {
 
   const today = new Date();
   const eventDate = new Date(
-    props.event.year,
-    props.event.month,
-    props.event.day
+    props?.event?.year,
+    props?.event?.month,
+    props?.event?.day
   );
 
   const [date, setDate] = useState(eventDate);
@@ -254,8 +254,9 @@ const AddEventTile = (props) => {
     : DefaultTheme.normalMode.text;
 
   const deleteEvent = async () => {
-    if (props.notifs) await cancelNotifs(props.event.notifs || []);
-    props.deleteEvent(props.event.id);
+    if (props.notifs) await cancelNotifs(props?.event?.notifs || []);
+    console.log(props?.event?.id);
+    props.deleteEvent(props?.event?.id);
   };
 
   const swipeoutBtns = [
@@ -268,7 +269,7 @@ const AddEventTile = (props) => {
   ];
 
   const localEvent = {
-    id: props.event.id,
+    id: props?.event?.id,
     eventName,
     color: valueColor,
     icon: valueIcon,
@@ -279,14 +280,14 @@ const AddEventTile = (props) => {
     year: date.getFullYear(),
     month: date.getMonth(),
     day: date.getDate(),
-    acknolwdged: props.event.acknolwdged || false,
+    acknolwdged: props?.event?.acknolwdged || false,
     remind: valueRemind,
   };
 
   const saveEvent = async (showNotif) => {
     let scheduleNotifs = [];
     if (props.notifs) {
-      await cancelNotifs(props.event.notifs || []);
+      await cancelNotifs(props?.event?.notifs || []);
       scheduleNotifs = await scheduleNext10Years(
         {
           year: date.getFullYear(),
@@ -344,11 +345,12 @@ const AddEventTile = (props) => {
         ? "#19181a"
         : "#dddddd"
       : backGroundColor;
+
   return (
     <Swipeout right={swipeoutBtns}>
       <View style={{ backgroundColor: backGroundColor, activeOpacity: 0.4 }}>
         <ListItem
-          id={props.event.id}
+          id={props?.event?.id}
           bottomDivider
           containerStyle={{ backgroundColor: passedBackgroundColor }}
           onPress={() => {
@@ -410,7 +412,7 @@ const AddEventTile = (props) => {
         </ListItem>
         {expaneded ? (
           <ListItem
-            id={props.event.id + "2"}
+            id={props?.event?.id + "2"}
             bottomDivider
             containerStyle={{ backgroundColor: backGroundColor }}
           >

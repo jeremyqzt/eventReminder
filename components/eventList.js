@@ -30,14 +30,6 @@ const EventsList = (props) => {
     }
   }, [deepLinkedEvent]);
 
-  if (allEventIds.length === 0) {
-    return (
-      <ScrollView>
-        <SuchEmptyWow darkMode={darkMode} />
-      </ScrollView>
-    );
-  }
-
   const sortType = props.sortType;
 
   let eventIds = allEventIds;
@@ -126,6 +118,14 @@ const EventsList = (props) => {
     default: {
       break;
     }
+  }
+
+  if (allEventIds.length === 0) {
+    return (
+      <ScrollView>
+        <SuchEmptyWow darkMode={darkMode} />
+      </ScrollView>
+    );
   }
 
   const eventIdsFilter = eventIds.filter((id) => id !== topEvent);

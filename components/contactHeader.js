@@ -137,13 +137,12 @@ const HeadingContact = (props) => {
 
 const styles = StyleSheet.create({
   buttonNormal: {
-    backgroundColor: DefaultTheme.darkMode.background,
-    backgroundColor: DefaultTheme.darkMode.background,
+    backgroundColor: "#558b2f",
     borderRadius: 15,
     paddingHorizontal: 10,
   },
   buttonDark: {
-    backgroundColor: DefaultTheme.normalMode.background,
+    backgroundColor: "#aed581",
     borderRadius: 15,
     paddingHorizontal: 10,
   },
