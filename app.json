@@ -2,7 +2,7 @@
    "expo": {
     "name": "My Reminder",
     "icon": "./assets/icon.png",
-    "version": "1.6.6",
+    "version": "1.6.7",
     "slug": "ribbon",
     "orientation": "portrait",
     "splash": {
@@ -11,7 +11,7 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "bundleIdentifier": "com.Ribbon.ribbonReminder",
-      "buildNumber": "1.6.6",
+      "buildNumber": "1.6.7",
       "infoPlist": {
         "NSRemindersUsageDescription": "This app can sync events to your calendar",
         "NSContactsUsageDescription": "This app has the ability to import contats"
@@ -19,7 +19,7 @@
     },
     "android": {
       "package": "com.Ribbon.ribbon",
-      "versionCode": 14,
+      "versionCode": 15,
       "permissions": ["WRITE_CALENDAR", "READ_CALENDAR", "READ_CONTACTS"]
     }
    }
